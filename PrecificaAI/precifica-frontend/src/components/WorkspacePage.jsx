@@ -11,6 +11,11 @@ const WorkspacePage = () => {
     const [valoresPinos, setValoresPinos] = useState({});
     const fileInputRef = useRef(null);
     const [error, setError] = useState('');
+    const [apiBase, setApiBase] = useState(() => {
+        return localStorage.getItem('API_BASE') || 'http://192.168.3.105:8000';
+    });
+    const [showSettings, setShowSettings] = useState(false);
+    const [tempApiBase, setTempApiBase] = useState(apiBase);
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -28,7 +33,7 @@ const WorkspacePage = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch('http://localhost:8000/api/tratar-imagem', {
+            const response = await fetch(`${apiBase}/api/tratar-imagem`, {
                 method: 'POST',
                 body: formData,
             });
@@ -201,7 +206,19 @@ const WorkspacePage = () => {
 
     // Default: Upload Step
     return (
-        <div className="min-h-screen bg-background-light p-6 flex flex-col items-center justify-center">
+        <div className="min-h-screen bg-background-light p-6 flex flex-col items-center justify-center relative animate-fade-in">
+            {/* Settings Button */}
+            <button
+                onClick={() => {
+                    setTempApiBase(apiBase);
+                    setShowSettings(true);
+                }}
+                className="absolute top-6 right-6 p-2 text-gray-400 hover:text-primary transition-colors z-20"
+                title="Configurações do Servidor"
+            >
+                <span className="material-icons-outlined text-2xl">settings</span>
+            </button>
+
             <div className="max-w-md w-full text-center space-y-8">
 
                 <div className="space-y-2">
@@ -241,6 +258,57 @@ const WorkspacePage = () => {
                     </div>
                 )}
             </div>
+
+            {/* Server Settings Modal */}
+            {showSettings && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-gray-100 text-left space-y-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                <span className="material-icons-outlined text-xl">dns</span>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-gray-950 text-lg">Servidor Backend</h3>
+                                <p className="text-xs text-gray-500">Configuração para rede local</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <label className="text-xs font-semibold text-gray-700 block">Endereço da API</label>
+                            <input
+                                type="text"
+                                value={tempApiBase}
+                                onChange={(e) => setTempApiBase(e.target.value)}
+                                placeholder="http://192.168.3.105:8000"
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-primary text-gray-800 font-mono"
+                            />
+                        </div>
+
+                        <p className="text-xs text-gray-400 leading-relaxed">
+                            No celular, use o IP do computador na rede local (ex: http://192.168.X.X:8000). Certifique-se de que o computador e o celular estão no mesmo Wi-Fi.
+                        </p>
+
+                        <div className="flex gap-2 pt-2">
+                            <button
+                                onClick={() => setShowSettings(false)}
+                                className="flex-1 py-3 text-sm font-semibold text-gray-500 hover:bg-gray-50 rounded-xl transition-colors border border-gray-200"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                onClick={() => {
+                                    localStorage.setItem('API_BASE', tempApiBase);
+                                    setApiBase(tempApiBase);
+                                    setShowSettings(false);
+                                }}
+                                className="flex-1 py-3 text-sm font-semibold bg-primary hover:bg-primary-dark text-white rounded-xl shadow-md transition-colors"
+                            >
+                                Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

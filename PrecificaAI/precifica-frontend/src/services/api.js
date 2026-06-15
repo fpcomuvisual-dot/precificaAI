@@ -1,6 +1,6 @@
-// String vazia = paths relativos = usa o proxy do Vite em dev
-// e o mesmo domínio em produção.
-const API_BASE = "";
+const getApiBase = () => {
+    return localStorage.getItem('API_BASE') || 'http://192.168.3.105:8000';
+};
 
 export async function processarImagem(imageBase64, texto, config = {}) {
     const payload = {
@@ -13,7 +13,7 @@ export async function processarImagem(imageBase64, texto, config = {}) {
         },
     };
 
-    const response = await fetch(`${API_BASE}/api/processar`, {
+    const response = await fetch(`${getApiBase()}/api/processar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -37,7 +37,7 @@ export async function processarBatch(itens, config = {}) {
         },
     };
 
-    const response = await fetch(`${API_BASE}/api/processar/batch`, {
+    const response = await fetch(`${getApiBase()}/api/processar/batch`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -66,7 +66,7 @@ export async function renderizarConfirmado(
         },
     };
 
-    const response = await fetch(`${API_BASE}/api/renderizar`, {
+    const response = await fetch(`${getApiBase()}/api/renderizar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -82,7 +82,7 @@ export async function renderizarConfirmado(
 
 export async function healthCheck() {
     try {
-        const response = await fetch(`${API_BASE}/api/health`);
+        const response = await fetch(`${getApiBase()}/api/health`);
         return await response.json();
     } catch {
         return { status: "offline" };
