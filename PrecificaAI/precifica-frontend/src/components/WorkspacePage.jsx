@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { Capacitor } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import StyleSettings from './StyleSettings';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte } from '../utils/renderArteFinal';
@@ -23,6 +25,30 @@ const WorkspacePage = () => {
 
         setImagemOriginal(file);
         await processarImagem(file);
+    };
+
+    const triggerPhotoSelection = async () => {
+        if (Capacitor.isNativePlatform()) {
+            try {
+                const image = await Camera.getPhoto({
+                    quality: 95,
+                    allowEditing: false,
+                    resultType: CameraResultType.Uri,
+                    source: CameraSource.Prompt
+                });
+
+                const response = await fetch(image.webPath);
+                const blob = await response.blob();
+                const file = new File([blob], 'foto_joia_' + Date.now() + '.jpg', { type: blob.type || 'image/jpeg' });
+
+                setImagemOriginal(file);
+                await processarImagem(file);
+            } catch (err) {
+                console.log('Photo selection cancelled or failed:', err);
+            }
+        } else {
+            fileInputRef.current?.click();
+        }
     };
 
     const processarImagem = async (file) => {
@@ -231,7 +257,7 @@ const WorkspacePage = () => {
                 </div>
 
                 <div
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={triggerPhotoSelection}
                     className="border-3 border-dashed border-gray-200 hover:border-primary/50 bg-white hover:bg-gray-50 rounded-3xl p-12 cursor-pointer transition-all duration-300 group shadow-sm hover:shadow-md"
                 >
                     <div className="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10 transition-colors">
