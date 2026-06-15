@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Lote em Processamento</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(34, 29, 16, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .skeleton-shimmer {
+            background: linear-gradient(
+                90deg,
+                rgba(236, 182, 19, 0.05) 25%,
+                rgba(236, 182, 19, 0.1) 50%,
+                rgba(236, 182, 19, 0.05) 75%
+            );
+            background-size: 200% 100%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100 min-h-screen overflow-hidden">
+<!-- iOS Status Bar Mockup -->
+<div class="fixed top-0 w-full z-50 px-6 py-3 flex justify-between items-center bg-background-dark/50 backdrop-blur-md">
+<span class="text-xs font-semibold tracking-tight">9:41</span>
+<div class="flex items-center space-x-1.5">
+<span class="material-icons-round text-[14px]">signal_cellular_alt</span>
+<span class="material-icons-round text-[14px]">wifi</span>
+<span class="material-icons-round text-[14px]">battery_full</span>
+</div>
+</div>
+<!-- Main Content (Blurred Background) -->
+<main class="pt-16 px-5 pb-24 overflow-y-auto h-screen filter blur-[4px]">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-primary">Lote de Outubro</h1>
+<p class="text-xs text-slate-400 uppercase tracking-widest mt-1">12 Joias Selecionadas</p>
+</div>
+<button class="bg-primary/10 p-2 rounded-full">
+<span class="material-icons-round text-primary text-xl">more_vert</span>
+</button>
+</header>
+<!-- Batch List Items -->
+<div class="space-y-4">
+<!-- Error State Card -->
+<div class="bg-red-500/5 border border-red-500/30 rounded-xl p-3 flex gap-4">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 relative">
+<img alt="Anel de ouro com diamante" class="w-full h-full object-cover grayscale-[0.5]" data-alt="Anel de ouro luxuoso com diamante solitário" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8hhXpV3ro5fieqif815Ni_X2O112q-PYcUBgaj0u_CJq39TyXeLAX2Vm73SkvDTof_CoHHtZibV9NIWKg-FuIK_AkoVX4tUOVY2BzDTF4ctHUPxc5d34_fvntVYgKu3WRTZFYSOIfWxFDIj2WuxgB9wj9M3R8sMKo_raMwV0-3Z551eIuEN8cJRSvEo7GO7WxM1S60KIYUEU4VLcKq4mo2ji1JGWlsrjTUBleRdZhZvS1OUUhzcqEY95OM4L1BiYtw2n3euiDWZI"/>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<h3 class="font-medium text-slate-200">Anel Solitário Tiffany</h3>
+<div class="flex items-center text-red-400 mt-1">
+<span class="material-icons-round text-sm mr-1">report_problem</span>
+<span class="text-xs font-medium">Informação incompleta</span>
+</div>
+<p class="text-[10px] text-slate-500 mt-2 italic">Aguardando correção após processamento</p>
+</div>
+</div>
+<!-- Skeleton Loading State Card -->
+<div class="bg-background-dark/40 border border-primary/10 rounded-xl p-3 flex gap-4">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 skeleton-shimmer"></div>
+<div class="flex flex-col justify-center flex-grow space-y-2">
+<div class="h-4 w-3/4 bg-primary/10 rounded-full skeleton-shimmer"></div>
+<div class="h-3 w-1/2 bg-primary/5 rounded-full skeleton-shimmer"></div>
+<div class="flex items-center mt-2">
+<div class="h-2 w-16 bg-primary/20 rounded-full mr-2"></div>
+<div class="h-2 w-8 bg-primary/10 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Processed Item (Sample) -->
+<div class="bg-background-dark/40 border border-primary/10 rounded-xl p-3 flex gap-4 opacity-50">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Colar de pérolas" class="w-full h-full object-cover" data-alt="Colar de pérolas clássico em fundo escuro" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlBYkjtpx9Id_uOIegcg02nYddt-SHnUk5O7BerpIdFf3MQDW0VDgmH4H_Z9pMufhGNyOJ79AUZSGlx7TJXqvNNXp7t2JV4KE3rF0UuWHvDQspnzN71bXSVMxnf2OjwDGGeuSQBuvIwmmHgI-GyXKC2PO8gv2FdbzEmmoq2ORYowIkR1TW0x--4Fo3kxJzNshNR97RMzBEjhZcVCLIJn0Pwu1tbp6hB_tW0IUReHDDAvppomgvjgTk1vnZ9dTkHnHApHbrchDWLvc"/>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<h3 class="font-medium text-slate-400 italic line-through decoration-primary/30">Gargantilha de Pérolas</h3>
+<div class="flex items-center text-primary/60 mt-1">
+<span class="material-icons-round text-sm mr-1">check_circle</span>
+<span class="text-xs">Precificado em R$ 4.200</span>
+</div>
+</div>
+</div>
+<!-- More Skeletons -->
+<div class="bg-background-dark/40 border border-primary/10 rounded-xl p-3 flex gap-4">
+<div class="w-20 h-20 rounded-lg flex-shrink-0 skeleton-shimmer"></div>
+<div class="flex flex-col justify-center flex-grow space-y-2">
+<div class="h-4 w-2/3 bg-primary/10 rounded-full skeleton-shimmer"></div>
+<div class="h-3 w-1/3 bg-primary/5 rounded-full skeleton-shimmer"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Processing Overlay -->
+<div class="fixed inset-0 z-[60] glass-panel flex flex-col items-center justify-center p-8">
+<!-- Central Elegant Loader -->
+<div class="relative w-32 h-32 flex items-center justify-center mb-8">
+<!-- Animated Diamond Orbit (Conceptual) -->
+<div class="absolute inset-0 border-2 border-primary/10 rounded-full animate-[spin_8s_linear_infinite]"></div>
+<div class="absolute inset-4 border-t-2 border-primary/40 rounded-full animate-[spin_4s_linear_infinite]"></div>
+<div class="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center border border-primary/20 shadow-[0_0_30px_rgba(236,182,19,0.2)]">
+<span class="material-icons-round text-5xl text-primary drop-shadow-lg">diamond</span>
+</div>
+</div>
+<!-- Status Text -->
+<div class="text-center space-y-2">
+<h2 class="text-xl font-semibold tracking-wide text-white">Lapidando sua coleção...</h2>
+<p class="text-primary/70 text-sm font-medium">Analisando peça 4 de 12</p>
+</div>
+<!-- Progress Bar -->
+<div class="w-full max-w-[200px] mt-8">
+<div class="h-1 w-full bg-primary/10 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary/60 to-primary w-1/3 rounded-full"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] uppercase tracking-tighter text-slate-400 font-bold">Automação de Arte</span>
+<span class="text-[10px] uppercase tracking-tighter text-primary font-bold">33%</span>
+</div>
+</div>
+<!-- Minimize Button -->
+<button class="absolute bottom-12 px-8 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm flex items-center gap-2 group hover:bg-white/10 transition-all">
+<span class="material-icons-round text-sm text-slate-400">expand_more</span>
+<span class="text-sm font-medium text-slate-300">Minimizar</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar (iOS Mockup) -->
+<nav class="fixed bottom-0 w-full z-[70] bg-background-dark/80 backdrop-blur-xl border-t border-white/5 px-6 pt-3 pb-8 flex justify-between items-center">
+<div class="flex flex-col items-center gap-1 opacity-50">
+<span class="material-icons-round text-2xl">grid_view</span>
+<span class="text-[10px] font-medium">Acervo</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<div class="relative">
+<span class="material-icons-round text-2xl">auto_fix_high</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full ring-2 ring-background-dark"></span>
+</div>
+<span class="text-[10px] font-medium">Lotes</span>
+</div>
+<div class="flex flex-col items-center gap-1 opacity-50">
+<span class="material-icons-round text-2xl">analytics</span>
+<span class="text-[10px] font-medium">Vendas</span>
+</div>
+<div class="flex flex-col items-center gap-1 opacity-50">
+<span class="material-icons-round text-2xl">person_outline</span>
+<span class="text-[10px] font-medium">Perfil</span>
+</div>
+</nav>
+<!-- Bottom Indicator -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-[80]"></div>
+</body></html>

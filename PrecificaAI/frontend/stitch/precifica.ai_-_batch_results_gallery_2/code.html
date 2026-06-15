@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Precifica.AI - Galeria de Edição em Lote</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#ecb613",
+                "background-light": "#f8f8f6",
+                "background-dark": "#221d10",
+              },
+              fontFamily: {
+                "display": ["Noto Serif", "serif"],
+                "playfair": ["Playfair Display", "serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Noto Serif', serif;
+            min-height: max(884px, 100dvh);
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-stone-800 dark:text-stone-100 min-h-screen">
+<header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 ios-blur px-6 pt-12 pb-6 border-b border-primary/10">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<button class="w-10 h-10 flex items-center justify-start text-stone-600 dark:text-stone-400">
+<span class="material-icons">chevron_left</span>
+</button>
+<div class="text-xs uppercase tracking-[0.2em] font-medium text-stone-500">Galeria de Edição</div>
+<button class="w-10 h-10 flex items-center justify-end text-stone-600 dark:text-stone-400">
+<span class="material-icons">more_horiz</span>
+</button>
+</div>
+<div class="flex items-end justify-between">
+<h1 class="font-playfair text-3xl font-bold italic text-stone-900 dark:text-white leading-tight">Coleção Lapidada</h1>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="material-icons text-sm">download</span>
+<span class="text-sm font-medium">Baixar Todas</span>
+</button>
+</div>
+</div>
+</header>
+<main class="p-4 pb-32">
+<div class="grid grid-cols-2 gap-x-4 gap-y-8">
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Luxurious gold diamond ring on a velvet pedestal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOYEsudGhstvMC_zNV3nBR9azMC-wJ1sapP-ZpNZjDkaSmC66fjzKznaSuk-MJmMqPpmbWOgU96YhrniTPYcgVJBH4SEreZJvgo3ujTormmxs-BfMLc5FMJjuWpPJe41HkVrtUUCEEka_n0XFt2q8jfgTWoDY5-LR39cut7-FIBtU19OYBsfV7rST8BDOridxuwWmR6mrZCGF57gqIxjco5uLVvpVhTp4xiTHo0UMrGPZHrTVl2u0HbJlRIE9_KPQaUWdA74C4wDE"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-white dark:border-stone-900 shadow-md">
+<span class="material-icons text-white text-[14px] font-bold">check</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Anel Imperial</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Silver necklace with sapphire gemstone marketing banner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAClz7u73Pq1L3Ua7mtk7kCvYze5xKI3xYT9RF3NYWZK05DIfGHN_8fbWG8g6JM1ncRD69P0IsxLmK8e0P2OnBhS8eRMx2hj1KsgpJCODBrZE6bJCTi1LotODrLgttvh9qKwHSbEl3_UBrU5ShMkfqTUPZ5H3aQN2qVmzJSjx57b1gTE6lien7Ai36ZU_1IRdHHf1lYJQ9kROtXwXXXjuxILCUl2KxRsU-S4ulmC7xeLWS-LfpJDwqW-OCN2oCktclJsUFkmy8LF9E"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-white dark:border-stone-900 shadow-md">
+<span class="material-icons text-white text-[14px] font-bold">check</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Colar Safira</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Luxury earrings pair in gold and pearls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB86DCUh2d32p6cWHALDLvwKrr8sTFblbwntVCihn5KtDMTJOcdEVaIYb9ghTNh7O1M5vVPlP45CpQlMfb0U8eufeghELi9IN2tYhCV6u1gqbz_dIV4Z-FtLA1vxYKmNE_coswbtF7Wjx4GbXKwY6KPzY4ejrWLLS4jZ0cClfV7forNlNMMpNfNYWZCsG_TmcNdxCMnMSIBKvHnhoJhpDzBQdEX6rRCNdLyS9xM9nDSXtMZ7WwDF4UazI3wccOwt37_1awJIU_HU0o"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-white dark:border-stone-900 shadow-md">
+<span class="material-icons text-white text-[14px] font-bold">check</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Brincos Pérola</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Designer watch close up with artistic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqeCIZaZaTxPayRoFe5x9Oofp-k1XhzXiGtfsEBzF6siP6wOU6-3cC1u58pvlahr1efuTvR5zZAPR8qvGgE56TXPj4j_aLJY_vAS08f6dlNi1EBXpUf6jAAVzaNl7qqLwH-YpXScPzJlX_PlIY89M9PHKIW4p__sZhb5Zipep_PnsY4JlmglbMDrWdJ0Lex4kX8upxo12UwGhxyEYh0I36ib5uwfnFtAPr-uUOE62IvOyGYGOovVQiXe31FfT-_gPHYXCMVm0KQwU"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-white dark:bg-stone-700 rounded-full flex items-center justify-center border-2 border-stone-200 dark:border-stone-600 shadow-sm">
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Relógio Master</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Emerald bracelet on a lifestyle background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAloGZ24dwY87f45urSr0v_SECJkvsS3fSmPeLxuKIN0xzr2CnLhspOg5GWhMI_Z56xLRNkvrvETtB2RIID_Im5XnZ9cXw1QLurFQ98ONwc2_qApvZY3qnp79SEomSkMfYqhEZy28Ze7orrFGA4CdDzMRg8OUppUw2ew2UTvVWSvLuEIw7pyIRCuUYbKSgAFdVetHj-iGUb3HBgVnJpwW-_TP-UBvYtIPOv57qn3ceIa4kYTBboYFgV5JoPx--6WlbUZYzohNp_53Q"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-white dark:border-stone-900 shadow-md">
+<span class="material-icons text-white text-[14px] font-bold">check</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Pulseira Esmeralda</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden shadow-sm bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700">
+<img class="w-full h-full object-cover" data-alt="Diamond pendant with reflections on glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDUEe1zI5K5RyJ-gbL0XG-pevbXWRhQQIOLZTLwMXElrVPDNRJpEQ3wg4sK10kut-QUUjKbhZ7ouZcAnW8oda9pIjG99hKcWlEWHgDQhVH3PQi6FxXVDY9IjX0NcEQPsg747KWepL249j42o89q4fGzE5a8XlMK72wyt83iOP3SwJ-dldTzg3J8hROa2w1jenE5gTG5bVjbgsO3R8K8iwM6pymbDWU5k2m0cG0NvIzD975KI19BnZ2FYVHZTh2IYT2FfvLi7lswkc"/>
+<div class="absolute top-3 right-3">
+<div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center border-2 border-white dark:border-stone-900 shadow-md">
+<span class="material-icons text-white text-[14px] font-bold">check</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="px-1 flex justify-between items-center">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest font-semibold truncate">Pingente Luxo</p>
+</div>
+<div class="flex items-center gap-1.5 bg-white dark:bg-stone-900/50 p-1.5 rounded-lg border border-stone-200/60 dark:border-stone-700/50 shadow-sm">
+<input class="bg-transparent border-none p-0 text-[11px] placeholder:text-stone-400 focus:ring-0 w-full text-stone-700 dark:text-stone-200" placeholder="Descreva a peça e preço..." type="text"/>
+<button class="w-7 h-7 flex-shrink-0 bg-primary/10 text-primary rounded-md flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 p-6 z-50">
+<div class="max-w-md mx-auto bg-stone-900/95 dark:bg-stone-100/10 ios-blur rounded-2xl p-4 flex items-center justify-between shadow-2xl shadow-stone-900/40">
+<div class="flex flex-col pl-2">
+<span class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Selecionados</span>
+<span class="text-white text-lg font-playfair font-bold italic">5 de 6 Artes</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex flex-col items-center justify-center text-stone-300 hover:text-white px-2">
+<span class="material-icons text-xl">share</span>
+<span class="text-[9px] uppercase tracking-tighter mt-1">Compartilhar</span>
+</button>
+<div class="w-[1px] h-8 bg-stone-700 mx-1"></div>
+<button class="bg-primary text-stone-900 px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-icons text-sm">add_photo_alternate</span>
+                Nova Coleção
+            </button>
+</div>
+</div>
+<div class="h-4"></div>
+</div>
+<div class="fixed top-0 right-0 -z-10 opacity-10 pointer-events-none">
+<svg height="400" viewBox="0 0 200 200" width="400" xmlns="http://www.w3.org/2000/svg">
+<path d="M44.7,-76.4C58.2,-69.2,70.1,-58.5,78.2,-45.3C86.4,-32.1,90.8,-16.1,90.4,-0.2C90,15.6,84.7,31.2,75.9,44.2C67.1,57.2,54.8,67.6,40.9,75.1C27,82.5,13.5,87,0.4,86.3C-12.8,85.6,-25.6,79.7,-38.4,71.9C-51.2,64.1,-63.9,54.4,-72.5,41.9C-81.1,29.4,-85.5,14.7,-85.8,-0.2C-86.1,-15.1,-82.3,-30.2,-74.1,-43.3C-65.8,-56.3,-53.1,-67.2,-39.1,-74.1C-25.1,-80.9,-12.5,-83.7,1.1,-85.7C14.7,-87.6,29.5,-88.7,44.7,-76.4Z" fill="#ecb613" transform="translate(100 100)"></path>
+</svg>
+</div>
+
+</body></html>

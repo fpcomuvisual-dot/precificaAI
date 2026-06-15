@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Galeria de Resultados</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#1a1814", 
+                        "surface-dark": "#25221c", 
+                        "surface-hover": "#2f2b24",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(236, 182, 19, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a352a;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ecb613;
+        }
+        
+        /* Slider styling for Before/After */
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #ecb613;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background: #ecb613;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-white font-display min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Mobile Header (Visible only on mobile) -->
+<header class="md:hidden flex items-center justify-between p-4 border-b border-white/10 bg-background-dark sticky top-0 z-20">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary to-orange-400 flex items-center justify-center text-black font-bold text-xs">AI</div>
+<h1 class="text-lg font-medium tracking-wide">Precifica.AI</h1>
+</div>
+<button class="text-white/70 hover:text-primary">
+<span class="material-icons">menu</span>
+</button>
+</header>
+<!-- Sidebar / Summary Panel -->
+<aside class="w-full md:w-80 flex-shrink-0 bg-surface-dark border-r border-white/5 flex flex-col h-auto md:h-screen z-10 overflow-y-auto">
+<!-- Brand (Desktop) -->
+<div class="hidden md:flex items-center gap-3 p-6 pb-2">
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-yellow-600 shadow-glow flex items-center justify-center text-black font-bold">
+<span class="material-icons text-xl">diamond</span>
+</div>
+<span class="text-xl font-light tracking-wide text-white">Precifica.AI</span>
+</div>
+<!-- Batch Info -->
+<div class="p-6">
+<div class="mb-6">
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs uppercase tracking-widest text-primary/80 font-semibold">Lote Atual</span>
+<span class="text-xs text-white/40">ID: #4092</span>
+</div>
+<h2 class="text-2xl font-light text-white mb-1">Coleção Outono</h2>
+<p class="text-sm text-white/50">Processado em 24 Out, 14:30</p>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="bg-white/5 rounded-xl p-4 border border-white/5">
+<span class="block text-3xl font-light text-white mb-1">24</span>
+<span class="text-xs text-white/50">Itens Totais</span>
+</div>
+<div class="bg-white/5 rounded-xl p-4 border border-white/5">
+<span class="block text-3xl font-light text-primary mb-1">100%</span>
+<span class="text-xs text-white/50">Taxa de Sucesso</span>
+</div>
+</div>
+<!-- Primary Actions -->
+<div class="space-y-4">
+<button class="w-full bg-primary hover:bg-yellow-400 text-black font-medium py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-glow group">
+<span class="material-icons text-xl group-hover:translate-y-[-2px] transition-transform">download</span>
+                    Baixar Todas (.ZIP)
+                </button>
+<a class="flex items-center justify-center gap-2 text-sm text-white/60 hover:text-primary transition-colors py-2" href="#">
+<span class="material-icons text-lg">assessment</span>
+                    Ver Relatório de Preços
+                </a>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mx-6"></div>
+<!-- Recent Batches List (Desktop Only filler) -->
+<div class="hidden md:block flex-1 p-6 overflow-y-auto">
+<h3 class="text-xs uppercase tracking-widest text-white/40 font-semibold mb-4">Histórico Recente</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:border-primary/30 transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded bg-white/10 overflow-hidden flex-shrink-0">
+<img alt="Batch thumbnail" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Batch thumbnail jewelry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ37gLu2Qf-86Fy02SI1adkii1SgS-vV0b2vL4MK2NXdTN_KokJFL4UQZKodq61N2-Fx7JPvzbLKl3Cey5hziN1XivQx1HKr_2nRyqw3IxhGLAkmWEXi5n5s9uUnzch844Xx1YDkorozsIR85lGj08xw10JlGoQ-myfGmEnsa-rq_H2dyCrAQ01fe_UlXa4taEFmCTT7UJXW2M6qbr84EjGLBUetQcoHua8VeskaN46srHfYZFm6sGTk8-5ad4IOTOqtfi_692fu8"/>
+</div>
+<div>
+<div class="text-sm text-white font-medium">Lote #4091</div>
+<div class="text-xs text-white/40">12 itens • Ontem</div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/5 transition-colors cursor-pointer opacity-60 hover:opacity-100">
+<div class="w-10 h-10 rounded bg-white/10 overflow-hidden flex-shrink-0">
+<img alt="Batch thumbnail" class="w-full h-full object-cover" data-alt="Batch thumbnail gold ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMNJffqjOota0-tu-eeQvTSDvzTEVU89kj6uzn0Ma2Tp3YFNGydbwJInGs41P2bT9EZUiqakrV39KfAhbIuszMIPKT1yF61Lwr-X6P78cyYGW4U6F5WYGBoGS6furOvDBo9UT6tcWT20JrBU-9jY_y39dCThRVj7IKVOwNtKGjM-SBE-UAWYrzctfIHVWRZl5VSL0qSrSBVbWgSLmqNJKkQ8AtH6xZw7jM1e23gwTL699IyobmjbbR1T7USGq9JGWW1D9IWf-AU8o"/>
+</div>
+<div>
+<div class="text-sm text-white font-medium">Lote #4088</div>
+<div class="text-xs text-white/40">8 itens • 22 Out</div>
+</div>
+</div>
+</div>
+</div>
+<!-- User Profile Stub -->
+<div class="p-4 border-t border-white/5 mt-auto flex items-center gap-3">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-primary/30" data-alt="User profile portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLRtEKKfQX6c4tkIT6jDDk7Elv8FwA0hBRITrOcAIb_0Qg3BKvl2oUpekp2qGLXeMs6E-BOobXmDOG4t0TwpC9nAAlSKBior68fy7N0y8VyC1KTT2cUqDT2z6c5o1vxuM6hnuE4J9L5NOPlWWaFMBQj646V4aU8gKtSKms5wObrR4fpXktOUdjQJTqxR3ssYTOz-Qi8F2rsOvY5IwkpTdzB3Y31Z05yHxYtdLGNoLHMw1C7kJNhUDAEQGHKqqQHeXM2j0AQBGaCL0"/>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-medium text-white truncate">Isabella V.</div>
+<div class="text-xs text-white/40">Plano Premium</div>
+</div>
+<button class="text-white/40 hover:text-white"><span class="material-icons text-lg">settings</span></button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 h-screen overflow-y-auto relative bg-background-dark p-4 md:p-8">
+<!-- Toolbar -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 sticky top-0 z-10 bg-background-dark/95 backdrop-blur py-2">
+<div>
+<h2 class="text-lg font-light text-white">Galeria de Resultados</h2>
+<p class="text-xs text-white/40 mt-1">Selecione para ver detalhes e ajustes de IA.</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-dark p-1 rounded-lg border border-white/10 self-end sm:self-auto">
+<button class="p-1.5 rounded bg-white/10 text-primary">
+<span class="material-icons text-xl">grid_view</span>
+</button>
+<button class="p-1.5 rounded text-white/40 hover:text-white hover:bg-white/5 transition-colors">
+<span class="material-icons text-xl">view_list</span>
+</button>
+<div class="w-px h-4 bg-white/10 mx-1"></div>
+<button class="flex items-center gap-1 px-2 py-1 text-xs text-white/60 hover:text-white">
+<span class="material-icons text-sm">filter_list</span> Filtros
+                </button>
+</div>
+</div>
+<!-- Grid Gallery -->
+<div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 pb-20">
+<!-- Card 1 (Interactive Trigger) -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg hover:shadow-glow bg-surface-dark">
+<div class="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full bg-black/50 backdrop-blur text-white hover:bg-primary hover:text-black flex items-center justify-center transition-colors">
+<span class="material-icons text-sm">more_horiz</span>
+</button>
+</div>
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-primary/20 text-primary border border-primary/20 backdrop-blur-sm">
+                        Ouro 18k
+                    </span>
+</div>
+<img alt="Gold Ring" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Gold diamond ring on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxowabHKZUPbPcTeB905MdMr9VxnxImoDEgA_b2KZWY-GxjjkzrmJH2-MWqCk3_ks2DIRvPxGOR7Z2LjScartU35LFE7eVrssn_gbAhfWb1CbuAd_1qH6k-3b7EPjXUxtDXzfO5Ro9zboPkLOcxs_cAXUs__zgLebjDbzolqGreOjYP33PqHNcdT8qpFivTj3ujb0qeJ7azsgs07qw4Ld-DiZ4eVTIRp7r-3LsTi7wjc0vfz2zzAEytiIGkv23RBC0LxdeHPpmBkQ"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+<h3 class="text-white text-sm font-medium truncate">Anel Solitário Classic</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-primary text-xs">R$ 4.500,00</span>
+<span class="material-icons text-white/60 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg bg-surface-dark">
+<div class="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full bg-black/50 backdrop-blur text-white hover:bg-primary hover:text-black flex items-center justify-center transition-colors">
+<span class="material-icons text-sm">more_horiz</span>
+</button>
+</div>
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-white/10 text-white/80 border border-white/10 backdrop-blur-sm">
+                        Prata 925
+                    </span>
+</div>
+<img alt="Silver Necklace" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Silver necklace detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHUr-nVL6pkYmZLkY2qkd_O1gY5FqnN2tDKx4eiNS2bvoyUTGxlhRu9-grrIbc4WBfqUcOm3CMpaOWfYJWzKWTejWzkvkRwFRbS_4BQzrZSvlvZtvpb6vqTHCqvxNa_Xs7unlEa4adfikJwFSmM4GD__e-ryoVP3zNx9_b2GP6ebKDQXau4o7qyH-QCq8h4lSLvBc9W-wqnupnaedjxQeUSrk9wK7T1oA6M2EcncxbIpuWZ186bOjMQ6IF2R8Uo6FQ34yM1JVt9EE"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+<h3 class="text-white text-sm font-medium truncate">Colar Gota Cristal</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-primary text-xs">R$ 890,00</span>
+<span class="material-icons text-white/60 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg bg-surface-dark">
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-primary/20 text-primary border border-primary/20 backdrop-blur-sm">
+                        Diamante
+                    </span>
+</div>
+<img alt="Earrings" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Diamond earrings closeup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXKyXv7R5e_0hENsHEupJTnyVU5WowOh84fu8ZxLZaD_YWBL3vM2uRYSw9cFRFVtCf2sGBgxi2LDRQ77jzasXOjVOJUHVxwuWjiEpLJXag2874jSol_UVXdpzGzLLHXkFAXqQt8ukY4A5i4i0JNBKeRr_hyEKkUf2AT6R7usXoVLr8Iz_HlRegXjzkapXUR-UQIfy1ZZugph-f8pc3c2kZ528lCrVzOlemtT3jqpFZJlybf7O3j0JBlwFHAk2JWwHHlwyeBVjBz4Y"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+<h3 class="text-white text-sm font-medium truncate">Brincos Cascata</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-primary text-xs">R$ 12.300,00</span>
+<span class="material-icons text-white/60 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg bg-surface-dark">
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-red-500/20 text-red-400 border border-red-500/20 backdrop-blur-sm">
+                        Processando
+                    </span>
+</div>
+<img alt="Processing Item" class="w-full h-full object-cover opacity-60 grayscale" data-alt="Blurred jewelry waiting for processing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1lNbyK95aSoXHRgj24Uzzw1jlapKx00CB2BzHoIurEKrTlrXxfZki6D9JU6vjr7HTdUTQ-JFd0tp9F-6CBJ1c74dugYA_dZcyhypgIFi7G_-Z3ZgXhqfMKpjN4_79pmN-Gfro0mt6P_xV_kCJsRTn5Xcbkmfuc_3STy6OKFwk_w6PFgJ-RMuC351nSfgyJwev4ToG3mkaYkVtVi-qFvBaAcDZtl95zjN4tr_Bu2BqgJvpZPznVveEtaCASF7VZOAaZix5T-I70-4"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg bg-surface-dark">
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-primary/20 text-primary border border-primary/20 backdrop-blur-sm">
+                        Ouro Rosé
+                    </span>
+</div>
+<img alt="Bracelet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Rose gold bracelet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGxgh4DcOkGHCO8VJ_r-SBcrkG-jgsdPwZjT75-A_yDRTBzOa3LbrI-9nAwQp7wTxtwiy1XK1JA47qmV7guWWy9FMMhheKv4SXzE7VkUSoxohBBlQclvUW6cRlCoNNqOjaJAe3PpGA3zWyTXMa3xn3q0gV4NsHq3nvUs4w9ACn5AvSmPgFdNOALA0li4k7FHfRNqooTShygnnKvbdecAYbnn867QzQcK86jBxxvsz7f8xBCFG7IUmlyK14g7AutbXlxeA3mS2iAPk"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+<h3 class="text-white text-sm font-medium truncate">Bracelete Minimal</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-primary text-xs">R$ 3.200,00</span>
+<span class="material-icons text-white/60 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden cursor-pointer border border-white/5 hover:border-primary/50 transition-all duration-300 shadow-lg bg-surface-dark">
+<div class="absolute top-3 left-3 z-10">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-white/10 text-white/80 border border-white/10 backdrop-blur-sm">
+                        Pérola
+                    </span>
+</div>
+<img alt="Pearl" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Pearl necklace close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv-TcW72UtTL18719riTWg7ej669tetf0e3xt2CF_8ev54MC_nGgdKX-CF1g2L0QjJSSaQsr0evqj8072i3Ccrn-LyU1vTFmc0Apio4JJz2EftdWibbq34pUeE7njbY3Tkv8--FBEHT125JQA2z21jzYPaJJQCN9hFAEyjIT8RlKFmRvZMNszIhTtFvz_0CNpq1z-ldJWcvIsppemuVuGVKQnHcJ7io0Eb0XCRwNThD64U2vX_zuuGYdSTPo_ZSN1FAQKH_R272H0"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+<h3 class="text-white text-sm font-medium truncate">Colar de Pérolas</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-primary text-xs">R$ 1.850,00</span>
+<span class="material-icons text-white/60 text-sm">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay (Simulated Active State) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/60 opacity-0 pointer-events-none animate-[fadeIn_0.3s_ease-out_forwards]" style="animation-delay: 0.5s; opacity: 1; pointer-events: auto;">
+<!-- Modal Card -->
+<div class="bg-surface-dark w-full max-w-5xl h-[85vh] md:h-[80vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-white/10 relative">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/40 text-white hover:bg-white hover:text-black flex items-center justify-center transition-all">
+<span class="material-icons text-lg">close</span>
+</button>
+<!-- Image Area (Left) -->
+<div class="w-full md:w-2/3 relative h-1/2 md:h-full bg-black flex items-center justify-center overflow-hidden group">
+<!-- Before Image (Underneath) -->
+<div class="absolute inset-0">
+<img alt="Before" class="w-full h-full object-cover filter brightness-75 grayscale" data-alt="Raw photo of ring before processing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5dNcyX3IF6MVj397FoppQZDjUOIl2yjR9aHhwcjQexxBtN2aZXHt-8awRpQ5nZ_IDPY-mqQyxB_v_uTu4_GJ7LSI8MaKCdxS5fz-IzLGuqdHtaPULjnypB3tEVh8kLuwMkWuVHcZeTpGPJ9g7GlMA8vnOKhCoW2teknanYwjexEFtmx4njh4JMXJYxV2fNXb-mwmc0PNlVW79bEzP1ibQ30iWijXb7bphOL5eanH9O3Tvp3R9hGYOuni4rF7YPzIy9elC53WXmMU"/>
+<div class="absolute top-4 left-4 bg-black/60 px-2 py-1 rounded text-xs text-white/70 font-medium pointer-events-none">Original</div>
+</div>
+<!-- After Image (Clipped) -->
+<div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-primary" style="width: 50%;">
+<img alt="After" class="w-full h-full object-cover max-w-none" data-alt="AI enhanced photo of ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj58OPILzmWugPhhMfOmroAJyPo8Cei0GxoOKBrLsQbN8RVeVqe2IjhMh6j7leySLIszgVrxjgRJGWkFQT5WcDTwVzj9kGegjLIA-nqb1n3yzNpyWOeJvQRkE6rGcUlP0_lpSEgmgZo5STqS1aoVttUYDQ1IQ_TvpYul_p2RihxxStdj-vexKt2H5hQfzJM79cUByIQp1d1JH_NVMHDU2sX4YhNvDDBDgwOKysxNXpXEfndOq44GG63VjukrbqQSLxqkD0CyIKUE8" style="width: 200%; transform: translateX(0);"/>
+<div class="absolute top-4 right-4 bg-primary px-2 py-1 rounded text-xs text-black font-bold pointer-events-none">AI Render</div>
+</div>
+<!-- Slider Handle -->
+<div class="absolute inset-y-0 left-1/2 w-10 -ml-5 cursor-ew-resize flex items-center justify-center z-10 hover:scale-110 transition-transform">
+<div class="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+<span class="material-icons text-primary text-sm">code</span>
+</div>
+</div>
+</div>
+<!-- Details Area (Right) -->
+<div class="w-full md:w-1/3 p-6 md:p-8 flex flex-col bg-surface-dark border-l border-white/5 overflow-y-auto">
+<div class="mb-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] uppercase tracking-wider bg-primary/20 text-primary px-2 py-0.5 rounded font-bold">Processado</span>
+<span class="text-[10px] uppercase tracking-wider text-white/30">ID: IMG-24901</span>
+</div>
+<h2 class="text-2xl font-light text-white mb-1">Anel Solitário Classic</h2>
+<p class="text-sm text-white/50">Lote #4092 - Coleção Outono</p>
+</div>
+<!-- Analysis Grid -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-xs text-white/40 block mb-1">Material Detectado</span>
+<div class="flex items-center gap-1 text-white text-sm">
+<span class="material-icons text-xs text-primary">circle</span> Ouro 18k
+                        </div>
+</div>
+<div class="p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-xs text-white/40 block mb-1">Pedra Principal</span>
+<div class="text-white text-sm">Diamante (Round)</div>
+</div>
+<div class="p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-xs text-white/40 block mb-1">Quilates (Est.)</span>
+<div class="text-white text-sm font-mono">1.2 ct</div>
+</div>
+<div class="p-3 rounded-lg bg-white/5 border border-white/5">
+<span class="text-xs text-white/40 block mb-1">Claridade</span>
+<div class="text-white text-sm">VVS1</div>
+</div>
+</div>
+<!-- Price Box -->
+<div class="p-4 rounded-xl bg-gradient-to-r from-primary/10 to-transparent border border-primary/20 mb-8">
+<span class="text-xs text-primary/80 uppercase tracking-wide font-bold mb-1 block">Sugestão de Preço</span>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl text-white font-light">R$ 4.500,00</span>
+<span class="text-xs text-white/40 line-through">R$ 4.200</span>
+</div>
+<div class="mt-2 text-[10px] text-white/40 flex items-center gap-1">
+<span class="material-icons text-[10px]">trending_up</span> Baseado em 45 itens similares
+                    </div>
+</div>
+<!-- Actions Footer -->
+<div class="mt-auto space-y-3">
+<button class="w-full bg-primary hover:bg-yellow-400 text-black font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors shadow-glow">
+<span class="material-icons text-lg">download</span>
+                        Baixar Alta Resolução
+                    </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="w-full bg-white/5 hover:bg-white/10 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-white/5 text-sm">
+<span class="material-icons text-base">edit</span>
+                            Editar
+                        </button>
+<button class="w-full bg-white/5 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30 text-white/60 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors border border-white/5 text-sm">
+<span class="material-icons text-base">delete_outline</span>
+                            Excluir
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- CSS Animation for Simulated Modal -->
+<style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</body></html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Precifica.AI - Final Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .ios-status-bar { height: 44px; }
+        .slider-handle {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .luxury-shadow {
+            box-shadow: 0 10px 30px -5px rgba(236, 182, 19, 0.1), 0 4px 10px -4px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+<!-- iOS Status Bar Spacer -->
+<div class="ios-status-bar w-full"></div>
+<!-- Header Navigation -->
+<header class="px-6 py-4 flex items-center justify-between sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 shadow-sm">
+<span class="material-icons text-slate-600 dark:text-slate-300">chevron_left</span>
+</button>
+<h1 class="text-lg font-semibold tracking-tight">Resultado Final</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 shadow-sm">
+<span class="material-icons text-slate-600 dark:text-slate-300">more_horiz</span>
+</button>
+</header>
+<main class="flex-grow px-6 pb-20">
+<!-- Result Visualization Section -->
+<div class="relative mt-4 mb-8">
+<div class="aspect-[4/5] rounded-xl overflow-hidden relative luxury-shadow bg-zinc-200 dark:bg-zinc-800">
+<!-- After Image (Target) -->
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="Luxury gold ring on professional studio marble background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRgGkUmwCPH2sNAGx7N_Q-gwErxWrUQDIpxQaBn71wFboFCcGO_XxICGfPC-eU3ybu_4eSnVqUkX9F4gUYtAx0hhYTrABoNxwyUHI9ybxOn0TO_tjk1Jd7VkhmEBeMgqS4dQF3Xuk07vLq4JmKvFXYgKuMKF7sD21lh6d91qZE756ggkzi-Q-cJQzcgtIhT_zZfkBS8g-S0aL7Rv5d3p-5EDEYQm3JJjPk_xdw0rrFdGL018GxtejRZvWgIVVy75tYe442f82w5i0"/>
+</div>
+<!-- Before Image (Clipped) -->
+<div class="absolute inset-0 w-1/2 h-full border-r-2 border-primary overflow-hidden">
+<img class="absolute inset-0 w-[200%] h-full object-cover grayscale opacity-80" data-alt="Raw blurry photo of a gold ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqO_kb6YB3XoQB2llayMyRRT9uVjzlkxQaC1HVzyo5Zj5dC1S_StZYMlCI_mlc-q0eq3v_mHb9bobIvrPSutfmhoKzGsyraaRkED_jx13-vjFgo0Qatze9EFhzGJqZeK1S6QntXW7Uacfvs7t3D-ln3M_jIH4atHTgfZ_B_zORJeRLxOpdDIL77nXmYiB7kJ2G9PSvb9x0TVvp2bVFXlns2F61G055nH1sJQYcC9f49b01hQY6Xqy-QldkCxFqCuhl7BUOt_mASWA"/>
+</div>
+<!-- Label Overlays -->
+<div class="absolute top-4 left-4 bg-black/40 backdrop-blur-sm text-white text-[10px] uppercase tracking-widest px-2 py-1 rounded">Antes</div>
+<div class="absolute top-4 right-4 bg-primary text-black text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">Depois</div>
+<!-- Slider Handle -->
+<div class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-center">
+<div class="w-1 h-full bg-primary/50 backdrop-blur-sm"></div>
+<div class="w-10 h-10 rounded-full bg-primary shadow-lg border-2 border-white flex items-center justify-center absolute">
+<span class="material-icons text-white text-sm">unfold_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Extracted Data Card -->
+<div class="bg-white dark:bg-zinc-900 rounded-lg p-6 mb-8 luxury-shadow border border-primary/10">
+<div class="flex justify-between items-start">
+<div>
+<span class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-1 block">Identificado por IA</span>
+<h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Anel Ouro 18k</h2>
+<p class="text-slate-400 dark:text-zinc-500 text-sm mt-1">Coleção Minimalista Essentials</p>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-1 block">Valor Sugerido</span>
+<p class="text-2xl font-bold text-primary">R$ 799,00</p>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-slate-100 dark:border-zinc-800 flex gap-4">
+<div class="flex-1">
+<span class="text-[10px] text-slate-400 dark:text-zinc-500 uppercase block mb-1">Qualidade</span>
+<div class="flex gap-0.5">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary/20 rounded-full"></div>
+</div>
+</div>
+<div class="flex-1 text-right">
+<span class="text-[10px] text-slate-400 dark:text-zinc-500 uppercase block mb-1">Formatos</span>
+<span class="text-xs font-medium text-slate-600 dark:text-zinc-400">PNG, JPG, MP4</span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-4">
+<!-- Primary Action -->
+<button class="w-full bg-primary text-white font-bold py-5 rounded-full flex items-center justify-center gap-3 shadow-xl active:scale-[0.98] transition-transform">
+<span class="material-icons">download</span>
+<span>Baixar imagem</span>
+</button>
+<!-- Secondary Actions -->
+<div class="grid grid-cols-2 gap-4">
+<button class="w-full bg-primary/10 dark:bg-primary/5 text-primary border border-primary/20 font-semibold py-4 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-icons text-xl">share</span>
+<span>Compartilhar</span>
+</button>
+<button class="w-full bg-zinc-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 font-semibold py-4 rounded-full flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-icons text-xl">refresh</span>
+<span>Refazer</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Minimalist Footer -->
+<footer class="py-6 px-8 flex flex-col items-center gap-2 opacity-40">
+<div class="flex items-center gap-2">
+<span class="material-icons text-sm">auto_awesome</span>
+<span class="text-[10px] font-bold tracking-[0.2em] uppercase">Precifica.AI Premium</span>
+</div>
+<div class="w-12 h-1 bg-slate-300 dark:bg-zinc-700 rounded-full"></div>
+</footer>
+<!-- iOS Home Indicator Space -->
+<div class="h-8 w-full"></div>
+</body></html>

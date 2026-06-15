@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - User Flow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ecb613",
+              "primary-dark": "#b0880e",
+              "background-light": "#f8f8f6",
+              "background-dark": "#221d10",
+              "surface-light": "#ffffff",
+              "surface-dark": "#2c2616",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+            boxShadow: {
+                'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04)',
+                'floating': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Dashed line animation simulation */
+        .flow-line-dashed {
+            background-image: linear-gradient(to bottom, #ecb613 50%, transparent 50%);
+            background-size: 2px 10px;
+        }
+        
+        .flow-line-solid {
+            background-color: #ecb613;
+        }
+
+        /* SVG Arrow head simulation */
+        .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #ecb613;
+        }
+
+        /* Zoom container simulation */
+        .zoom-area {
+            overflow: auto;
+            touch-action: pan-x pan-y;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-100 h-screen flex flex-col overflow-hidden antialiased">
+<!-- Top Navigation Bar -->
+<header class="flex-none bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800 h-16 px-4 flex items-center justify-between z-50 shadow-sm relative">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons text-xl">arrow_back</span>
+</button>
+<div>
+<h1 class="font-bold text-lg tracking-tight text-gray-900 dark:text-white leading-tight">Precifica.AI Flow</h1>
+<p class="text-xs text-primary font-medium tracking-wide uppercase">v1.2 • Approved</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 text-primary-dark dark:text-primary rounded text-sm font-semibold transition-colors">
+<span class="material-icons text-sm">ios_share</span>
+<span>Export</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center border border-white dark:border-gray-600 shadow-sm overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFBJkHakDvS64FwUJGOxWJFnF-5De5ggkPCeXYTi5162_N2peEK0w8e29OomdkbrVUwT0KEEUuRm9sqs8yS5Oc8DFSv9eAuV4Q4sY3u5n0dZWotyFTCvJpaIgvYBSo3ugOFUZEPZsadyY6PrIUrUZDCSGnc2GTi2zvTSJY3sXC-2ndBqWi7DWM7iHfmtQsWZS-k_73D5_B5vbs0WTNHZxHkzKEHvr5eKK62MFdbbUTFeaUtpjRV8jbcgLEAT1ifwufBBRqBxeDEh8"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas Area (Zoomable/Pannable) -->
+<main class="flex-1 relative bg-background-light dark:bg-background-dark overflow-auto cursor-grab active:cursor-grabbing p-8 zoom-area">
+<!-- Grid Background Pattern -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;">
+</div>
+<div class="relative min-h-[1000px] flex flex-col items-center max-w-md mx-auto py-8">
+<!-- FLOW START INDICATOR -->
+<div class="mb-6 flex flex-col items-center">
+<div class="px-3 py-1 rounded-full bg-primary text-white text-xs font-bold uppercase tracking-wider shadow-lg mb-2">
+                    Start Journey
+                </div>
+<div class="h-6 w-0.5 bg-gray-300 dark:bg-gray-700"></div>
+</div>
+<!-- STEP 1: UPLOAD -->
+<div class="relative group w-full flex justify-center">
+<!-- Annotation Left -->
+<div class="absolute -left-4 top-12 transform -translate-x-full w-24">
+<div class="bg-primary/10 dark:bg-primary/20 backdrop-blur-sm border border-primary/20 p-2 rounded text-[10px] text-primary-dark dark:text-primary font-medium leading-tight text-right">
+                        Fade-in on load
+                        <span class="block text-[9px] opacity-70 mt-0.5">Duration: 300ms</span>
+</div>
+<div class="absolute top-3 -right-6 w-6 h-[1px] bg-primary/40"></div>
+<div class="absolute top-3 -right-0.5 w-1 h-1 rounded-full bg-primary"></div>
+</div>
+<!-- Screen Thumbnail -->
+<div class="w-48 bg-surface-light dark:bg-surface-dark rounded-xl shadow-card border border-gray-200 dark:border-gray-700 p-2 relative z-10 hover:scale-105 transition-transform duration-300 hover:shadow-card-hover hover:border-primary/50">
+<div class="flex justify-between items-center mb-2 px-1">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Step 1</span>
+<span class="material-icons text-[10px] text-gray-400">more_horiz</span>
+</div>
+<!-- Screen Content Mockup -->
+<div class="aspect-[9/16] bg-gray-50 dark:bg-[#1a160d] rounded-lg border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center overflow-hidden relative">
+<!-- Header Mockup -->
+<div class="absolute top-0 w-full h-8 bg-white dark:bg-[#2c2616] flex items-center px-2 shadow-sm z-20">
+<div class="w-3 h-3 rounded-full bg-gray-200 dark:bg-gray-600"></div>
+</div>
+<!-- Main Action Mockup -->
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+<span class="material-icons text-primary text-xl">cloud_upload</span>
+</div>
+<div class="w-20 h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-1"></div>
+<div class="w-12 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full"></div>
+</div>
+<div class="mt-2 text-center">
+<h3 class="text-xs font-semibold text-gray-800 dark:text-gray-100">Upload</h3>
+</div>
+</div>
+</div>
+<!-- CONNECTOR 1-2 -->
+<div class="h-16 w-0.5 bg-primary relative my-1 arrow-down">
+<div class="absolute left-3 top-1/2 -translate-y-1/2 whitespace-nowrap">
+<span class="bg-surface-light dark:bg-surface-dark px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-700 text-[9px] text-gray-500 font-medium shadow-sm">Tap Event</span>
+</div>
+</div>
+<!-- STEP 2: STYLE / LOGO -->
+<div class="relative group w-full flex justify-center">
+<!-- Annotation Right -->
+<div class="absolute -right-4 top-16 transform translate-x-full w-24">
+<div class="bg-primary/10 dark:bg-primary/20 backdrop-blur-sm border border-primary/20 p-2 rounded text-[10px] text-primary-dark dark:text-primary font-medium leading-tight">
+                        Scale on tap
+                        <span class="block text-[9px] opacity-70 mt-0.5">Spring anim.</span>
+</div>
+<div class="absolute top-3 -left-6 w-6 h-[1px] bg-primary/40"></div>
+<div class="absolute top-3 -left-0.5 w-1 h-1 rounded-full bg-primary"></div>
+</div>
+<!-- Screen Thumbnail -->
+<div class="w-48 bg-surface-light dark:bg-surface-dark rounded-xl shadow-card border border-gray-200 dark:border-gray-700 p-2 relative z-10 hover:scale-105 transition-transform duration-300 hover:shadow-card-hover hover:border-primary/50">
+<div class="flex justify-between items-center mb-2 px-1">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Step 2</span>
+<div class="w-2 h-2 rounded-full bg-green-400"></div>
+</div>
+<!-- Screen Content Mockup -->
+<div class="aspect-[9/16] bg-gray-50 dark:bg-[#1a160d] rounded-lg border border-gray-100 dark:border-gray-800 p-2 overflow-hidden relative">
+<!-- Grid Mockup -->
+<div class="grid grid-cols-2 gap-2 h-full">
+<div class="bg-white dark:bg-[#2c2616] rounded border border-gray-100 dark:border-gray-700 flex items-center justify-center shadow-sm">
+<div class="w-6 h-6 rounded-full bg-yellow-100 dark:bg-yellow-900/30"></div>
+</div>
+<div class="bg-white dark:bg-[#2c2616] rounded border border-gray-100 dark:border-gray-700 flex items-center justify-center shadow-sm relative overflow-hidden ring-2 ring-primary ring-inset">
+<div class="w-6 h-6 rounded-full bg-primary"></div>
+<div class="absolute bottom-1 right-1 bg-primary text-white text-[6px] p-0.5 rounded-full material-icons" style="font-size: 8px;">check</div>
+</div>
+<div class="bg-white dark:bg-[#2c2616] rounded border border-gray-100 dark:border-gray-700 flex items-center justify-center shadow-sm">
+<div class="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700"></div>
+</div>
+<div class="bg-white dark:bg-[#2c2616] rounded border border-gray-100 dark:border-gray-700 flex items-center justify-center shadow-sm">
+<div class="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700"></div>
+</div>
+</div>
+</div>
+<div class="mt-2 text-center">
+<h3 class="text-xs font-semibold text-gray-800 dark:text-gray-100">Select Style</h3>
+</div>
+</div>
+</div>
+<!-- CONNECTOR 2-3 (Curved/Branching Idea, but simplified to straight for mobile vertical flow) -->
+<div class="h-16 w-0.5 flow-line-dashed relative my-1 arrow-down">
+<div class="absolute right-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-right">
+<span class="bg-blue-50 dark:bg-blue-900/30 px-1.5 py-0.5 rounded border border-blue-100 dark:border-blue-800 text-[9px] text-blue-600 dark:text-blue-300 font-medium shadow-sm">Async Process</span>
+</div>
+</div>
+<!-- STEP 3.5: AI CONFIRMATION (Smaller node) -->
+<div class="relative group w-full flex justify-center">
+<!-- Annotation Left -->
+<div class="absolute -left-6 top-8 transform -translate-x-full w-24">
+<div class="bg-primary/10 dark:bg-primary/20 backdrop-blur-sm border border-primary/20 p-2 rounded text-[10px] text-primary-dark dark:text-primary font-medium leading-tight text-right">
+                        Auto-transition
+                        <span class="block text-[9px] opacity-70 mt-0.5">Wait 2000ms</span>
+</div>
+<div class="absolute top-3 -right-6 w-6 h-[1px] bg-primary/40"></div>
+<div class="absolute top-3 -right-0.5 w-1 h-1 rounded-full bg-primary"></div>
+</div>
+<div class="w-40 bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border-2 border-primary/30 p-1.5 relative z-10 animate-pulse">
+<div class="absolute -top-3 -right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white shadow-sm z-20">
+<span class="material-icons text-[14px]">auto_awesome</span>
+</div>
+<!-- Screen Content Mockup -->
+<div class="aspect-[1/1] bg-gray-900 rounded-lg flex flex-col items-center justify-center overflow-hidden relative">
+<!-- Loader Animation Simulation -->
+<div class="w-10 h-10 border-2 border-white/20 border-t-primary rounded-full animate-spin mb-2"></div>
+<div class="text-[8px] text-white/80 font-medium tracking-wide">PROCESSING</div>
+</div>
+<div class="mt-1 text-center">
+<h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Step 3.5 AI</h3>
+</div>
+</div>
+</div>
+<!-- CONNECTOR 3-4 -->
+<div class="h-16 w-0.5 bg-primary relative my-1 arrow-down"></div>
+<!-- STEP 4: RESULTS -->
+<div class="relative group w-full flex justify-center pb-12">
+<!-- Annotation Right -->
+<div class="absolute -right-4 top-20 transform translate-x-full w-24">
+<div class="bg-green-50 dark:bg-green-900/20 backdrop-blur-sm border border-green-200 dark:border-green-800/50 p-2 rounded text-[10px] text-green-700 dark:text-green-300 font-medium leading-tight">
+                        Success State
+                        <span class="block text-[9px] opacity-70 mt-0.5">Confetti pop</span>
+</div>
+<div class="absolute top-3 -left-6 w-6 h-[1px] bg-green-300 dark:bg-green-700"></div>
+<div class="absolute top-3 -left-0.5 w-1 h-1 rounded-full bg-green-500"></div>
+</div>
+<!-- Screen Thumbnail -->
+<div class="w-48 bg-surface-light dark:bg-surface-dark rounded-xl shadow-card border border-gray-200 dark:border-gray-700 p-2 relative z-10 hover:scale-105 transition-transform duration-300 hover:shadow-card-hover hover:border-primary/50">
+<div class="flex justify-between items-center mb-2 px-1">
+<span class="text-[10px] font-bold text-gray-500 uppercase">Step 4</span>
+<span class="material-icons text-[10px] text-green-500">check_circle</span>
+</div>
+<!-- Screen Content Mockup -->
+<div class="aspect-[9/16] bg-gray-50 dark:bg-[#1a160d] rounded-lg border border-gray-100 dark:border-gray-800 flex flex-col overflow-hidden relative">
+<!-- Hero Image Area -->
+<div class="h-1/2 w-full bg-gray-200 dark:bg-gray-800 relative">
+<img alt="Result" class="w-full h-full object-cover opacity-90" data-alt="Luxury gold ring on velvet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5WR55DoRCbA34_rACh7GqmcXUNGMukJkqaqWj5hO7IRj4KiSBAc98gJkyGqmBBar1XCTkVlyJSZiUFJF9hZYF3XQ3eOUPHwvHMhUTnkUnBKYyj52P8UqZUzk1WbMlscHjcXaGxgFqUatwgTGJRjGz0TuulgR3PFWQPrmOx6WMx8SlHgIe2eVqBN5_jQZjublVwgDfw7Iy-pt2ttaOvsuHqm9VeJIKE8Dy2xEA2bAjnT9oOlxXKosXOwdfSnqt_grhFH94yzpe3V4"/>
+<div class="absolute bottom-2 left-2 bg-white/90 dark:bg-black/70 backdrop-blur px-2 py-0.5 rounded text-[8px] font-bold text-primary">$2,450</div>
+</div>
+<!-- Details -->
+<div class="p-2 flex flex-col gap-1.5">
+<div class="w-3/4 h-2 bg-gray-200 dark:bg-gray-700 rounded-sm"></div>
+<div class="w-1/2 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-sm"></div>
+<div class="w-full h-1.5 bg-gray-100 dark:bg-gray-800 rounded-sm mt-1"></div>
+<div class="w-full h-8 mt-auto bg-primary rounded text-white flex items-center justify-center text-[8px] font-bold uppercase">
+                                Add to Cart
+                            </div>
+</div>
+</div>
+<div class="mt-2 text-center">
+<h3 class="text-xs font-semibold text-gray-800 dark:text-gray-100">Final Result</h3>
+</div>
+</div>
+</div>
+<!-- End Node -->
+<div class="flex flex-col items-center opacity-50">
+<div class="h-4 w-0.5 bg-gray-300 dark:bg-gray-700"></div>
+<div class="w-3 h-3 border-2 border-gray-400 dark:border-gray-500 rounded-full"></div>
+<span class="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">End Flow</span>
+</div>
+</div>
+</main>
+<!-- Floating Legend & Controls -->
+<div class="absolute bottom-6 right-6 flex flex-col items-end gap-4 z-50">
+<!-- Zoom Controls -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg shadow-floating border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col">
+<button class="p-3 hover:bg-gray-50 dark:hover:bg-gray-800 border-b border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 active:text-primary transition-colors">
+<span class="material-icons text-xl">add</span>
+</button>
+<button class="p-3 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 active:text-primary transition-colors">
+<span class="material-icons text-xl">remove</span>
+</button>
+</div>
+<!-- Collapsible Legend (Open State for Prototype) -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg shadow-floating border border-gray-200 dark:border-gray-700 p-4 w-48">
+<div class="flex items-center justify-between mb-3">
+<h4 class="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider">Legend</h4>
+<button class="text-gray-400 hover:text-gray-600">
+<span class="material-icons text-sm">close</span>
+</button>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-0.5 bg-primary"></div>
+<span class="text-[10px] text-gray-600 dark:text-gray-400">User Action</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-6 h-0.5 flow-line-dashed"></div>
+<span class="text-[10px] text-gray-600 dark:text-gray-400">System Auto</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 rounded bg-primary/10 border border-primary/20 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-primary rounded-full"></div>
+</div>
+<span class="text-[10px] text-gray-600 dark:text-gray-400">Micro-interaction</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Metadata Bar -->
+<footer class="bg-surface-light dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 py-3 px-6 flex items-center justify-between text-[10px] text-gray-500 dark:text-gray-400">
+<div class="flex gap-4">
+<span>Project: <strong>Premium Jewelry Auto</strong></span>
+<span>Last Updated: <strong>Oct 24, 2023</strong></span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+<span>System Operational</span>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Serif', serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-status-bar { height: 44px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .shadow-soft {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+<title>Precifica.AI - Detalhe do Resultado</title>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-stone-800 dark:text-stone-100 min-h-screen">
+<!-- iOS Status Bar Spacer -->
+<div class="ios-status-bar bg-background-light dark:bg-background-dark w-full"></div>
+<!-- Top Navigation Header -->
+<header class="sticky top-0 z-50 px-4 py-3 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors">
+<span class="material-icons text-2xl">arrow_back_ios_new</span>
+</button>
+<div class="text-center">
+<h1 class="text-xs uppercase tracking-widest font-bold text-stone-500 dark:text-stone-400">Coleção de Verão</h1>
+<p class="text-[10px] text-stone-400 dark:text-stone-500">Item 03 de 12</p>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors">
+<span class="material-icons text-2xl">more_horiz</span>
+</button>
+</header>
+<!-- Main Content Container (Phone Frame Mimic) -->
+<main class="max-w-md mx-auto px-4 pb-24">
+<!-- Hero Image Gallery Section -->
+<section class="relative mt-2">
+<!-- Comparison Slider Container -->
+<div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden shadow-xl bg-stone-200 dark:bg-stone-900 group">
+<!-- After Image (Primary) -->
+<img alt="After AI enhancement" class="absolute inset-0 w-full h-full object-cover" data-alt="Luxury pearl gold necklace on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe2ytAag_c773LiEbf48H1K8r5XVbbV_GTAZGQnrVkayz5PxtXCLg0xXzPJZ2u-A3TGoMiVl-N7Qh1SktNYfho5l5slLhABqQiTy4Nr077Y0njuEYcx_S8rMoEZmeGwBXOzJQq_3aeqq809rpvDeIaugvxwEk-3m7LRHCGiUS9znYdAwr6iJYgnpn1wa64PjvmWOdNKvRYgifzlgVA0-Wkx-b1WV5FF7nzcshunBmrrQzYTYoeEdibvIuEFfZR02ntdRJuRzbYxJs"/>
+<!-- Before Image Overlay (Clip-path mimic for UI) -->
+<div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white/50 pointer-events-none">
+<img alt="Before AI enhancement" class="absolute inset-0 w-[200%] h-full object-cover grayscale-[0.3]" data-alt="Dull unedited pearl necklace photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6rkwomMDn5pjylXDF34EqiwO_CgFFfxp9r9Ulniw-uFJViVZ1RjzeHTa72phu_RPRhVlm9H_HvKTs2Q_AtlGz-pSqCm2UvFfPUYNj3zLtxgERKn6S-r-Sfkscrsl_vjDYWQBPlfv87iB7lk0M2E1aY3Zp3SfQWsmv-vQ4Zn0GDf2404gMG_11T7ALse2VUFpu3n1RxkTkO0pLLbZgKzmJEm-B84rFJa7-i9qd-rMFDPiaIMUsQ8F7WN0wyR2VLQFXJQlFjPwJ7sc"/>
+<div class="absolute top-4 left-4 bg-black/40 text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-tighter">Original</div>
+</div>
+<!-- Slider Handle Button -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-white/90 dark:bg-stone-800/90 px-4 py-2 rounded-full shadow-lg border border-stone-200/20">
+<span class="text-[10px] font-bold uppercase tracking-widest mr-3">Antes</span>
+<div class="w-10 h-6 bg-primary rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-md ml-auto"></div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest ml-3">Depois</span>
+</div>
+</div>
+<!-- Swipe Navigation Indicators -->
+<div class="flex justify-center gap-1.5 mt-4">
+<div class="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-700"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-700"></div>
+<div class="w-4 h-1.5 rounded-full bg-primary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-700"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-700"></div>
+</div>
+</section>
+<!-- AI Information Card -->
+<section class="mt-8">
+<div class="flex flex-col items-center text-center">
+<span class="inline-flex items-center gap-1 text-[10px] font-bold bg-primary/10 text-primary px-2 py-1 rounded-md mb-2">
+<span class="material-icons text-[12px]">auto_awesome</span>
+                    IA PROCESSADA
+                </span>
+<h2 class="text-3xl font-bold text-stone-900 dark:text-stone-50 mb-1">Colar Pérola Ouro</h2>
+<p class="text-2xl text-primary font-bold">R$ 1.200,00</p>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4">
+<div class="bg-white dark:bg-stone-900/40 p-4 rounded-xl border border-stone-100 dark:border-stone-800/50">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Categoria</p>
+<p class="text-sm font-semibold">Colares &amp; Gargantilhas</p>
+</div>
+<div class="bg-white dark:bg-stone-900/40 p-4 rounded-xl border border-stone-100 dark:border-stone-800/50">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Material</p>
+<p class="text-sm font-semibold">Ouro 18k &amp; Pérola Natural</p>
+</div>
+<div class="bg-white dark:bg-stone-900/40 p-4 rounded-xl border border-stone-100 dark:border-stone-800/50">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Confiança IA</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-stone-200 dark:bg-stone-800 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+<span class="text-xs font-bold">98%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-stone-900/40 p-4 rounded-xl border border-stone-100 dark:border-stone-800/50">
+<p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">SKU Sugerido</p>
+<p class="text-sm font-mono">JW-PL-GLD-03</p>
+</div>
+</div>
+</section>
+<!-- Actions Toolbar -->
+<section class="mt-10 flex flex-col gap-3">
+<button class="w-full bg-primary text-background-dark font-bold py-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-icons">edit</span>
+                Editar Individualmente
+            </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-white dark:bg-stone-900 text-stone-800 dark:text-stone-100 border border-stone-200 dark:border-stone-800 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-icons text-xl">file_download</span>
+                    Baixar
+                </button>
+<button class="bg-white dark:bg-stone-900 text-stone-800 dark:text-stone-100 border border-stone-200 dark:border-stone-800 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+<span class="material-icons text-xl">share</span>
+                    Compartilhar
+                </button>
+</div>
+</section>
+<!-- Related Items Preview (Swipe Cue) -->
+<section class="mt-12 mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-bold uppercase tracking-widest">Próximos no Lote</h3>
+<span class="text-xs text-stone-400">Ver todos</span>
+</div>
+<div class="flex gap-4 overflow-x-auto no-scrollbar -mx-4 px-4">
+<div class="flex-shrink-0 w-24 aspect-square rounded-lg overflow-hidden border border-stone-200/50">
+<img class="w-full h-full object-cover opacity-60" data-alt="Golden diamond ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxIzUtg4X479rMpRXp54bU8KF8FfOPQNWPeLn1CMAz0bMw9s99Xg-w7Eud2ZuSbhkcDNL1A05sJxyHqTSx82DwixlfhvmLnj2m9DWNli1YN6XUIBk4XYyHIIDSjNxh3hLfomhMJOMtTZWBELSuLzEmprX7y_xG3CfkR5Zh2xDl0RGidS1RNvpvH7bDM7F5zKad_Pyia3EDS3uUcFjtUshOB-Jm9_a049vR100xia_HkZSVDoQRv20VHPS_xFyxDnmk12rxv4ji6Ok"/>
+</div>
+<div class="flex-shrink-0 w-24 aspect-square rounded-lg overflow-hidden border-2 border-primary shadow-md">
+<img class="w-full h-full object-cover" data-alt="Current item thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUUKNFRNuH6S2fo4Mjqrd2zgbBsa1qYubNzPDwXRYP9BUlgFy2XSjCap9g4PSaStC6dBGY9X62WrsClfHgaJlIOSytl6vWmL3d9QHPmuO200XHzhdsfx4V_xt45lsmEtoZ7XBEbr-RiomDJyWsVhGiPBx8QNu9FUSVPTZ85SfDqPHrWJljxOBOfQ6dzXov9TEiuyR-ayS1zWhCK6JkiFGcwiXcaFb0jMc2ukmJfw5EgbtlD69x9KwF-CAWeHXDcaDS8HjP2DLrAUY"/>
+</div>
+<div class="flex-shrink-0 w-24 aspect-square rounded-lg overflow-hidden border border-stone-200/50">
+<img class="w-full h-full object-cover opacity-60" data-alt="Silver bracelet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbsApQM7bjPE7yk1yyeKDoA-jrUbz2orYA5ACp_5oPpaJAeSwJk0rg7f9g_atIzKfZj86QiFIoGJ-u111Yr4ywf6uh9llQwp0KRoHgzuYGO9fIrDs29KehHl2iIvlTy7Y8MJAEzGmFQVuxdYjX83i24Crk2ZkI2hGAvg72KJInGwIccwB63SPqI08cnDm06oU_2vrb1ZtNB82cX1miVxus8XLx-JmAQ3525UUIsZzCpvV5nnx0f_D6PWwzRK4dMO4J8OHBog7TVlg"/>
+</div>
+<div class="flex-shrink-0 w-24 aspect-square rounded-lg overflow-hidden border border-stone-200/50">
+<img class="w-full h-full object-cover opacity-60" data-alt="Emerald earrings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDex8vZRuatjPJS6ygCbnPBLyujEb9GubDmSlw_uDDzFrh2BS6iJzGM15haV7BIG_8YRXFjh9l9aYWE9dxj2ftZEpSj888KwjYGlAo7RYl3f1a7Tio73f3-ZDuzGR2d7bfS2Di0BJKzu1cMYxivHEU07t-VbxR13OKUS9eXAHcyeU_9y1k9k2LVGgeePzP8dUjD2nf7_nmvhTuW2SJoReVsEMdnWQ29BFWKwqBqyRgwM8YO5QWRekSgvQWT-MBqddrgH6lg8kYG8uQ"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (iOS style) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-stone-950/90 backdrop-blur-xl border-t border-stone-200/50 dark:border-stone-800/50 px-6 pt-3 pb-8 flex justify-between items-center z-50">
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-icons">grid_view</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Lotes</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-icons">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Resultados</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<div class="w-12 h-12 bg-stone-900 dark:bg-primary rounded-full flex items-center justify-center -mt-8 shadow-lg border-4 border-background-light dark:border-background-dark">
+<span class="material-icons text-white dark:text-stone-900">add</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Novo</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-icons">analytics</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Análise</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-icons">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Ajustes</span>
+</div>
+</nav>
+<!-- iOS Home Indicator -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-stone-300 dark:bg-stone-700 rounded-full z-[60]"></div>
+</body></html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Galeria Final Batch</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "primary-hover": "#d4a00f", 
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "surface-dark": "#2c2616",
+                        "surface-dark-lighter": "#38311e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Styles for iOS-like feel and specific components */
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Before/After Slider specific styles */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: #ecb613;
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background: #ecb613;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            color: #221d10;
+        }
+
+        .clip-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); 
+        }
+
+        /* Input styling */
+        .glass-input {
+            background: rgba(34, 29, 16, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(236, 182, 19, 0.2);
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            border-color: #ecb613;
+            background: rgba(34, 29, 16, 0.85);
+            box-shadow: 0 0 0 2px rgba(236, 182, 19, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary/30 selection:text-primary">
+<!-- Status Bar Safe Area (Simulation) -->
+<div class="h-12 w-full bg-background-light dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-50 flex items-end justify-center pb-2 border-b border-gray-200 dark:border-white/5">
+<h1 class="text-sm font-semibold tracking-wide text-gray-900 dark:text-white opacity-90">PRECIFICA.AI</h1>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 px-4 pt-4 pb-32">
+<!-- Header Section -->
+<header class="mb-6 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Galeria Final</h2>
+<p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Batch #2023-11-04 • 30 Itens</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-icons-round text-primary text-sm">cloud_done</span>
+</div>
+</div>
+<!-- Auto-Generate Button -->
+<button class="w-full group relative flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-primary/40 bg-surface-dark hover:bg-surface-dark-lighter transition-all active:scale-[0.98]">
+<div class="absolute inset-0 bg-primary/5 rounded-xl group-hover:bg-primary/10 transition-colors"></div>
+<span class="material-icons-round text-primary text-lg animate-pulse">auto_awesome</span>
+<span class="text-sm font-semibold text-primary">Auto-Gerar Descrições</span>
+</button>
+</header>
+<!-- Quality Preview: Before/After Slider -->
+<section class="mb-8">
+<div class="flex items-center justify-between mb-3 px-1">
+<h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Preview de Qualidade</h3>
+<span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">IA Enhanced</span>
+</div>
+<div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/5 slider-container">
+<!-- After Image (Background) -->
+<img alt="Enhanced golden ring with sparkling diamonds" class="absolute inset-0 w-full h-full object-cover" data-alt="Enhanced jewelry image showing sharp details and improved lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBucasEHSBZT1khJnzD7YeJNyQhJpaRV03sfVirACWX-FEUPd7UndxUWAdqDgmeuebJvUAeahG_50L7Bg98MoQPS_Vb0jX-0NKKnG1PfLUlcHTM1Dsj9pzR8pIJOsZnoP306sKKnkSrO7mRefJRWoMEZ725djLUKsr8OnPb1H3zcp3LYzb8OwbjMv__SSyFijmu8K17DIUjp6RvHGG9azYQJNZthhiLLGp0sbb2WFGqtpDl8bUTvxOCzzXkzyJT0h4OZoMF--FsuKM"/>
+<!-- Before Image (Clipped Overlay) -->
+<div class="clip-layer" style="clip-path: polygon(0 0, 55% 0, 55% 100%, 0 100%);">
+<img alt="Original raw photo of golden ring" class="absolute top-0 left-0 w-full h-full object-cover filter brightness-75 contrast-75 grayscale-[30%]" data-alt="Original jewelry image showing lower contrast and raw lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQgbzeH4j7y9U1jdDEkJo5wtAoKtoit2dLNlFRzJe57-y-AQ5RK_DBAaUdaTcQoCGN6wfzqcS8q816AK4qg7-iE4-wy7u7fKhaXVj6aKDpd7yAnvqt3Pjk5iaASSyUulxi7-kmBcUFhF-RZtDR4fslhy31kdEJrJQwdJbYFD8y4EQpBzRX_XirHP9S7xY3a9-yp9QdFp2e6BNhRHR5zVOeJstR6V6at1BXknU8AWzUdb_53UxyyI3oSj3iH9-MV8wi6tANOQQMq_c"/>
+<!-- Label for Before -->
+<div class="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white text-xs px-2 py-1 rounded font-medium">Original</div>
+</div>
+<!-- Label for After -->
+<div class="absolute top-4 right-4 bg-primary/90 text-black text-xs px-2 py-1 rounded font-medium shadow-sm">Resultado</div>
+<!-- Slider Handle -->
+<div class="slider-handle" style="left: 55%;">
+<div class="slider-button">
+<span class="material-icons-round text-sm">code</span>
+</div>
+</div>
+</div>
+<p class="mt-2 text-xs text-gray-500 text-center italic">Arraste para comparar o aprimoramento</p>
+</section>
+<!-- Gallery Grid -->
+<section>
+<div class="flex items-center justify-between mb-4 px-1">
+<h3 class="text-lg font-semibold text-white">Itens Processados</h3>
+<span class="text-xs text-gray-400">2 de 30 editados</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 1: Completed -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-white/5 shadow-lg">
+<div class="absolute top-2 right-2 z-10">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md">
+<span class="material-icons-round text-black text-xs font-bold">check</span>
+</div>
+</div>
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Diamond pendant necklace on black velvet" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close up of a luxury diamond necklace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb3C37jzRGRkJ8Tqgsj7k6osyqLEUQTnRmInWVbHyTbHHaEUpocenYZYxqN2Rc6pyQRLXbj9btTqxdxakuRDYJNtwqqyP4129TaiiEY2aGdFklYC4jJ1uA6HnksFZW_LVtqAE1j443O0WXfWvqmaRPlWZa6WMNth2ngkpHfdTkLMpasHWZJLTouKPYS98tD2NDOUNoAI7qptzn8svFy2ojOQseAaD2-rE-QUYWg029IPFyCN5DUYSDAHmouSWt1OBN6EEtSi6DHYE"/>
+</div>
+<div class="p-3">
+<label class="sr-only">Nome do produto</label>
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-500 border-none focus:ring-0 p-0 mb-1" placeholder="Nome..." type="text" value="Colar Diamante Solitário"/>
+<div class="flex items-center gap-1 text-primary">
+<span class="text-xs font-semibold">R$</span>
+<input class="w-full bg-transparent text-xs text-primary/80 placeholder-primary/40 border-none focus:ring-0 p-0" placeholder="0,00" type="text" value="4.500,00"/>
+</div>
+</div>
+</div>
+<!-- Card 2: Editing -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-primary/30 shadow-lg ring-1 ring-primary/20">
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Gold bracelet stack" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Gold bracelets stacked on a wrist" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7R7dpYMpS_nJza7vJaxQPcaOxNAy5KpjETxr9AndWQEdeCDoKAUIPbCublFamGQgyNOFSaDc09TcPwktgxtdgnNEwKh_ZJssCDlhKann07I1rW65FvfbTTsDtINq-W_fLOfn4giOQ1G7Vyp-AGxfe12LF7bQwTeFl99MluXnUdbWDmDjNOEn9EUk5zG_BeUTNgpOHrAjA1fz0oOhtfNg3KYa_Hx79z-VPDFG_BkAGOKIO7ZTIp8zRCZpNrawThxQJmOqZyj5QCLk"/>
+</div>
+<div class="p-3 bg-primary/5">
+<label class="sr-only">Nome do produto</label>
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-500 border-none focus:ring-0 p-0 mb-1" placeholder="Nome..." type="text" value="Bracelete Ouro 18k"/>
+<div class="flex items-center gap-1 text-primary">
+<span class="text-xs font-semibold">R$</span>
+<input class="w-full bg-transparent text-xs text-primary/80 placeholder-primary/40 border-none focus:ring-0 p-0" placeholder="0,00" type="text" value="8.290,00"/>
+</div>
+</div>
+</div>
+<!-- Card 3: Default -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-white/5 shadow-lg">
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Silver ring with blue gemstone" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Silver ring with a large sapphire stone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMFzsefr0s7mgwUZw6sVimcuqy7ZTNuPqTWz_Hv6-we-zRrxQRoFW0PY8f9JCKSUGoc3qgOrFUL9zxDYoJXOMqG8WcYOkdEUHUjont6lEkKfD1Kh2j0__KgC_Ec1YX71Mt74T_sS9AHYx21eiLEBTRdpnWPu9axKFHuEDJtHb7lwrpdyQKyBx9u8K8lO7ZZ3URmcW0GVUKoGzcfFJdZdJxvAxpXISLpaztsTWcYN4AdgQfaqlA8ktiCc92qowj0td__MhvkxkbamY"/>
+</div>
+<div class="p-3">
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-600 border-none focus:ring-0 p-0 mb-1" placeholder="Nome do Produto..." type="text"/>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="text-xs">R$</span>
+<input class="w-full bg-transparent text-xs text-gray-400 placeholder-gray-600 border-none focus:ring-0 p-0" placeholder="---" type="text"/>
+</div>
+</div>
+</div>
+<!-- Card 4: Default -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-white/5 shadow-lg">
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Gold earrings pair" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Pair of elegant gold earrings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjnh70jhP3L3pDPHEDaS-fppHv2RUlBterJmTDrUXUdW4SZ2lPSNh60eM5wZGF4iKSIUAGOvNwHkxHfMER7GHfgY20QMiJNYpwr8TzhivWBlFYmtezp3PegwWjVYgsxWwQcWcRFwtt2wgzU0MSUxbOMZDecjMaFsB0oK3cqPB8V8MTvwKN5r114BCw8T1niVqD-IYzYAhJ50jl8gc4sjWl61OuwefRTbl7RmETiWVHVDEovsM_wZkObrj88BvL7WTJah9OOFY61Q0"/>
+</div>
+<div class="p-3">
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-600 border-none focus:ring-0 p-0 mb-1" placeholder="Nome do Produto..." type="text"/>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="text-xs">R$</span>
+<input class="w-full bg-transparent text-xs text-gray-400 placeholder-gray-600 border-none focus:ring-0 p-0" placeholder="---" type="text"/>
+</div>
+</div>
+</div>
+<!-- Card 5: Default -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-white/5 shadow-lg">
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Luxury watch face close up" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close up of a luxury watch dial" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB965CxIsZN52nfOELjv3UawVO_EgsbTX03fal1devo-LWDmRa0_KwaOqyeJ8kklQFd7A94k5mxXqIyhpwR68vf1W9kHvwCerasjqDf3Q9rt53qisaEGvJCbzbSBsnxhfg8Nn1uU8Jl5bvvrTq_jxqBLJBZ5t5_8GJpAIESXGC1FML4BWihRw9Lk0XX4D9Y_yk7EILprkspfuSxA7lFwcQrGo2mlVnRCPQ53QkERE6UltkdOZQ8DQH9xCvkf5VVzVnWsiQoz7NL5zw"/>
+</div>
+<div class="p-3">
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-600 border-none focus:ring-0 p-0 mb-1" placeholder="Nome do Produto..." type="text"/>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="text-xs">R$</span>
+<input class="w-full bg-transparent text-xs text-gray-400 placeholder-gray-600 border-none focus:ring-0 p-0" placeholder="---" type="text"/>
+</div>
+</div>
+</div>
+<!-- Card 6: Default -->
+<div class="group relative flex flex-col bg-surface-dark rounded-xl overflow-hidden border border-white/5 shadow-lg">
+<div class="aspect-square relative overflow-hidden bg-gray-800">
+<img alt="Pearl necklace strand" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Strand of white pearls on a dark surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv2WOvIZ0AnlC_3RGB2vnha05cx3nKKxVFm87X4F6FnFDuTvyg8xX9qQ8J4fJsadBO-XjX7haOz1FiMNhJZqr2eRsjDX0CS7POT18FJzz1DqWOb_f38Iq4DhgsNHjZtersaHdQt_VlP1fLEtyBXJeykxECHMWhMtoD6rkLDVZc_YORMTrPgSFGgFHkboRvw8BL4hyUjSu-LPpnclp8KNSFjh3FDMg6dxyXPRshxONlBpAb8Xdo15mgyGVN21Di3WinrOf6N-L2sSE"/>
+</div>
+<div class="p-3">
+<input class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-600 border-none focus:ring-0 p-0 mb-1" placeholder="Nome do Produto..." type="text"/>
+<div class="flex items-center gap-1 text-gray-500">
+<span class="text-xs">R$</span>
+<input class="w-full bg-transparent text-xs text-gray-400 placeholder-gray-600 border-none focus:ring-0 p-0" placeholder="---" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Loading Skeletons for simulated remaining items -->
+<div class="mt-4 grid grid-cols-2 gap-4 opacity-30">
+<div class="bg-surface-dark rounded-xl aspect-[3/4] animate-pulse"></div>
+<div class="bg-surface-dark rounded-xl aspect-[3/4] animate-pulse"></div>
+</div>
+<p class="text-center text-xs text-gray-500 mt-6">+ 22 itens carregados</p>
+</section>
+</main>
+<!-- Sticky Footer Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 p-4 pt-2 bg-gradient-to-t from-background-dark via-background-dark to-transparent">
+<div class="bg-surface-dark/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 shadow-2xl">
+<div class="flex justify-between items-end mb-4 text-sm">
+<div class="flex flex-col">
+<span class="text-gray-400 text-xs uppercase tracking-wide">Resumo</span>
+<span class="text-white font-bold">30 Arquivos Prontos</span>
+</div>
+<div class="text-right">
+<span class="text-primary font-medium">128 MB</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-hover text-background-dark font-bold text-lg py-3.5 px-6 rounded-xl shadow-[0_0_20px_rgba(236,182,19,0.3)] transition-all transform active:scale-[0.99] flex items-center justify-center gap-2">
+<span class="material-icons-round">download</span>
+                Baixar Todas (ZIP)
+            </button>
+</div>
+</div>
+</body></html>

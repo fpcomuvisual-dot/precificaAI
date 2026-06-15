@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Design System</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#c9a96e",
+              "primary-light": "#dcc495", 
+              "primary-dark": "#a68850",
+              "background-light": "#f8f7f6",
+              "background-dark": "#1e1a14",
+              "surface-dark": "#2a2620",
+              "rose-accent": "#E8B4B8",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "serif": ["Playfair Display", "serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+            boxShadow: {
+              'glow': '0 0 15px rgba(201, 169, 110, 0.15)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2620;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c9a96e;
+        }
+        
+        .glass-panel {
+            background: rgba(42, 38, 32, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-display antialiased min-h-screen">
+<!-- Main Container - Phone Form Factor Simulation -->
+<div class="mx-auto max-w-md bg-background-light dark:bg-background-dark min-h-screen shadow-2xl relative overflow-hidden">
+<!-- Header Section -->
+<header class="pt-12 pb-6 px-6 relative z-10">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center space-x-2">
+<span class="material-icons text-primary text-2xl">diamond</span>
+<h1 class="text-xl font-bold tracking-tight text-primary font-serif">Precifica.AI</h1>
+</div>
+<div class="px-2 py-1 rounded border border-primary/30 bg-primary/10 text-xs font-mono text-primary">v1.0</div>
+</div>
+<h2 class="text-3xl font-serif text-slate-900 dark:text-white mb-1">Design System</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">UI Kit &amp; Component Library</p>
+</header>
+<!-- Scrollable Content -->
+<main class="px-6 pb-20 space-y-10">
+<!-- 1. Color Palette Section -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-2">
+<h3 class="text-sm uppercase tracking-widest text-slate-400 font-semibold">01. Palette</h3>
+<span class="text-xs text-slate-600 dark:text-slate-500 font-mono">colors.json</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Primary Gold -->
+<div class="p-3 rounded-xl bg-surface-dark border border-white/5 flex items-center space-x-3">
+<div class="w-12 h-12 rounded-full bg-[#c9a96e] shadow-lg shadow-[#c9a96e]/20 ring-2 ring-offset-2 ring-offset-[#1e1a14] ring-[#c9a96e]/50"></div>
+<div>
+<p class="font-bold text-white text-sm">Gold</p>
+<p class="text-xs text-slate-400 font-mono">#C9A96E</p>
+<p class="text-[10px] text-primary mt-1">Primary</p>
+</div>
+</div>
+<!-- Rose Accent -->
+<div class="p-3 rounded-xl bg-surface-dark border border-white/5 flex items-center space-x-3">
+<div class="w-12 h-12 rounded-full bg-[#E8B4B8] shadow-lg shadow-[#E8B4B8]/20"></div>
+<div>
+<p class="font-bold text-white text-sm">Rose</p>
+<p class="text-xs text-slate-400 font-mono">#E8B4B8</p>
+<p class="text-[10px] text-rose-accent mt-1">Accent</p>
+</div>
+</div>
+<!-- Dark Background -->
+<div class="p-3 rounded-xl bg-surface-dark border border-white/5 flex items-center space-x-3">
+<div class="w-12 h-12 rounded-full bg-[#1e1a14] border border-white/10"></div>
+<div>
+<p class="font-bold text-white text-sm">Dark</p>
+<p class="text-xs text-slate-400 font-mono">#1E1A14</p>
+<p class="text-[10px] text-slate-500 mt-1">Background</p>
+</div>
+</div>
+<!-- Light Surface -->
+<div class="p-3 rounded-xl bg-surface-dark border border-white/5 flex items-center space-x-3">
+<div class="w-12 h-12 rounded-full bg-[#F8F9FA] border border-white/10"></div>
+<div>
+<p class="font-bold text-white text-sm">Light</p>
+<p class="text-xs text-slate-400 font-mono">#F8F9FA</p>
+<p class="text-[10px] text-slate-500 mt-1">Surface</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Typography Section -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-2">
+<h3 class="text-sm uppercase tracking-widest text-slate-400 font-semibold">02. Typography</h3>
+<span class="text-xs text-slate-600 dark:text-slate-500 font-mono">type.css</span>
+</div>
+<div class="space-y-6 bg-surface-dark p-5 rounded-xl border border-white/5">
+<!-- Heading -->
+<div>
+<span class="text-xs text-primary font-mono mb-1 block">.font-serif (Playfair Display)</span>
+<div class="space-y-2">
+<h1 class="font-serif text-3xl text-white">Jewelry Valuation</h1>
+<h2 class="font-serif text-xl text-slate-300">Automated Precision</h2>
+</div>
+</div>
+<!-- Body -->
+<div class="pt-4 border-t border-white/5">
+<span class="text-xs text-primary font-mono mb-1 block">.font-display (Inter)</span>
+<p class="text-sm text-slate-400 leading-relaxed">
+                            AI-driven analysis for precious metals and gemstones. Our algorithms detect hallmarks with 99.8% accuracy.
+                        </p>
+<div class="flex space-x-4 mt-3">
+<span class="text-sm font-bold text-slate-300">Bold</span>
+<span class="text-sm font-medium text-slate-300">Medium</span>
+<span class="text-sm font-light text-slate-300">Light</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Actions & Buttons -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-2">
+<h3 class="text-sm uppercase tracking-widest text-slate-400 font-semibold">03. Actions</h3>
+<span class="text-xs text-slate-600 dark:text-slate-500 font-mono">buttons.vue</span>
+</div>
+<div class="space-y-4">
+<!-- Primary Button -->
+<div class="flex items-center justify-between">
+<button class="flex-1 bg-primary hover:bg-primary-dark text-background-dark font-medium py-3 px-4 rounded-lg transition-colors shadow-glow flex items-center justify-center gap-2">
+<span>Calculate Price</span>
+<span class="material-icons text-sm">arrow_forward</span>
+</button>
+<span class="ml-4 text-xs font-mono text-slate-500">.btn-primary</span>
+</div>
+<!-- Outline Button -->
+<div class="flex items-center justify-between">
+<button class="flex-1 bg-transparent border border-primary text-primary hover:bg-primary/10 font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center">
+                            Save Draft
+                        </button>
+<span class="ml-4 text-xs font-mono text-slate-500">.btn-outline</span>
+</div>
+<!-- Icon Buttons -->
+<div class="flex items-center justify-between">
+<div class="flex space-x-4">
+<button class="w-10 h-10 rounded-full bg-surface-dark border border-white/10 text-slate-300 hover:text-primary hover:border-primary flex items-center justify-center transition-colors">
+<span class="material-icons text-sm">favorite_border</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center transition-colors">
+<span class="material-icons text-sm">edit</span>
+</button>
+</div>
+<span class="ml-4 text-xs font-mono text-slate-500">.btn-icon</span>
+</div>
+</div>
+</section>
+<!-- 4. Inputs & Cards -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-2">
+<h3 class="text-sm uppercase tracking-widest text-slate-400 font-semibold">04. Inputs &amp; Cards</h3>
+<span class="text-xs text-slate-600 dark:text-slate-500 font-mono">forms.vue</span>
+</div>
+<div class="space-y-6">
+<!-- Text Input -->
+<div class="space-y-1">
+<label class="text-xs text-slate-400 ml-1">Carat Weight</label>
+<div class="relative">
+<input class="w-full bg-surface-dark border border-primary/50 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-slate-600" type="text" value="1.50 ct"/>
+<span class="absolute right-4 top-3.5 text-primary material-icons text-sm">diamond</span>
+</div>
+</div>
+<!-- Upload Slot -->
+<div class="border-2 border-dashed border-slate-600 hover:border-primary rounded-xl p-6 flex flex-col items-center justify-center bg-surface-dark/50 transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center mb-2 group-hover:bg-primary/20">
+<span class="material-icons text-slate-400 group-hover:text-primary transition-colors">cloud_upload</span>
+</div>
+<p class="text-sm text-slate-300 font-medium">Upload Hallmark</p>
+<p class="text-xs text-slate-500">Supports JPG, PNG</p>
+</div>
+<!-- AI Confirmation Card -->
+<div class="relative rounded-xl overflow-hidden glass-panel p-5 group">
+<div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-transparent"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center space-x-2">
+<span class="material-icons text-primary text-sm animate-pulse">auto_awesome</span>
+<span class="text-xs font-bold uppercase tracking-wider text-primary">AI Analysis</span>
+</div>
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-0.5 rounded border border-primary/20">98% Conf</span>
+</div>
+<div class="flex items-baseline space-x-1 mb-1">
+<span class="text-2xl font-serif text-white">$4,250</span>
+<span class="text-sm text-slate-400">est.</span>
+</div>
+<p class="text-xs text-slate-400 mb-4">Based on 18k Gold purity and current market rates.</p>
+<div class="flex gap-2">
+<button class="text-xs bg-primary/20 hover:bg-primary/30 text-primary px-3 py-1.5 rounded border border-primary/10 transition-colors">
+                                View Details
+                             </button>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Iconography -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 dark:border-white/10 pb-2">
+<h3 class="text-sm uppercase tracking-widest text-slate-400 font-semibold">05. Iconography</h3>
+<span class="text-xs text-slate-600 dark:text-slate-500 font-mono">icons.svg</span>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<!-- Diamond -->
+<div class="aspect-square rounded-lg bg-surface-dark border border-white/5 flex flex-col items-center justify-center hover:border-primary/50 transition-colors group">
+<span class="material-icons-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-1">diamond</span>
+<span class="text-[10px] text-slate-600 group-hover:text-primary/70">Jewel</span>
+</div>
+<!-- Sparkles -->
+<div class="aspect-square rounded-lg bg-surface-dark border border-white/5 flex flex-col items-center justify-center hover:border-primary/50 transition-colors group">
+<span class="material-icons-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-1">auto_awesome</span>
+<span class="text-[10px] text-slate-600 group-hover:text-primary/70">AI</span>
+</div>
+<!-- Camera -->
+<div class="aspect-square rounded-lg bg-surface-dark border border-white/5 flex flex-col items-center justify-center hover:border-primary/50 transition-colors group">
+<span class="material-icons-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-1">photo_camera</span>
+<span class="text-[10px] text-slate-600 group-hover:text-primary/70">Scan</span>
+</div>
+<!-- Download -->
+<div class="aspect-square rounded-lg bg-surface-dark border border-white/5 flex flex-col items-center justify-center hover:border-primary/50 transition-colors group">
+<span class="material-icons-outlined text-3xl text-slate-400 group-hover:text-primary transition-colors mb-1">file_download</span>
+<span class="text-[10px] text-slate-600 group-hover:text-primary/70">Export</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Decorative Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none transform translate-x-1/3 -translate-y-1/3"></div>
+<div class="absolute bottom-0 left-0 w-80 h-80 bg-rose-accent/5 rounded-full blur-3xl -z-10 pointer-events-none transform -translate-x-1/3 translate-y-1/3"></div>
+</div>
+</body></html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Fluxo Principal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "primary-dark": "#cfa010",
+                        "background-light": "#f8f9fa", // Using the specifically requested hex
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "1.5rem", // 24px as requested
+                        "xl": "2rem", 
+                        "2xl": "3rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        "soft": "0 10px 40px -10px rgba(0,0,0,0.05)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for granular control */
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f8f9fa; /* Explicitly requested background */
+        }
+        
+        .font-serif-header {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Toggle Switch Customization */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #ecb613;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #ecb613;
+        }
+        
+        /* Hide scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 antialiased min-h-screen relative pb-24">
+<!-- Top Navigation / Header -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+<div class="px-6 py-4 flex items-center justify-between">
+<button class="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons-round">arrow_back</span>
+</button>
+<h1 class="font-serif-header text-xl font-bold text-gray-900 dark:text-primary">Novo Produto</h1>
+<button class="p-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-300">
+<span class="material-icons-round">more_horiz</span>
+</button>
+</div>
+<!-- Progress Indicator -->
+<div class="px-6 pb-4">
+<div class="flex items-center justify-between text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 font-display uppercase tracking-wider">
+<span>Upload</span>
+<span>Passo 1 de 3</span>
+</div>
+<div class="h-1.5 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/3 rounded-full"></div>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="px-6 pt-6 space-y-8 max-w-md mx-auto">
+<!-- STEP 1: Upload Zone -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-serif-header text-2xl font-bold text-gray-900 dark:text-white">Adicione sua joia</h2>
+<span class="material-icons-round text-primary text-xl">diamond</span>
+</div>
+<div class="relative group cursor-pointer">
+<div class="w-full aspect-[4/3] rounded-lg border-2 border-dashed border-primary/40 hover:border-primary bg-white dark:bg-gray-800/50 flex flex-col items-center justify-center transition-all duration-300 shadow-soft">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-icons-round text-primary text-3xl">add_a_photo</span>
+</div>
+<p class="font-display font-semibold text-gray-700 dark:text-gray-200">Toque para enviar foto</p>
+<p class="text-xs text-gray-400 mt-1">Formatos: JPG, PNG até 10MB</p>
+</div>
+<!-- Floating hint badge -->
+<div class="absolute -top-3 -right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg transform rotate-6">
+                    Melhor qualidade
+                </div>
+</div>
+</section>
+<!-- STEP 2: Branding Configuration -->
+<section>
+<h2 class="font-serif-header text-2xl font-bold text-gray-900 dark:text-white mb-4">Identidade Visual</h2>
+<div class="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-soft space-y-6 border border-gray-100 dark:border-gray-700">
+<!-- Logo Uploader -->
+<div class="flex items-center space-x-4">
+<div class="relative shrink-0">
+<div class="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center overflow-hidden">
+<span class="material-icons-round text-gray-300 dark:text-gray-500 text-2xl">storefront</span>
+<!-- Placeholder for uploaded logo -->
+<img alt="Logo" class="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition-opacity" data-alt="Jewelry Brand Logo Placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQGQSHMQsTYNAg9LehwU9xGDGjw_oZUyqHHe9ibg5bifGpcMJ4CisBlE9FHMD68zS6myP3gLqzhhjSCeK1twTLikF7JE7QRprCfzsYD6Y2qjtsUqmx2-YDFg0HRG1fRuo2DrsJEa-siW3RfPUGS1Z1v373bQRXBHuGDVbwHcoHmnUkBDN3jpNyu43tt_Mm3Fl1A7aYNoSWAACdPTwOPnzb5euU19LTyBTueCFTi25ynxuyRzSiJlODLlRgdFd6029Ls56YRfiXmdA"/>
+</div>
+<button class="absolute -bottom-1 -right-1 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white shadow-md border-2 border-white dark:border-gray-800">
+<span class="material-icons-round text-xs">edit</span>
+</button>
+</div>
+<div class="flex-1">
+<h3 class="font-display font-bold text-gray-900 dark:text-white">Logo da Marca</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sua logo aparecerá no canto superior das imagens.</p>
+</div>
+</div>
+<div class="h-px bg-gray-100 dark:bg-gray-700 w-full"></div>
+<!-- Promo Mode Toggle -->
+<div class="flex items-center justify-between">
+<div class="flex-1 pr-4">
+<div class="flex items-center space-x-2">
+<span class="material-icons-round text-primary text-sm">local_offer</span>
+<h3 class="font-display font-bold text-gray-900 dark:text-white">Modo Promoção</h3>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Aplica badge de desconto automático de 15%</p>
+</div>
+<label class="flex items-center cursor-pointer relative" for="promo-toggle">
+<input class="sr-only peer" id="promo-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-gray-200 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- STEP 3: AI Data Confirmation -->
+<section>
+<div class="flex items-center space-x-2 mb-4">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<h2 class="font-serif-header text-lg font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide">IA Detectada</h2>
+</div>
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-soft overflow-hidden border border-gray-100 dark:border-gray-700">
+<!-- Warning Banner -->
+<div class="bg-primary/10 border-l-4 border-primary p-4 flex items-start space-x-3">
+<span class="material-icons-round text-primary shrink-0">info</span>
+<div>
+<h4 class="font-display font-bold text-gray-800 dark:text-gray-100 text-sm">Confirmação Necessária</h4>
+<p class="text-xs text-gray-600 dark:text-gray-300 mt-0.5">Verifique se o preço extraído pela IA está correto antes de prosseguir.</p>
+</div>
+</div>
+<div class="p-5">
+<div class="flex gap-4">
+<!-- Thumbnail -->
+<div class="shrink-0 w-20 h-24 rounded-lg overflow-hidden bg-gray-100">
+<img alt="Jewelry Preview" class="w-full h-full object-cover" data-alt="Gold Ring Thumbnail Preview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDec9RU9WH4FtSKK5V6veUFxrLfN_bIYxp0iJVJlLvr0s1npbtmrIli0u_eVlnoaE9DQrENngcaJapKWdwkeTJ6627w2yzv-p92KXQzVoLJgj_5HocLTXS2POS73wRjRlYL6vLKF1Zasp8XDGz0lvU7uFYeA5ILYMWY19FEZ_ZD05SoMBbDwmdTB1o-xsiE5EsxBA7rhKbHZM98opNYaGkWySmmI1u8mlnxAGY98r2Nvft_ZxSMW16r2bGOWmB3V0vEHKJegdHGGW8"/>
+</div>
+<!-- Editable Fields -->
+<div class="flex-1 space-y-4">
+<!-- Product Name Input -->
+<div class="relative group">
+<label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 block">Produto</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-gray-700/50 border-0 border-b border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-0 text-sm font-bold text-gray-900 dark:text-white py-2 pr-8 pl-0 transition-colors bg-transparent rounded-none placeholder-gray-400" type="text" value="Anel Solitário Ouro 18k"/>
+<span class="material-icons-round text-gray-400 absolute right-0 top-2 text-sm group-hover:text-primary transition-colors cursor-pointer">edit</span>
+</div>
+</div>
+<!-- Price Input -->
+<div class="relative group">
+<label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1 block">Preço Sugerido</label>
+<div class="relative">
+<input class="w-full bg-gray-50 dark:bg-gray-700/50 border-0 border-b border-gray-200 dark:border-gray-600 focus:border-primary focus:ring-0 text-lg font-serif-header font-bold text-gray-900 dark:text-white py-1 pr-8 pl-0 transition-colors bg-transparent rounded-none text-primary" type="text" value="R$ 4.590,00"/>
+<span class="material-icons-round text-gray-400 absolute right-0 top-2 text-sm group-hover:text-primary transition-colors cursor-pointer">edit</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Footer CTA -->
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pt-12 z-40">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-primary hover:bg-primary-dark text-white font-display font-bold text-lg py-4 px-6 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+<span>Criar Arte</span>
+<span class="material-icons-round">auto_awesome</span>
+</button>
+</div>
+</div>
+</body></html>

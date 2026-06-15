@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Upload Photo</title>
+<!-- Google Fonts: Playfair Display for headers, Inter for UI -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613", // Brand Gold
+                        "rose-accent": "#E8B4B8", // Rose Gold
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .diamond-watermark {
+            opacity: 0.05;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-center font-display text-slate-800 dark:text-slate-100">
+<!-- Mobile Container (iPhone Pro Max Aspect) -->
+<div class="w-full max-w-[430px] h-[932px] bg-background-light dark:bg-background-dark relative overflow-hidden flex flex-col shadow-2xl">
+<!-- Status Bar Space (iOS) -->
+<div class="h-14 w-full flex justify-between items-center px-8 pt-4">
+<span class="text-xs font-semibold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-icons-outlined text-sm">signal_cellular_alt</span>
+<span class="material-icons-outlined text-sm">wifi</span>
+<span class="material-icons-outlined text-sm rotate-90">battery_full</span>
+</div>
+</div>
+<!-- Header -->
+<header class="pt-8 pb-4 text-center px-6">
+<h1 class="serif-font text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-1">
+                Precifica.<span class="text-primary italic">AI</span>
+</h1>
+<p class="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-medium">Luxury Jewelry Marketing</p>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 relative">
+<!-- Hero Title -->
+<div class="text-center mb-10">
+<h2 class="serif-font text-2xl mb-2 text-slate-800 dark:text-white">New Creation</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400 max-w-[280px] mx-auto leading-relaxed">
+                    Upload your high-res jewelry photos for AI-powered pricing and marketing assets.
+                </p>
+</div>
+<!-- Central Upload Zone -->
+<div class="w-full aspect-square relative group">
+<!-- Outer Decorative Ring -->
+<div class="absolute inset-0 border-[1px] border-primary/20 rounded-full animate-pulse"></div>
+<!-- Main Upload Circle -->
+<div class="absolute inset-4 bg-white dark:bg-background-dark/50 rounded-full shadow-2xl flex flex-col items-center justify-center border-2 border-dashed border-primary/40 overflow-hidden">
+<!-- Diamond Watermark -->
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-icons-outlined text-[180px] text-primary/10 select-none">diamond</span>
+</div>
+<!-- Upload UI Content -->
+<div class="relative z-10 flex flex-col items-center text-center p-8">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
+<span class="material-icons-outlined text-3xl">add_photo_alternate</span>
+</div>
+<h3 class="serif-font text-xl font-medium mb-1">Upload Photo</h3>
+<p class="text-xs text-slate-400">Drag your masterpiece here</p>
+</div>
+<!-- Subtle Gradient Glow -->
+<div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none"></div>
+</div>
+</div>
+<!-- Action Buttons Area -->
+<div class="w-full mt-12 space-y-4">
+<!-- Open Camera - Primary -->
+<button class="w-full h-14 bg-primary text-white rounded-full font-semibold flex items-center justify-center gap-3 shadow-lg shadow-primary/20 active:scale-95 transition-transform">
+<span class="material-icons-outlined">photo_camera</span>
+<span>Open Camera</span>
+</button>
+<!-- Choose Photo - Secondary (Rose) -->
+<button class="w-full h-14 bg-rose-accent/10 border border-rose-accent/30 text-rose-accent/80 rounded-full font-semibold flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span class="material-icons-outlined">collections</span>
+<span>Choose from Gallery</span>
+</button>
+</div>
+<!-- Tips/Info -->
+<div class="mt-8 flex items-center gap-2 text-slate-400 dark:text-slate-500">
+<span class="material-icons-outlined text-sm">info</span>
+<p class="text-[10px] tracking-wide uppercase">Best results with natural lighting</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar (iOS Style) -->
+<nav class="h-24 bg-white dark:bg-background-dark/80 backdrop-blur-md border-t border-slate-100 dark:border-white/5 px-10 flex justify-between items-center pb-6">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-icons-outlined text-2xl">grid_view</span>
+<span class="text-[10px] font-medium">Library</span>
+</button>
+<button class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary -mt-8 shadow-xl shadow-primary/30 border-4 border-background-light dark:border-background-dark">
+<span class="material-icons-outlined text-2xl">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-icons-outlined text-2xl">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</nav>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
+<!-- Decorative Background Elements -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -left-20 w-48 h-48 bg-rose-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+</body></html>

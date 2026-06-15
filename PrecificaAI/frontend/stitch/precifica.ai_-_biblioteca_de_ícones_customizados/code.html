@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Icon Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c9a96e",
+                        "background-light": "#f8f7f6", // Adjusted to match theme config but inspired by F8F9FA
+                        "background-dark": "#1e1a14",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2a241c",
+                        "dark-text": "#1A1A1A",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px", "md": "0.375rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Icon Styles to match description */
+        .icon-stroke {
+            stroke-width: 1.5px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        
+        /* Hide scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30">
+<div class="mx-auto max-w-md min-h-screen relative flex flex-col shadow-2xl overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="pt-12 pb-6 px-6 bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-md sticky top-0 z-20 border-b border-primary/10">
+<div class="flex items-center justify-between mb-2">
+<button class="p-2 -ml-2 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-icons text-dark-text dark:text-white">arrow_back</span>
+</button>
+<button class="p-2 -mr-2 rounded-full hover:bg-primary/10 transition-colors">
+<span class="material-icons text-primary">download</span>
+</button>
+</div>
+<h1 class="text-2xl font-bold text-dark-text dark:text-white tracking-tight">Icon Library</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Precifica.AI Design System v1.0</p>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto no-scrollbar px-6 py-6 space-y-8 pb-32">
+<!-- Specs Summary Card -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-5 border border-primary/20 shadow-sm flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-xs uppercase tracking-widest text-primary font-semibold mb-1">Global Specs</span>
+<div class="flex gap-4 text-sm text-slate-600 dark:text-slate-300">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                            Stroke: <span class="font-mono">1.5px</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                            Radius: <span class="font-mono">md</span>
+</div>
+</div>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30">
+<span class="material-icons text-primary text-lg">tune</span>
+</div>
+</div>
+<!-- Icon Grid Section -->
+<div class="space-y-8">
+<!-- Icon 1: The Diamond -->
+<div class="group">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h2 class="text-lg font-semibold text-dark-text dark:text-white">The Diamond</h2>
+<p class="text-xs text-slate-500">Identity • Upload</p>
+</div>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-mono">01</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-shadow hover:shadow-md hover:border-primary/30">
+<!-- Preview Area -->
+<div class="p-6 flex items-center justify-center gap-8 bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] [background-size:12px_12px] dark:bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] bg-opacity-[0.03]">
+<!-- 24px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="24" viewbox="0 0 24 24" width="24">
+<path d="M6 3h12l4 6-10 12L2 9z"></path>
+<path d="M12 21V9"></path>
+<path d="M2 9h20"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">24px</span>
+</div>
+<!-- 48px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-dark-text dark:stroke-white" height="48" viewbox="0 0 24 24" width="48">
+<path d="M6 3h12l4 6-10 12L2 9z"></path>
+<path d="M12 21V9"></path>
+<path d="M2 9h20"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">48px</span>
+</div>
+<!-- 96px (Scaled visually) -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="64" viewbox="0 0 24 24" width="64">
+<path d="M6 3h12l4 6-10 12L2 9z"></path>
+<path d="M12 21V9"></path>
+<path d="M2 9h20"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">96px</span>
+</div>
+</div>
+<!-- Meta Footer -->
+<div class="bg-slate-50 dark:bg-white/5 px-4 py-3 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary block" title="Gold"></span>
+<span class="w-3 h-3 rounded-full bg-dark-text dark:bg-white border border-slate-200 block" title="Dark"></span>
+</div>
+<span class="font-mono">ic_diamond_outline.svg</span>
+</div>
+</div>
+</div>
+<!-- Icon 2: The Sparkle -->
+<div class="group">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h2 class="text-lg font-semibold text-dark-text dark:text-white">The Sparkle</h2>
+<p class="text-xs text-slate-500">AI Generation • Auto-generate</p>
+</div>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-mono">02</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-shadow hover:shadow-md hover:border-primary/30">
+<div class="p-6 flex items-center justify-center gap-8 bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] [background-size:12px_12px] dark:bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] bg-opacity-[0.03]">
+<!-- 24px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="24" viewbox="0 0 24 24" width="24">
+<path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">24px</span>
+</div>
+<!-- 48px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-dark-text dark:stroke-white" height="48" viewbox="0 0 24 24" width="48">
+<path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"></path>
+<path class="text-transparent fill-current opacity-20" d="M19 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" fill="currentColor"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">48px</span>
+</div>
+<!-- 96px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="64" viewbox="0 0 24 24" width="64">
+<path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"></path>
+<path d="M4 20l2-4 2 4-2 4z" stroke="currentColor"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">96px</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-white/5 px-4 py-3 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary block"></span>
+<span class="w-3 h-3 rounded-full bg-dark-text dark:bg-white border border-slate-200 block"></span>
+</div>
+<span class="font-mono">ic_sparkle_ai.svg</span>
+</div>
+</div>
+</div>
+<!-- Icon 3: The Download -->
+<div class="group">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h2 class="text-lg font-semibold text-dark-text dark:text-white">The Download</h2>
+<p class="text-xs text-slate-500">ZIP • Export</p>
+</div>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-mono">03</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-shadow hover:shadow-md hover:border-primary/30">
+<div class="p-6 flex items-center justify-center gap-8 bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] [background-size:12px_12px] dark:bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] bg-opacity-[0.03]">
+<!-- 24px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="24" viewbox="0 0 24 24" width="24">
+<path d="M12 3v13m0 0l-4-4m4 4l4-4M5 20h14"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">24px</span>
+</div>
+<!-- 48px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-dark-text dark:stroke-white" height="48" viewbox="0 0 24 24" width="48">
+<path d="M12 3v13m0 0l-4-4m4 4l4-4M5 20h14"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">48px</span>
+</div>
+<!-- 96px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="64" viewbox="0 0 24 24" width="64">
+<path d="M12 3v13m0 0l-4-4m4 4l4-4M5 20h14"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">96px</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-white/5 px-4 py-3 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary block"></span>
+<span class="w-3 h-3 rounded-full bg-dark-text dark:bg-white border border-slate-200 block"></span>
+</div>
+<span class="font-mono">ic_download_export.svg</span>
+</div>
+</div>
+</div>
+<!-- Icon 4: The Camera -->
+<div class="group">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h2 class="text-lg font-semibold text-dark-text dark:text-white">The Camera</h2>
+<p class="text-xs text-slate-500">Capture</p>
+</div>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-mono">04</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-shadow hover:shadow-md hover:border-primary/30">
+<div class="p-6 flex items-center justify-center gap-8 bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] [background-size:12px_12px] dark:bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] bg-opacity-[0.03]">
+<!-- 24px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="24" viewbox="0 0 24 24" width="24">
+<rect height="14" rx="2" ry="2" width="20" x="2" y="6"></rect>
+<circle cx="12" cy="13" r="4"></circle>
+<path d="M8 6V4h8v2"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">24px</span>
+</div>
+<!-- 48px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-dark-text dark:stroke-white" height="48" viewbox="0 0 24 24" width="48">
+<rect height="14" rx="2" ry="2" width="20" x="2" y="6"></rect>
+<circle cx="12" cy="13" r="4"></circle>
+<path d="M8 6V4h8v2"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">48px</span>
+</div>
+<!-- 96px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="64" viewbox="0 0 24 24" width="64">
+<rect height="14" rx="2" ry="2" width="20" x="2" y="6"></rect>
+<circle cx="12" cy="13" r="4"></circle>
+<path d="M8 6V4h8v2"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">96px</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-white/5 px-4 py-3 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary block"></span>
+<span class="w-3 h-3 rounded-full bg-dark-text dark:bg-white border border-slate-200 block"></span>
+</div>
+<span class="font-mono">ic_camera_capture.svg</span>
+</div>
+</div>
+</div>
+<!-- Icon 5: The Magic Wand -->
+<div class="group">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h2 class="text-lg font-semibold text-dark-text dark:text-white">The Magic Wand</h2>
+<p class="text-xs text-slate-500">Refine</p>
+</div>
+<span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-full font-mono">05</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm transition-shadow hover:shadow-md hover:border-primary/30">
+<div class="p-6 flex items-center justify-center gap-8 bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] [background-size:12px_12px] dark:bg-[radial-gradient(#c9a96e_0.5px,transparent_0.5px)] bg-opacity-[0.03]">
+<!-- 24px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="24" viewbox="0 0 24 24" width="24">
+<path d="M15 4l6 6-12 12-6-6L15 4z"></path>
+<path d="M19 9l-5-5"></path>
+<path class="stroke-dashed" d="M2 2l3 3"></path>
+<path class="stroke-dashed" d="M19 19l3 3"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">24px</span>
+</div>
+<!-- 48px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-dark-text dark:stroke-white" height="48" viewbox="0 0 24 24" width="48">
+<path d="M15 4l6 6-12 12-6-6L15 4z"></path>
+<path d="M19 9l-5-5"></path>
+<path d="M6 18l-3 3"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">48px</span>
+</div>
+<!-- 96px -->
+<div class="flex flex-col items-center gap-2">
+<svg class="icon-stroke stroke-primary" height="64" viewbox="0 0 24 24" width="64">
+<path d="M15 4l6 6-12 12-6-6L15 4z"></path>
+<path d="M19 9l-5-5"></path>
+<path d="M6 18l-3 3"></path>
+</svg>
+<span class="text-[10px] text-slate-400 font-mono">96px</span>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-white/5 px-4 py-3 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800">
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary block"></span>
+<span class="w-3 h-3 rounded-full bg-dark-text dark:bg-white border border-slate-200 block"></span>
+</div>
+<span class="font-mono">ic_wand_refine.svg</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="absolute bottom-6 right-6 z-30">
+<button class="bg-primary hover:bg-[#b0935d] text-white p-4 rounded-full shadow-lg shadow-primary/40 flex items-center justify-center transition-all hover:scale-105 active:scale-95 group">
+<span class="material-icons text-2xl group-hover:rotate-12 transition-transform">folder_zip</span>
+</button>
+</div>
+</div>
+</body></html>

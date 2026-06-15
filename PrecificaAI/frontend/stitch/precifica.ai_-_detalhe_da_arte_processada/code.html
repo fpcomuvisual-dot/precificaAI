@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Detalhe da Arte Processada</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "primary-dark": "#b0850b",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "surface-dark": "#2d261a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Mobile Container -->
+<div class="w-full max-w-md h-full min-h-screen bg-background-light dark:bg-background-dark relative flex flex-col shadow-2xl overflow-hidden">
+<!-- Subtle Gold Gradient Background Effect -->
+<div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none z-0"></div>
+<!-- Header -->
+<header class="flex justify-between items-center px-6 pt-12 pb-4 z-20 w-full relative">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-dark/50 backdrop-blur-md border border-white/10 text-white hover:bg-surface-dark transition-colors">
+<span class="material-icons text-xl">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="text-xs font-medium text-primary uppercase tracking-widest opacity-80">Lote #4092</span>
+<span class="text-sm font-semibold text-white/90">5 de 30</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-dark/50 backdrop-blur-md border border-white/10 text-white hover:bg-surface-dark transition-colors">
+<span class="material-icons text-xl">more_vert</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative z-10 px-0">
+<!-- Image Viewer Area -->
+<div class="relative flex-1 w-full flex items-center justify-center px-4 py-2">
+<!-- Left Nav Area (Tap target) -->
+<div class="absolute left-0 top-0 bottom-0 w-16 z-20 flex items-center justify-start pl-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70">
+<span class="material-icons text-sm">chevron_left</span>
+</div>
+</div>
+<!-- Main Image Card -->
+<div class="relative w-full aspect-[4/5] rounded-lg overflow-hidden shadow-2xl ring-1 ring-white/10 group">
+<img alt="Macro shot of a luxury gold diamond ring" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Macro shot of a luxury gold diamond ring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJBO1n3pGo6THR_aKdVnqnkmgZAoD4i2k7h9BGa685gsJ5KN4KUj99m4koDVpDrySMHK56H8Bx6jFmWtJDUr2FC1_kN0bJTf2VGPZiDWWHWVbz66LRGMzzRxRBywUxNIpE_fFE6WIQrpLS-q3HcXp9amp-5R6uA2eI5BioP1tDALVkIkVIUBla8mKjQTxsvMkjfudxDr9xSS4nRy69gv7I82lfUxMhXSnrXi-aAVZwdwrOwWjYUvQMDW8dIUC3FI1HOMtlgcPczS0"/>
+<!-- Image Overlay Gradient for Text readability if needed inside -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+<!-- AI Confidence Badge -->
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-primary/30 flex items-center space-x-1">
+<span class="material-icons text-primary text-xs">auto_awesome</span>
+<span class="text-[10px] font-medium text-white/90 tracking-wide">AI 98%</span>
+</div>
+</div>
+<!-- Right Nav Area (Tap target) -->
+<div class="absolute right-0 top-0 bottom-0 w-16 z-20 flex items-center justify-end pr-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white/70">
+<span class="material-icons text-sm">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Info Panel -->
+<div class="px-6 pb-2 pt-4 flex flex-col items-center text-center">
+<!-- Pagination Dots -->
+<div class="flex space-x-2 mb-6">
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(236,182,19,0.6)]"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+</div>
+<h1 class="text-2xl font-bold text-white mb-1">Anel Aliança Ouro 18k</h1>
+<p class="text-sm text-white/50 mb-4 font-light tracking-wide">Processado em 14 Out, 10:42</p>
+<div class="inline-flex items-baseline mb-8">
+<span class="text-3xl font-light text-primary tracking-tight">R$ 320,00</span>
+<span class="ml-2 text-xs font-medium text-primary/60 bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">SUGERIDO</span>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<footer class="bg-surface-dark border-t border-white/5 px-6 py-6 pb-10 z-20 rounded-t-lg shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+<div class="grid grid-cols-3 gap-4">
+<!-- Action: Redo -->
+<button class="flex flex-col items-center justify-center space-y-1 group">
+<div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-active:scale-95 transition-all group-hover:bg-white/10 group-hover:text-primary">
+<span class="material-icons">refresh</span>
+</div>
+<span class="text-[10px] font-medium text-white/40 group-hover:text-white/70 uppercase tracking-wider">Refazer</span>
+</button>
+<!-- Action: Download (Primary) -->
+<button class="flex flex-col items-center justify-center -mt-8 relative group">
+<div class="absolute inset-0 bg-primary blur-lg opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-background-dark shadow-lg shadow-primary/20 group-active:scale-95 transition-all hover:bg-primary-dark z-10">
+<span class="material-icons text-3xl">download</span>
+</div>
+<span class="text-[10px] font-bold text-primary mt-2 uppercase tracking-wider z-10">Baixar</span>
+</button>
+<!-- Action: Share -->
+<button class="flex flex-col items-center justify-center space-y-1 group">
+<div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 group-active:scale-95 transition-all group-hover:bg-white/10 group-hover:text-primary">
+<span class="material-icons">ios_share</span>
+</div>
+<span class="text-[10px] font-medium text-white/40 group-hover:text-white/70 uppercase tracking-wider">Enviar</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

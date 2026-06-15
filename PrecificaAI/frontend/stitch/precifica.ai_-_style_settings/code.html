@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Style Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<!-- Navigation Bar (iOS Style) -->
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-white/5 shadow-sm">
+<span class="material-icons-outlined text-slate-700 dark:text-slate-300">chevron_left</span>
+</button>
+<h1 class="text-lg font-semibold tracking-tight">Style Settings</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</nav>
+<main class="max-w-md mx-auto px-6 pb-32 pt-4">
+<!-- Luxury Preview Section -->
+<section class="mb-10">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/10 rounded-xl blur-xl transition duration-1000 group-hover:duration-200"></div>
+<div class="relative bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-2xl">
+<img alt="Jewelry Preview" class="w-full aspect-square object-cover" data-alt="Luxury gold diamond ring on elegant background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFfs7BxANDb3mNHSUjcnCOMbSaYx-YMLWxERNZ7VzYh-4f0yKXsPLOfqEzwnvglRNlDOAHvbMOc0CKscL7ILn1W1GVowNYz696lubCz-oBXhj05gZYxncRWDA4eFBWAKzje3mYfwNSyVXCAVswe6D7Zelu63wp_UEdKzDTjDKlrfoxgiIJqC2UsK-oDyeBYOe_tWTNdwpywJiSwo-4NL8eivbM2rr-ZdtVH-hcC1wO6rPkgdNeG6zAACalUZL3TKCF4VIZr1Lun8c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+<p class="text-white text-sm font-light uppercase tracking-[0.2em]">Live Preview</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Details Input -->
+<section class="mb-8">
+<label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Product Details</label>
+<div class="relative">
+<textarea class="w-full bg-white dark:bg-white/5 border-none rounded-xl p-5 text-lg font-medium shadow-sm focus:ring-2 focus:ring-primary/50 transition-all resize-none placeholder:text-slate-300 dark:placeholder:text-slate-700" placeholder="e.g. Ring 18k gold 799" rows="2">Diamond Ring 18k gold $1,299</textarea>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<span class="material-icons-outlined text-primary text-sm">auto_fix_high</span>
+</div>
+</div>
+</section>
+<!-- Format Selector -->
+<section class="mb-8">
+<label class="block text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 ml-1">Select Format</label>
+<div class="grid grid-cols-4 gap-3">
+<button class="flex flex-col items-center justify-center p-4 bg-primary text-white rounded-xl shadow-lg shadow-primary/20 transition-all">
+<span class="material-icons-outlined mb-1">crop_original</span>
+<span class="text-[10px] font-medium uppercase">Orig.</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 bg-white dark:bg-white/5 rounded-xl transition-all hover:bg-slate-50 dark:hover:bg-white/10">
+<span class="material-icons-outlined mb-1 text-slate-400">crop_square</span>
+<span class="text-[10px] font-medium uppercase text-slate-500">1:1</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 bg-white dark:bg-white/5 rounded-xl transition-all hover:bg-slate-50 dark:hover:bg-white/10">
+<span class="material-icons-outlined mb-1 text-slate-400">smartphone</span>
+<span class="text-[10px] font-medium uppercase text-slate-500">Story</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 bg-white dark:bg-white/5 rounded-xl transition-all hover:bg-slate-50 dark:hover:bg-white/10">
+<span class="material-icons-outlined mb-1 text-slate-400">crop_portrait</span>
+<span class="text-[10px] font-medium uppercase text-slate-500">4:5</span>
+</button>
+</div>
+</section>
+<!-- Style Palette -->
+<section class="mb-8">
+<div class="flex items-center justify-between mb-3 ml-1">
+<label class="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">Aesthetic Mood</label>
+<span class="text-xs font-medium text-primary">View All</span>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+<!-- Classic Gold -->
+<button class="flex-shrink-0 w-32 group">
+<div class="w-full aspect-[4/5] rounded-xl bg-gradient-to-br from-primary via-[#d4af37] to-[#996515] p-[2px] mb-2 ring-2 ring-primary ring-offset-4 ring-offset-background-light dark:ring-offset-background-dark">
+<div class="w-full h-full bg-white dark:bg-slate-900 rounded-[calc(1rem-2px)] flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&amp;w=400&amp;auto=format&amp;fit=crop')] bg-cover opacity-60" data-alt="Classic gold jewelry aesthetic pattern"></div>
+</div>
+</div>
+<span class="text-sm font-semibold text-slate-900 dark:text-slate-100">Classic Gold</span>
+</button>
+<!-- Modern Rose -->
+<button class="flex-shrink-0 w-32 group">
+<div class="w-full aspect-[4/5] rounded-xl bg-gradient-to-br from-[#e0c3fc] to-[#fbc2eb] p-[2px] mb-2 opacity-60 group-hover:opacity-100 transition-opacity">
+<div class="w-full h-full bg-white dark:bg-slate-900 rounded-[calc(1rem-2px)] flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-[url('https://images.unsplash.com/photo-1588444833098-420560af7476?q=80&amp;w=400&amp;auto=format&amp;fit=crop')] bg-cover opacity-60" data-alt="Modern rose gold jewelry aesthetic pattern"></div>
+</div>
+</div>
+<span class="text-sm font-medium text-slate-400 dark:text-slate-600">Modern Rose</span>
+</button>
+<!-- Young Bold -->
+<button class="flex-shrink-0 w-32 group">
+<div class="w-full aspect-[4/5] rounded-xl bg-gradient-to-br from-[#333] to-[#111] p-[2px] mb-2 opacity-60 group-hover:opacity-100 transition-opacity">
+<div class="w-full h-full bg-white dark:bg-slate-900 rounded-[calc(1rem-2px)] flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-slate-900 flex items-center justify-center">
+<span class="text-white text-xs font-bold tracking-tighter uppercase italic">Bold</span>
+</div>
+</div>
+</div>
+<span class="text-sm font-medium text-slate-400 dark:text-slate-600">Young Bold</span>
+</button>
+</div>
+</section>
+<!-- Toggle Options -->
+<section class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-white dark:bg-white/5 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
+<span class="material-icons-outlined text-primary text-xl">payments</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Show Price</p>
+<p class="text-[10px] text-slate-400 font-medium">Include the main price tag</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-white dark:bg-white/5 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full">
+<span class="material-icons-outlined text-primary text-xl">calendar_month</span>
+</div>
+<div>
+<p class="text-sm font-semibold">Installments</p>
+<p class="text-[10px] text-slate-400 font-medium">Display payment plan info</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</section>
+</main>
+<!-- Floating Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light dark:via-background-dark/95 to-transparent backdrop-blur-sm">
+<div class="max-w-md mx-auto">
+<button class="w-full bg-primary hover:bg-primary/90 text-slate-900 font-bold py-5 rounded-xl shadow-xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all">
+<span class="uppercase tracking-widest text-sm">Generate Luxury Art</span>
+<span class="material-icons-outlined text-xl">auto_fix_high</span>
+</button>
+</div>
+</div>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Custom UI Enhancements */
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</body></html>

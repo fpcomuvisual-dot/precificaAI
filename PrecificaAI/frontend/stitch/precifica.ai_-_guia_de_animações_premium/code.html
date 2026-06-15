@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Motion Guide</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d2616",
+                        "neutral-light": "#e5e5e0",
+                        "neutral-dark": "#3a3425",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(236, 182, 19, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for horizontal scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Dashed line animation simulation */
+        .dashed-path {
+            background-image: linear-gradient(to right, #ecb613 50%, transparent 50%);
+            background-size: 10px 100%;
+            background-repeat: repeat-x;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-100 min-h-screen antialiased selection:bg-primary/30">
+<!-- Sticky Header -->
+<header class="sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<div class="px-5 pt-12 pb-4">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Motion System</h1>
+<p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">v2.4 • iOS Design Kit</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-icons text-xl">play_circle_filled</span>
+</div>
+</div>
+<!-- Tab Switcher -->
+<div class="flex space-x-2 overflow-x-auto no-scrollbar pb-2">
+<button class="flex-none px-4 py-2 bg-primary text-white rounded-full text-sm font-semibold shadow-glow transition-transform active:scale-95">
+                    Transitions
+                </button>
+<button class="flex-none px-4 py-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-sm font-medium hover:border-primary/50 transition-colors">
+                    Micro-interactions
+                </button>
+<button class="flex-none px-4 py-2 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-sm font-medium hover:border-primary/50 transition-colors">
+                    Gestures
+                </button>
+</div>
+</div>
+</header>
+<main class="px-5 pb-20 space-y-12 mt-6">
+<!-- Card 1: The Lift (Page Transition) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">The Lift</h2>
+</div>
+<span class="text-xs font-mono text-gray-400 bg-gray-100 dark:bg-surface-dark px-2 py-1 rounded">TRANS-01</span>
+</div>
+<!-- Visual Storyboard -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-1 shadow-soft border border-gray-100 dark:border-gray-800 relative overflow-hidden">
+<div class="bg-background-light dark:bg-background-dark rounded-xl h-64 relative flex items-center justify-center overflow-hidden">
+<!-- Grid Background -->
+<div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+<!-- Step 1 Card (Fading Out & Up) -->
+<div class="absolute w-3/4 h-3/4 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 top-4 scale-95 opacity-50 transform -translate-y-8 blur-[1px]">
+<div class="h-full flex flex-col p-4 space-y-3">
+<div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg"></div>
+<div class="h-2 w-1/2 bg-gray-100 dark:bg-gray-700 rounded"></div>
+<div class="h-2 w-3/4 bg-gray-100 dark:bg-gray-700 rounded"></div>
+</div>
+</div>
+<!-- Step 2 Card (Entering from bottom) -->
+<div class="absolute w-3/4 h-3/4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-primary/20 top-12 z-10 flex flex-col items-center justify-center">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg z-20">ENTERING</div>
+<img alt="Abstract gold flowing fabric texture representing luxury" class="w-full h-full object-cover rounded-xl opacity-90" data-alt="Abstract gold flowing fabric texture representing luxury" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUaQoThN8HcemxIfdJ9LgAkxFD8zvFYvBaaMLQ2v_XHsOsgDUKLvJOfBqv4ikIoJkGft8nsZjn31LyP8FHH1f8KGgB6M1UwUEUU1HhUjdfre2_ybx11GSBc-uwcdVbamynQBh2Q58QWY9csuTreKvyQFiv3QvGTK7t2YwqqdwG8aGRHAzQ3UvR7Aln9jCIXi5ESIZSsjb9y0lJYjA8kJ8uVIp9NQb7mHsRmXsh8cZR7LxPx2FbAf5X6eKheaV5IdpDn0CnwqQSbes"/>
+<div class="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm p-3 rounded-lg">
+<div class="h-2 w-2/3 bg-gray-200 dark:bg-gray-600 rounded mb-2"></div>
+<div class="h-2 w-1/2 bg-primary/40 rounded"></div>
+</div>
+</div>
+<!-- Direction Arrows -->
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-center space-y-1">
+<div class="h-12 w-0.5 bg-gradient-to-t from-primary to-transparent"></div>
+<span class="material-icons text-primary text-sm">arrow_upward</span>
+</div>
+</div>
+<!-- Timeline Scrubber UI -->
+<div class="px-4 py-3 bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800">
+<div class="flex justify-between text-[10px] text-gray-400 font-mono mb-1">
+<span>0ms</span>
+<span class="text-primary font-bold">250ms</span>
+<span>500ms</span>
+</div>
+<div class="relative h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1/2 bg-primary/30"></div>
+<div class="absolute left-1/2 top-0 bottom-0 w-1 h-full bg-primary shadow-[0_0_8px_rgba(236,182,19,0.8)]"></div>
+</div>
+</div>
+</div>
+<!-- Technical Specs -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-gray-50 dark:bg-neutral-dark/30 p-3 rounded-lg border border-gray-100 dark:border-neutral-dark">
+<p class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Duration</p>
+<p class="text-sm font-mono font-medium text-gray-900 dark:text-gray-100">500ms</p>
+</div>
+<div class="bg-gray-50 dark:bg-neutral-dark/30 p-3 rounded-lg border border-gray-100 dark:border-neutral-dark">
+<p class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Easing</p>
+<p class="text-sm font-mono font-medium text-gray-900 dark:text-gray-100 text-xs">cubic-bezier(0.16, 1, 0.3, 1)</p>
+</div>
+</div>
+<!-- Dev Handoff Accordion (Collapsed view) -->
+<div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+<button class="w-full flex justify-between items-center p-3 bg-gray-50 dark:bg-neutral-dark/50 text-xs font-medium text-gray-600 dark:text-gray-300">
+<span class="flex items-center"><span class="material-icons text-sm mr-2 text-primary">code</span> Swift / SwiftUI</span>
+<span class="material-icons text-sm transform rotate-90">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Card 2: The Glow (AI Finish) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary/50"></span>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">The Glow</h2>
+</div>
+<span class="text-xs font-mono text-gray-400 bg-gray-100 dark:bg-surface-dark px-2 py-1 rounded">MICRO-04</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-8 shadow-soft border border-gray-100 dark:border-gray-800 flex flex-col items-center justify-center relative">
+<!-- Animation Stage -->
+<div class="relative w-24 h-24 flex items-center justify-center mb-6">
+<!-- Pulse Rings -->
+<div class="absolute inset-0 rounded-2xl border border-primary/30 scale-125 opacity-0"></div> <!-- Ring 1 Ghost -->
+<div class="absolute inset-0 rounded-2xl border-2 border-primary/20 scale-110"></div> <!-- Ring 2 -->
+<!-- Main Icon -->
+<div class="relative w-full h-full bg-background-light dark:bg-background-dark rounded-2xl border border-primary shadow-[0_0_30px_rgba(236,182,19,0.25)] flex items-center justify-center z-10">
+<span class="material-icons text-primary text-4xl">auto_awesome</span>
+</div>
+<!-- Sparkles -->
+<span class="material-icons absolute -top-2 -right-2 text-primary text-xs animate-bounce" style="animation-duration: 2s;">star</span>
+<span class="material-icons absolute bottom-0 -left-3 text-primary/60 text-[10px]">star_border</span>
+</div>
+<!-- Spec Diagram -->
+<div class="w-full relative h-12 border-t border-dashed border-gray-300 dark:border-gray-700 mt-2">
+<div class="absolute -top-2.5 left-1/4 transform -translate-x-1/2 flex flex-col items-center">
+<div class="w-1.5 h-1.5 rounded-full bg-gray-400 mb-1"></div>
+<span class="text-[10px] text-gray-400">Scale 1.0</span>
+</div>
+<div class="absolute -top-2.5 left-3/4 transform -translate-x-1/2 flex flex-col items-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mb-1"></div>
+<span class="text-[10px] text-primary font-bold">Scale 1.05</span>
+</div>
+<!-- Curved arrow indication loop -->
+<svg class="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-6 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewbox="0 0 100 20">
+<path d="M0,10 Q50,25 100,10" stroke-dasharray="3 3" stroke-width="1"></path>
+</svg>
+<span class="absolute top-8 left-1/2 -translate-x-1/2 text-[10px] text-gray-400 bg-white dark:bg-surface-dark px-1">Loop: 2000ms</span>
+</div>
+</div>
+<!-- Technical Specs -->
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-gray-50 dark:bg-neutral-dark/30 p-2 rounded-lg border border-gray-100 dark:border-neutral-dark text-center">
+<p class="text-[9px] text-gray-500 uppercase font-semibold mb-1">Pulse</p>
+<p class="text-xs font-mono text-gray-900 dark:text-gray-100">800ms</p>
+</div>
+<div class="bg-gray-50 dark:bg-neutral-dark/30 p-2 rounded-lg border border-gray-100 dark:border-neutral-dark text-center">
+<p class="text-[9px] text-gray-500 uppercase font-semibold mb-1">Delay</p>
+<p class="text-xs font-mono text-gray-900 dark:text-gray-100">Random</p>
+</div>
+<div class="bg-gray-50 dark:bg-neutral-dark/30 p-2 rounded-lg border border-gray-100 dark:border-neutral-dark text-center">
+<p class="text-[9px] text-gray-500 uppercase font-semibold mb-1">Curve</p>
+<p class="text-xs font-mono text-gray-900 dark:text-gray-100">Sine InOut</p>
+</div>
+</div>
+</section>
+<!-- Card 3: The Slide (Comparison Gesture) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary/50"></span>
+<h2 class="text-lg font-bold text-gray-900 dark:text-white">The Slide</h2>
+</div>
+<span class="text-xs font-mono text-gray-400 bg-gray-100 dark:bg-surface-dark px-2 py-1 rounded">GEST-02</span>
+</div>
+<!-- Interactive Demo Area -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-1 shadow-soft border border-gray-100 dark:border-gray-800">
+<div class="relative h-48 rounded-xl overflow-hidden group cursor-ew-resize">
+<!-- Base Image (After) -->
+<img alt="Clean modern minimalist interior design after renovation" class="absolute inset-0 w-full h-full object-cover filter brightness-110 contrast-110" data-alt="Clean modern minimalist interior design after renovation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr3y9GpkOWCckLbjQx-T3IOfsK6sl71dzviFZF8j0BGoWsK797bT1AJiLTUaIGPuQoAq5KpdjSkLGYEJf1XdLczKsDue70hq3oXFtpX4VHgUfH0xNorxf7tFOcSYBFG_Kq6tNQo8EFup5_k9KMxmlOqP4Mfwjmx5EQA7WedlsdlNVYE2a_PN6TAOUvHl--najJg6efaMM3PPvdGGXVf-4HaQsx14iBiv1SH3Y2jswvHfsUNazaYEQJo6-dtI_l5HIaIhr976aYhw4"/>
+<div class="absolute top-2 right-2 text-[10px] font-bold text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded">AFTER</div>
+<!-- Overlay Image (Before) - Clipped 50% -->
+<div class="absolute inset-0 w-1/2 overflow-hidden border-r-2 border-white/80 dark:border-white/50 bg-gray-900">
+<img alt="Dimly lit empty room before renovation" class="absolute top-0 left-0 max-w-none w-[calc(200%)] h-full object-cover filter grayscale brightness-75 sepia-[.3]" data-alt="Dimly lit empty room before renovation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdxkUxlNeV3WsmaIi3qbHomFeICN6UVwPA31Nr3XgWKDqC05M294j6KPvHgK4sgATXuPelxxpuSIzYyal_Z_16rEEGf3Xk4xWN_BoTQNifzZRdX-DCe_srVrjtnpJrlQxGLFnyfmnhw-D6Qa0CceN-gVCB28xsWFK_qwmKlVbp5oxGjOj2IxXAQgsacHSm2uZb4wxI01FI0I11IUQ62PvFf7nTNnJsxG_i5RNeXpnbpEFK7QK9MDrClbG9LQgFQqJjqrZlM8WcdOU" style="width: 200vw; max-width: none;"/>
+<div class="absolute top-2 left-2 text-[10px] font-bold text-white bg-black/30 backdrop-blur-md px-2 py-1 rounded">BEFORE</div>
+</div>
+<!-- Slider Handle -->
+<div class="absolute inset-y-0 left-1/2 -ml-4 w-8 flex items-center justify-center">
+<div class="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center text-primary transform transition-transform group-active:scale-110">
+<span class="material-icons text-sm">code</span>
+</div>
+</div>
+</div>
+<!-- Gesture Physics Notes -->
+<div class="p-4 bg-gray-50 dark:bg-surface-dark/50 rounded-b-xl border-t border-gray-100 dark:border-gray-800">
+<div class="flex items-start space-x-3">
+<span class="material-icons text-gray-400 text-lg mt-0.5">touch_app</span>
+<div>
+<h4 class="text-xs font-bold text-gray-900 dark:text-gray-100 uppercase mb-1">Physics Engine</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                                Resistance is set to <span class="text-primary font-semibold">High</span>. No snap-back on release. Position persists in memory.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dev Resources Footer -->
+<section class="border-t border-gray-200 dark:border-gray-800 pt-8 pb-4">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Implementation Files</h3>
+<div class="space-y-2">
+<a class="block p-3 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary/50 transition-colors group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="bg-blue-50 dark:bg-blue-900/20 p-1.5 rounded text-blue-500">
+<span class="material-icons text-sm">description</span>
+</div>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">AnimationTokens.json</span>
+</div>
+<span class="material-icons text-gray-400 group-hover:text-primary text-sm">download</span>
+</div>
+</a>
+<a class="block p-3 bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary/50 transition-colors group" href="#">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="bg-purple-50 dark:bg-purple-900/20 p-1.5 rounded text-purple-500">
+<span class="material-icons text-sm">movie</span>
+</div>
+<span class="text-sm font-medium text-gray-700 dark:text-gray-200">Lottie_Loader_v4.json</span>
+</div>
+<span class="material-icons text-gray-400 group-hover:text-primary text-sm">download</span>
+</div>
+</a>
+</div>
+</section>
+</main>
+</body></html>

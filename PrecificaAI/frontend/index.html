@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Precifica.AI - Batch Upload</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#C9A96E",
+                        "rose-accent": "#E8B4B8",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    animation: {
+                        'shake': 'shake 0.3s ease-in-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '25%': { transform: 'translateX(-4px)' },
+                            '75%': { transform: 'translateX(4px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 100dvh;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-center font-display text-slate-800 dark:text-slate-100">
+
+    <div id="app" v-cloak
+        class="w-full max-w-[430px] h-[932px] bg-background-light dark:bg-background-dark relative overflow-hidden flex flex-col shadow-2xl">
+
+        <!-- Status Bar -->
+        <div class="h-14 w-full flex justify-between items-center px-8 pt-4 shrink-0 z-20">
+            <span class="text-xs font-semibold">9:41</span>
+            <div class="flex gap-1.5 items-center">
+                <span class="material-icons-outlined text-sm">signal_cellular_alt</span>
+                <span class="material-icons-outlined text-sm">wifi</span>
+                <span class="material-icons-outlined text-sm rotate-90">battery_full</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header
+            class="pt-2 pb-2 text-center px-6 shrink-0 z-20 bg-background-light dark:bg-background-dark/95 backdrop-blur-sm">
+            <h1 class="serif-font text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Precifica.AI</h1>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 font-medium mt-1">
+                BATCH UPLOAD ({{ items.length }} ITENS)
+            </p>
+        </header>
+
+        <!-- Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto hide-scrollbar px-6 pt-2 pb-24 relative">
+
+            <!-- === UPLOAD VIEW === -->
+            <div v-if="results.length === 0" class="animate-fade-in">
+                <!-- Dropzone -->
+                <div @dragover.prevent="dragOver = true" @dragleave.prevent="dragOver = false"
+                    @drop.prevent="handleDrop" @click="$refs.fileInput.click()"
+                    :class="{'border-primary bg-primary/5': dragOver, 'border-slate-200 dark:border-white/10': !dragOver}"
+                    class="w-full h-32 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-colors mb-6 group hover:border-primary/50 hover:bg-primary/5">
+                    <input type="file" ref="fileInput" multiple accept="image/*" class="hidden"
+                        @change="handleFileSelect">
+                    <span
+                        class="material-icons-outlined text-3xl text-slate-300 group-hover:text-primary transition-colors">cloud_upload</span>
+                    <p class="text-xs font-medium text-slate-500">Toque ou arraste fotos aqui</p>
+                </div>
+
+                <!-- Lista de Itens Pareados -->
+                <div class="space-y-3 mb-8">
+                    <div v-for="(item, index) in items" :key="index"
+                        class="flex gap-3 bg-white dark:bg-white/5 rounded-xl p-3 shadow-sm border transition-all animate-fade-in"
+                        :class="showErrors && !item.texto.trim() ? 'border-red-300 dark:border-red-500/50 bg-red-50 dark:bg-red-900/10 animate-shake' : 'border-slate-100 dark:border-white/5'">
+                        <!-- Thumbnail -->
+                        <div class="relative w-20 h-20 shrink-0 group">
+                            <img :src="item.preview" class="w-full h-full object-cover rounded-lg bg-slate-100">
+                            <span
+                                class="absolute bottom-1 left-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                #{{ index + 1 }}
+                            </span>
+                            <button @click="removeItem(index)"
+                                class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs shadow-md opacity-0 group-hover:opacity-100 transition-opacity">✕</button>
+                        </div>
+
+                        <!-- Input Pareado -->
+                        <textarea v-model="item.texto" placeholder="Ex: Anel Ouro 18k 10x 99,90" rows="3"
+                            class="flex-1 bg-slate-50 dark:bg-black/20 rounded-lg p-2.5 text-xs resize-none border-none focus:ring-1 focus:ring-primary/50 text-slate-700 dark:text-slate-200 placeholder:text-slate-300"></textarea>
+                    </div>
+
+                    <p v-if="items.length === 0" class="text-center text-xs text-slate-400 mt-4 italic">
+                        Nenhuma foto adicionada ainda.
+                    </p>
+                </div>
+
+                <!-- Configurações Globais -->
+                <div v-if="items.length > 0" class="animate-fade-in">
+                    <!-- Formato -->
+                    <div class="mb-6">
+                        <h3 class="serif-font text-sm font-semibold mb-3 text-slate-800 dark:text-white">Formato</h3>
+                        <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-1">
+                            <button @click="config.formato = 'original'"
+                                :class="{'ring-2 ring-primary ring-offset-1': config.formato === 'original'}"
+                                class="flex-shrink-0 flex flex-col items-center gap-1.5 p-2 rounded-xl bg-white dark:bg-white/5 shadow-sm border border-slate-100 dark:border-white/5 w-16 h-16 justify-center">
+                                <span class="material-icons-outlined text-primary text-xl">crop_original</span>
+                                <span class="text-[10px] text-slate-500">Original</span>
+                            </button>
+                            <button @click="config.formato = 'feed_quadrado'"
+                                :class="{'ring-2 ring-primary ring-offset-1': config.formato === 'feed_quadrado'}"
+                                class="flex-shrink-0 flex flex-col items-center gap-1.5 p-2 rounded-xl bg-white dark:bg-white/5 shadow-sm border border-slate-100 dark:border-white/5 w-16 h-16 justify-center">
+                                <span class="material-icons-outlined text-slate-400 text-xl">crop_square</span>
+                                <span class="text-[10px] text-slate-500">1:1</span>
+                            </button>
+                            <button @click="config.formato = 'stories'"
+                                :class="{'ring-2 ring-primary ring-offset-1': config.formato === 'stories'}"
+                                class="flex-shrink-0 flex flex-col items-center gap-1.5 p-2 rounded-xl bg-white dark:bg-white/5 shadow-sm border border-slate-100 dark:border-white/5 w-16 h-16 justify-center">
+                                <span class="material-icons-outlined text-slate-400 text-xl">crop_portrait</span>
+                                <span class="text-[10px] text-slate-500">Story</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Paleta -->
+                    <div class="mb-4">
+                        <h3 class="serif-font text-sm font-semibold mb-3 text-slate-800 dark:text-white">Estilo</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button @click="config.paleta = 'classico'"
+                                :class="{'ring-2 ring-primary ring-offset-1': config.paleta === 'classico'}"
+                                class="relative bg-white dark:bg-white/5 p-3 rounded-xl border border-primary/20 shadow-sm text-left h-16 overflow-hidden">
+                                <span class="text-xs font-medium text-primary relative z-10">Clássico</span>
+                                <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-primary/10"></div>
+                            </button>
+                            <button @click="config.paleta = 'vogue'"
+                                :class="{'ring-2 ring-primary ring-offset-1': config.paleta === 'vogue'}"
+                                class="relative bg-black p-3 rounded-xl border border-slate-800 shadow-sm text-left h-16 overflow-hidden">
+                                <span class="text-xs font-medium text-white relative z-10">Vogue</span>
+                                <div class="absolute inset-0 bg-white/5"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === RESULTS VIEW === -->
+            <div v-else class="animate-fade-in space-y-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="serif-font text-lg font-semibold text-slate-800 dark:text-white">Resultados</h2>
+                    <button @click="resetEnv" class="text-xs text-slate-400 hover:text-primary flex items-center gap-1">
+                        <span class="material-icons-outlined text-sm">arrow_back</span>
+                        Voltar
+                    </button>
+                </div>
+
+                <div v-for="(res, i) in results" :key="i"
+                    class="bg-white dark:bg-white/5 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-white/5">
+                    <div v-if="res.status === 'success'">
+                        <!-- Container para o drag and drop -->
+                        <div class="relative inline-block overflow-hidden w-full h-auto bg-slate-100 dark:bg-black"
+                            :ref="el => { if(el) containerRefs[i] = el }">
+                            <!-- Fundo (fallback to url_resultado if url_fundo is absent) -->
+                            <img :src="res.url_fundo || res.url_resultado" draggable="false" crossorigin="anonymous"
+                                class="block w-full h-auto pointer-events-none select-none">
+
+                            <!-- Etiqueta -->
+                            <img v-if="res.url_etiqueta_png" :src="res.url_etiqueta_png" draggable="false"
+                                crossorigin="anonymous" class="absolute z-10 select-none touch-none drop-shadow-xl"
+                                :class="draggingIndex === i ? 'cursor-grabbing scale-105 transition-transform duration-75' : 'cursor-grab transition-transform duration-200'"
+                                :style="{ left: (res.posicao_x || 0) + 'px', top: (res.posicao_y || 0) + 'px' }"
+                                @mousedown.prevent="startDrag($event, i)" @touchstart.prevent="startDrag($event, i)">
+                        </div>
+                        <div class="p-3 flex justify-between items-center">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase">Arte #{{ i +
+                                    1 }}</p>
+                                <p class="text-xs font-medium text-slate-700 dark:text-gray-200 truncate max-w-[200px]">
+                                    {{ res.dados_extraidos?.produto || 'Produto' }}</p>
+                                <p class="text-[10px] text-primary font-mono mt-0.5"
+                                    v-if="res.dados_extraidos?.preco || res.dados_extraidos?.parcelas">
+                                    {{ res.dados_extraidos?.preco || '' }}<span
+                                        v-if="res.dados_extraidos?.preco && res.dados_extraidos?.parcelas"> · </span>{{
+                                    res.dados_extraidos?.parcelas || '' }}
+                                </p>
+                            </div>
+                            <!-- Ação de download precisa ser adaptada se tem duas imagens, vamos deixar simples por agora OU combinada no backend? -->
+                            <button @click="downloadArte(i)"
+                                class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                <span class="material-icons-outlined text-sm">download</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div v-else class="p-6 text-center">
+                        <span class="material-icons-outlined text-red-400 text-3xl mb-2">error_outline</span>
+                        <p class="text-sm font-medium text-red-500">Erro ao processar</p>
+                        <p class="text-xs text-slate-400 mt-1">{{ res.message }}</p>
+                    </div>
+                </div>
+
+                <button @click="resetEnv"
+                    class="w-full py-4 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors">
+                    Processar novas fotos
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Bottom Action -->
+        <div v-if="results.length === 0" class="absolute bottom-24 left-0 right-0 px-8 z-30 pointer-events-none">
+            <button @click="gerarArtes" :disabled="items.length === 0 || loading"
+                class="pointer-events-auto w-full h-14 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-primary dark:to-[#b89555] text-white rounded-full font-serif text-lg tracking-wide shadow-xl flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:grayscale">
+                <span v-if="!loading">✨ Gerar {{ items.length > 0 ? items.length : '' }} Artes</span>
+                <span v-else class="flex items-center gap-2">
+                    <span class="animate-spin material-icons-outlined text-sm">hourglass_empty</span>
+                    Processando...
+                </span>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav
+            class="h-24 bg-white dark:bg-background-dark/80 backdrop-blur-md border-t border-slate-100 dark:border-white/5 px-10 flex justify-between items-center pb-6 shrink-0 z-30">
+            <button class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors">
+                <span class="material-icons-outlined text-2xl">grid_view</span>
+                <span class="text-[10px] font-medium">Library</span>
+            </button>
+            <button
+                class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-primary -mt-8 shadow-xl shadow-primary/30 border-4 border-background-light dark:border-background-dark">
+                <span class="material-icons-outlined text-2xl">add</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 text-slate-400 hover:text-primary transition-colors">
+                <span class="material-icons-outlined text-2xl">settings</span>
+                <span class="text-[10px] font-medium">Settings</span>
+            </button>
+        </nav>
+
+        <!-- Decor -->
+        <div
+            class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full z-40">
+        </div>
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-20 w-48 h-48 bg-rose-accent/5 rounded-full blur-3xl pointer-events-none">
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        // Prevent browser from opening/downloading dropped files outside the dropzone
+        window.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+        window.addEventListener("drop", function (e) {
+            e.preventDefault();
+        });
+
+        createApp({
+            data() {
+                return {
+                    dragOver: false,
+                    loading: false,
+                    showErrors: false,
+                    config: {
+                        formato: 'original',
+                        paleta: 'classico',
+                    },
+                    items: [],
+                    results: [], // Store generated results
+                    containerRefs: [],
+                    draggingIndex: null,
+                    startCursorX: 0,
+                    startCursorY: 0,
+                    initialEtiquetaX: 0,
+                    initialEtiquetaY: 0
+                }
+            },
+            methods: {
+                handleDrop(e) {
+                    this.dragOver = false;
+                    const files = e.dataTransfer.files;
+                    this.processFiles(files);
+                },
+                handleFileSelect(e) {
+                    this.processFiles(e.target.files);
+                },
+                async processFiles(files) {
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        if (!file.type.startsWith('image/')) continue;
+
+                        const base64 = await this.fileToBase64(file);
+                        this.items.push({
+                            file: file,
+                            base64: base64,
+                            preview: URL.createObjectURL(file),
+                            texto: ''
+                        });
+                    }
+                },
+                fileToBase64(file) {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = error => reject(error);
+                    });
+                },
+                removeItem(index) {
+                    this.items.splice(index, 1);
+                },
+                resetEnv() {
+                    this.items = [];
+                    this.results = [];
+                    this.config.formato = 'original';
+                },
+                async gerarArtes() {
+                    const pendentes = this.items.some(i => !i.texto.trim());
+                    if (pendentes) {
+                        this.showErrors = true;
+                        setTimeout(() => this.showErrors = false, 1000);
+                        return;
+                    }
+
+                    this.loading = true;
+
+                    const formatoMap = { 'original': 'orig', 'feed_quadrado': '1:1', 'stories': 'story', 'feed_retrato': '4:5' };
+
+                    const payload = {
+                        itens: this.items.map(i => ({
+                            image: i.base64,
+                            texto: i.texto
+                        })),
+                        config: {
+                            formato: formatoMap[this.config.formato] || 'orig',
+                            paleta: this.config.paleta,
+                            modo_preco: 'padrao'
+                        }
+                    };
+
+                    try {
+                        const response = await fetch('/api/processar/batch', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+
+                        if (result.status === 'success' || result.status === 'partial') {
+                            // Success! Switch to results view with cache busting
+                            this.results = result.resultados.map(r => ({
+                                ...r,
+                                url_resultado: r.url_resultado + '?t=' + new Date().getTime()
+                            }));
+                        } else {
+                            alert('Ocorreu um erro no processamento.');
+                        }
+
+                    } catch (error) {
+                        console.error("Erro:", error);
+                        alert("Erro ao conectar com servidor");
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                startDrag(event, index) {
+                    this.draggingIndex = index;
+
+                    const clientX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
+                    const clientY = event.type.includes('mouse') ? event.clientY : event.touches[0].clientY;
+
+                    this.startCursorX = clientX;
+                    this.startCursorY = clientY;
+                    this.initialEtiquetaX = this.results[index].posicao_x || 0;
+                    this.initialEtiquetaY = this.results[index].posicao_y || 0;
+
+                    window.addEventListener('mousemove', this.onDrag);
+                    window.addEventListener('touchmove', this.onDrag, { passive: false });
+                    window.addEventListener('mouseup', this.stopDrag);
+                    window.addEventListener('touchend', this.stopDrag);
+                },
+                onDrag(event) {
+                    if (this.draggingIndex === null) return;
+
+                    if (event.type.includes('touch')) {
+                        event.preventDefault(); // Previne o pull-to-refresh / scroll
+                    }
+
+                    const clientX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
+                    const clientY = event.type.includes('mouse') ? event.clientY : event.touches[0].clientY;
+
+                    const deltaX = clientX - this.startCursorX;
+                    const deltaY = clientY - this.startCursorY;
+
+                    let newX = this.initialEtiquetaX + deltaX;
+                    let newY = this.initialEtiquetaY + deltaY;
+
+                    const container = this.containerRefs[this.draggingIndex];
+                    if (container) {
+                        // O container deve possuir as dimensões da imagem de fundo
+                        // Vamos estimar o tamanho da etiqueta em aprox 150x150 para limites rudimentares ou usar a imagem de fundo exata.
+                        // Para funcionar sem ref na etiqueta, usamos uma constante tolerada ou só o container:
+                        const maxX = container.clientWidth - 50;
+                        const maxY = container.clientHeight - 50;
+
+                        newX = Math.max(0, Math.min(newX, maxX));
+                        newY = Math.max(0, Math.min(newY, maxY));
+                    }
+
+                    this.results[this.draggingIndex].posicao_x = newX;
+                    this.results[this.draggingIndex].posicao_y = newY;
+                },
+                stopDrag() {
+                    this.draggingIndex = null;
+                    window.removeEventListener('mousemove', this.onDrag);
+                    window.removeEventListener('touchmove', this.onDrag);
+                    window.removeEventListener('mouseup', this.stopDrag);
+                    window.removeEventListener('touchend', this.stopDrag);
+                },
+                async downloadArte(index) {
+                    const container = this.containerRefs[index];
+                    if (!container) return;
+
+                    try {
+                        const canvas = await html2canvas(container, {
+                            useCORS: true,
+                            allowTaint: true,
+                            scale: 2 // Para melhor qualidade
+                        });
+
+                        canvas.toBlob(blob => {
+                            if (!blob) throw new Error("Falha ao gerar o blob da imagem");
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `arte_${index + 1}.jpg`;
+                            a.click();
+
+                            // Limpar URL temporária após um pequeno delay
+                            setTimeout(() => URL.revokeObjectURL(url), 100);
+                        }, 'image/jpeg', 0.95);
+                    } catch (error) {
+                        console.error('Erro ao gerar imagem para download:', error);
+                        alert('Não foi possível gerar a arte combinada para download. Tente novamente.');
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+
+</html>

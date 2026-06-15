@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Galeria de Resultados Batch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ecb613",
+              "background-light": "#f8f8f6",
+              "background-dark": "#221d10",
+              "neutral-100": "#f5f5f0", 
+              "neutral-200": "#e6e6e0",
+              "neutral-800": "#3d3625",
+              "neutral-900": "#221d10",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "serif": ["Playfair Display", "serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hiding for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Gradient for image overlay */
+        .scrim-gradient {
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-neutral-900 dark:text-white font-display min-h-screen flex justify-center selection:bg-primary/30">
+<!-- Mobile Container -->
+<div class="w-full max-w-md bg-background-light dark:bg-background-dark min-h-screen relative shadow-2xl overflow-hidden flex flex-col">
+<!-- Status Bar Area (Visual Only) -->
+<div class="h-12 w-full flex items-center justify-between px-6 pt-2 z-30 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md sticky top-0">
+<span class="text-sm font-semibold">9:41</span>
+<div class="flex items-center space-x-2">
+<span class="material-icons text-base">signal_cellular_4_bar</span>
+<span class="material-icons text-base">wifi</span>
+<span class="material-icons text-base">battery_full</span>
+</div>
+</div>
+<!-- Header Section -->
+<header class="px-6 pb-6 pt-2 sticky top-12 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-primary/10">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h1 class="font-serif text-3xl text-neutral-900 dark:text-white font-bold tracking-tight">Coleção Lapidada</h1>
+<p class="text-sm text-neutral-800/70 dark:text-neutral-100/70 mt-1 flex items-center gap-1">
+<span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+                        Lote #2024-05-AB • 24 Itens
+                    </p>
+</div>
+<button class="p-2 rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
+<span class="material-icons text-neutral-800 dark:text-white">more_horiz</span>
+</button>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3.5 px-4 rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+<span class="material-icons text-xl">download</span>
+<span>Baixar Todas (ZIP)</span>
+</button>
+</header>
+<!-- Main Content: Grid -->
+<main class="flex-1 overflow-y-auto px-4 pt-4 pb-24 no-scrollbar">
+<!-- Filters/Tags (Optional Polish) -->
+<div class="flex gap-2 overflow-x-auto pb-4 no-scrollbar mb-2">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary-dark text-xs font-semibold border border-primary/20 whitespace-nowrap">Tudo</span>
+<span class="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-xs font-medium border border-transparent whitespace-nowrap">Anéis</span>
+<span class="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-xs font-medium border border-transparent whitespace-nowrap">Colares</span>
+<span class="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 text-xs font-medium border border-transparent whitespace-nowrap">Brincos</span>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Item 1 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Gold solitaire ring with diamond" class="w-full h-full object-cover" data-alt="Gold solitaire ring with diamond" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFPZLjKatsLvlpGx1nuPxRVZJjCHsdtWp6sBKrDdQE52NcJn8f_Ox-HmyQOSL3XeoLDXMXCpVTzWFgNjmr0LMzPF2BN6SmQMdZCZZuTaUflBsAETxj9InMG8mAjEyBbEIGZ0qxN96WhxWImkURcOwxb9YuqsKPRq296QpXxF0iCd9DoXk5W4g5VPtswTm4T1Dji0iPDLOzrcZL38B0XPaXiDEUdft4wLeHDhz0aa5GWmvyhiGpdt0xDmY1vtS7wDTIxwZHPIl_iiM"/>
+<!-- Success Badge -->
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<!-- Bottom Info -->
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0012AX</p>
+<p class="text-sm text-white font-bold">R$ 4.500</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Luxury gold necklace pendant" class="w-full h-full object-cover" data-alt="Luxury gold necklace pendant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoXhNzCMoTCnboHyUG8x67YdtXrFaGvDShbHo1QhpXwcbcubq7rA33ltvJ3i3GnMaINpZuC2VfkxS7ahYNfw4PjObAfZ9zdfmXKYdiaknLeh7-Gyi5FQOwgaErNw21E27ndL8o1Hl_LRLgO_kZoery70gtq4fV0A29r3lQp-rySfAVdz1R-yBLKj8mY77ICTq35Iqm-GaQxJ7g1Tr0aqKMV4LDjwdPv7YyJKDEbhEV6PwN5kzUKi5SscKBiZ_y-GxIY0pggY5K0CM"/>
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0014BY</p>
+<p class="text-sm text-white font-bold">R$ 8.200</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Diamond earrings on white background" class="w-full h-full object-cover" data-alt="Diamond earrings on white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-tv2DqeFy8C-QZJOAR4TFv3DRDLI2Wr8wApsMmjbVDkwEgNFueaFRoc3SSMNWvSQDgDOpG3vyFZ_9r6P99pOPBYLjJtdME2BJ5G7zzp2V6YxE4P-P_0K3qXW5BSPru6EiXP-CBCb71uCttnCaTwE7zwfinyGDsXGhWC8-Pm3ieJ8fowdqOqVxkOfWwIVy9BOZN_7QAaFKKsn-jCDLCL4Ovvng6K688ArdNARwDxrjfwPNuPbSbtlE6P-S8WBqao8w0SmsMZ-xdFA"/>
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0018ZZ</p>
+<p class="text-sm text-white font-bold">R$ 3.150</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Rose gold bracelet detail" class="w-full h-full object-cover" data-alt="Rose gold bracelet detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyXuM-YrQTtbLADCRx5xXUAexB8TluH7drYOGAmpeeSaS_ayQ1__7vlja1KxuodpGI6N1OG6TFom5_7tTbNJiDYnWxxW3INsPDTSCsbFdF_Az3EKqYKz71gMIIxH0sDCKC6RcVjIxLamygm1Rc-dGjkVVjtdMuRqj_abuQSXMMs7-25LnKeA6uBRRb_Q0FmUFEfWIM3OkY0ugFrhnDKa6L7nhrm6uqwdOtGeciY3KA5hYIV_0hz1cfBzxK5_YHzlhJXCkrn0ZkwdA"/>
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0021KK</p>
+<p class="text-sm text-white font-bold">R$ 5.900</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Emerald ring close up" class="w-full h-full object-cover" data-alt="Emerald ring close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXchkkJyELEEc4GlF4g7AJF0t1M9bd6-MjNgwAD7sh-OMDmUJxZW-tz3zjo6N_vwlmUmTgY2Pte4mtEaeg0D0GgKqEpO6ys7o9ZhXfN-rAWZ2xZX6iniG9kljGA90VK81Fni8P6FTbocmgHnAVKOwKwqJT6ip7pX3o0_UiygzChOdtzNyuUxBEpW3i3tVdnMlWh_Hh1EMt-wQJ45N8A3eeFDOsFfBX50Pw3oTzXdeH7PC8W-sEIBE_5qiC_eTmfR6jJOcenDkbdic"/>
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0025EM</p>
+<p class="text-sm text-white font-bold">R$ 12.500</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="group relative aspect-[4/5] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 shadow-sm border border-neutral-200 dark:border-neutral-700">
+<img alt="Pearl necklace elegant" class="w-full h-full object-cover" data-alt="Pearl necklace elegant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA523ctQ6K-HARLdR6aZOUUPgv22Lh0EqN5Thr8rdKaegloVrUSPmrmiBbe0F54cpkxT1LpNGumdoC9uNWPSZqMUFiyGGE68SZP2jPyQlTj3v88IbdMFsMISlhHWQvE4cORuya2A3meRVrm2gStjresYPvr3TUnXFWTmhpB2LW4fztKSoD_OBHSfS_pqwAg9zzH3v6nVhU-q571CtDtcm5n6iY86oirYt5sN-qfvRjSGvOx-wOox3C8vMuuF_P9esWSrcQW05QOobE"/>
+<div class="absolute top-2 right-2 bg-primary text-white rounded-full p-1 shadow-md">
+<span class="material-icons text-sm block">check</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 scrim-gradient">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-white/80 font-medium">REF: 0030PL</p>
+<p class="text-sm text-white font-bold">R$ 2.800</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Loading Spinner (Simulated for "Loading more" feel) -->
+<div class="py-8 flex justify-center opacity-50">
+<div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+</div>
+</main>
+<!-- Bottom Action Bar -->
+<div class="absolute bottom-0 left-0 w-full bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-40 pb-6 pt-4 px-6">
+<div class="flex gap-4">
+<button class="flex-1 flex flex-col items-center justify-center gap-1 group">
+<div class="p-2 rounded-lg bg-background-light dark:bg-neutral-800 group-hover:bg-primary/10 transition-colors">
+<span class="material-icons text-neutral-600 dark:text-neutral-300 group-hover:text-primary">share</span>
+</div>
+<span class="text-[10px] font-medium text-neutral-500 uppercase tracking-wide group-hover:text-primary">Compartilhar</span>
+</button>
+<div class="w-px bg-neutral-200 dark:bg-neutral-700 h-10 my-auto"></div>
+<button class="flex-1 flex flex-col items-center justify-center gap-1 group">
+<div class="p-2 rounded-lg bg-background-light dark:bg-neutral-800 group-hover:bg-primary/10 transition-colors">
+<span class="material-icons text-neutral-600 dark:text-neutral-300 group-hover:text-primary">analytics</span>
+</div>
+<span class="text-[10px] font-medium text-neutral-500 uppercase tracking-wide group-hover:text-primary">Relatório</span>
+</button>
+</div>
+<!-- Home Indicator (iOS style) -->
+<div class="w-full flex justify-center mt-4">
+<div class="w-32 h-1 bg-neutral-300 dark:bg-neutral-700 rounded-full"></div>
+</div>
+</div>
+</div>
+</body></html>

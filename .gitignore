@@ -1,0 +1,42 @@
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python cache
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Node / JS
+**/node_modules/
+**/dist/
+**/dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Project specific exclusions
+PrecificaAI/input/
+PrecificaAI/output/
+PrecificaAI/uploads/
+PrecificaAI/temp/
+PrecificaAI/.temp/
+PrecificaAI/.cache/
+PrecificaAI/.env
+PrecificaAI/stitch (1).zip
+text-remover/venv/
+text-remover/__pycache__/
+text-remover/cleaned_test_with_text.png
+text-remover/debug_input.png
+text-remover/debug_mask.png
+text-remover/test_with_text.jpg
+*.log
+*.rar
+
+# IDEs and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

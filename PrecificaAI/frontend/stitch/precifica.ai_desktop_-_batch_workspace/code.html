@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precifica.AI - Batch Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ecb613",
+                        "background-light": "#f8f8f6",
+                        "background-dark": "#221d10",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for a cleaner look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 h-screen flex flex-col overflow-hidden font-display transition-colors duration-300">
+<!-- Mobile Header -->
+<header class="bg-white dark:bg-[#2a2415] border-b border-primary/20 h-16 flex items-center justify-between px-4 shrink-0 z-20 shadow-sm relative">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary font-bold text-lg">
+                P
+            </div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Precifica<span class="text-primary">.AI</span></h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-icons text-[20px]">notifications_none</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnixSqqnslXLyRynGPeYil3KmINMEyxCDnB0Ux39I2p1LhtH6po6rwJgTglcVcZEgW81HDFJDrNo5e1vsGHZpZkf9vgfmNtyhRO1p9renix5CpFtg0VYEdi7MHyEEKXT332Rnr0VkA6-IPqzLU6sriYviUyrQvPUe-3fZIF4Jed1mV4klghAmolBZjeIxQLIP_C_u47yxGQW_XjqyZteD-Bmb7zv-FOrIWHeYebkT6VFwWtKZG5_wlCkZqsrpxQv3YCC2vgZIrvGI"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden relative">
+<!-- Mobile "Sidebar" as a Bottom Sheet / Slide-over concept 
+             Since this is phone form factor, we can't do a 2-column layout effectively. 
+             Instead, we put the controls in a collapsible top section or a drawer. 
+             Here, we use a "Controls Bar" at the top that expands. -->
+<div class="absolute inset-0 z-0 flex flex-col">
+<!-- Context Bar & Global Actions -->
+<div class="bg-white/80 dark:bg-[#2a2415]/80 backdrop-blur-md border-b border-primary/10 p-4 z-10 sticky top-0">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h2 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Lote #2094</h2>
+<div class="flex items-center gap-1 text-xs text-slate-400">
+<span class="material-icons text-[14px]">calendar_today</span>
+<span>Hoje, 14:30</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center w-10 h-10 rounded-full border border-primary/30 text-primary hover:bg-primary/5 transition-colors" title="Baixar ZIP">
+<span class="material-icons text-[20px]">download</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-medium rounded-full shadow-lg shadow-primary/30 active:scale-95 transition-transform">
+<span class="material-icons text-[18px]">auto_fix_high</span>
+                            Processar (24)
+                        </button>
+</div>
+</div>
+<!-- Horizontal Scrollable Settings Strip (Mobile adaptation of Left Column) -->
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1">
+<!-- Add Button -->
+<button class="shrink-0 flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded border border-dashed border-slate-300 dark:border-white/20 text-xs font-medium text-slate-600 dark:text-slate-300 whitespace-nowrap">
+<span class="material-icons text-[16px]">add_photo_alternate</span>
+                        Add Mídia
+                    </button>
+<!-- Format Toggle -->
+<div class="shrink-0 flex items-center p-1 bg-slate-100 dark:bg-white/5 rounded border border-slate-200 dark:border-white/10">
+<button class="px-3 py-1 bg-white dark:bg-primary text-primary dark:text-white shadow-sm rounded text-xs font-semibold">Feed</button>
+<button class="px-3 py-1 text-slate-500 dark:text-slate-400 text-xs font-medium hover:text-slate-800">Story</button>
+</div>
+<!-- Style Palette -->
+<div class="shrink-0 flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded border border-slate-200 dark:border-white/10">
+<span class="text-xs text-slate-500 dark:text-slate-400">Estilo:</span>
+<div class="w-4 h-4 rounded-full bg-[#ecb613] ring-2 ring-offset-1 ring-slate-300"></div>
+<div class="w-4 h-4 rounded-full bg-slate-800 opacity-50"></div>
+<div class="w-4 h-4 rounded-full bg-white border border-slate-300 opacity-50"></div>
+<span class="material-icons text-[14px] text-slate-400">expand_more</span>
+</div>
+<!-- Logo Settings -->
+<button class="shrink-0 flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-white/5 rounded border border-slate-200 dark:border-white/10 text-xs text-slate-600 dark:text-slate-300">
+<img class="w-4 h-4 rounded-full object-cover" data-alt="Brand logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKa90b3Js7GTE-70p5BPNKIFZx0t0RrSfS6G9qc8UFgsaQrhxmw9-uroL9iHylDpleyMer9tePzRDheJlhfjFnYd4zDohFhl8IcaRUdfxXsejmQ89f1ArFLYxvm6T1ITjszn5ycWiRSdyL9MH-GgtuiU1CAyyWGsaGr0WAVdAnXCPcRovDDit7eqQ7aG8ESIiTG9mvPPyRjZuXbXVQYvB2Nq3z4kbtAy9aADFJDnsqeoRMhcEOh2fNd49vw0XTkafJnzquye8Tp5U"/>
+                        Logo
+                    </button>
+</div>
+</div>
+<!-- Scrollable Grid Area -->
+<div class="flex-1 overflow-y-auto p-4 pb-24">
+<!-- Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 1 (Processing) -->
+<div class="group relative bg-white dark:bg-[#2a2415] rounded-xl overflow-hidden shadow-sm border border-primary/40 ring-1 ring-primary/20">
+<div class="absolute top-2 right-2 z-10">
+<div class="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+<span class="animate-spin h-2 w-2 border-2 border-white border-t-transparent rounded-full"></span>
+                                PROCESSANDO
+                            </div>
+</div>
+<div class="aspect-[4/5] bg-slate-100 relative">
+<img class="w-full h-full object-cover opacity-90" data-alt="Gold luxury ring on velvet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqOMVHwS3ahaanofIEB0hN8dqToFyKSUXYbn-VSEMc-aZMKA1DHM9FcPC7HsYzCJzS8b_CoC3DfGI05-WT8o37rYoIe-2uV3AKZqVzT_-MWgye0sRXj28vpxSu3JhtRD12OnQ5DgtXlP7dEVjYtFnUK58Xk21SxIOeYcmsqK2eieQXgaOMxKlOwhoSAC4CbUlCdvPQ4ZcCl1Y1tyPimWcXudZpcfF-A62tj6CBYCTXl5T3N0i-ELe2TxTYqb8XsnIrI8VUx5Mfs4s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xs font-bold text-slate-800 dark:text-white truncate">Anel Solitário Ouro</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-slate-50 dark:bg-white/5 text-[10px] text-slate-600 dark:text-slate-300 rounded border border-slate-200 dark:border-white/10 p-2 focus:ring-1 focus:ring-primary focus:border-primary resize-none leading-snug" placeholder="Descreva a joia..." rows="2">Anel de ouro 18k com diamante central de 2ct, design minimalista...</textarea>
+<button class="absolute bottom-1 right-1 p-1 bg-white dark:bg-slate-700 rounded shadow-sm text-primary hover:text-primary/80">
+<span class="material-icons text-[12px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 (Ready) -->
+<div class="group relative bg-white dark:bg-[#2a2415] rounded-xl overflow-hidden shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="absolute top-2 right-2 z-10">
+<div class="bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-green-500/20 backdrop-blur-sm">
+                                PRONTO
+                            </div>
+</div>
+<div class="aspect-[4/5] bg-slate-100 relative">
+<img class="w-full h-full object-cover" data-alt="Silver necklace pendant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL05rv3kk-GZwU5iXMUZpu-UVLQXpy2eoeh3cJP3FZOVMWRd0jMffxDNS-8I4nAUzsa8FponFzQYQvEGKmtbaX3fPGI7vP8TPJlwv5OZmeNIYnkIIxFJUwbetgUW_54Qp5VLZKnpMpsOEgEYl97XsspiuFSuAh9OtHwss9cpcreCkhYQKrE8b2T4T4rPbYWJ4Q4PLm-mKvaGJNKFo6bvrSDi8x8k1rfL3eEBrongXIqhrJqYATctjhhnioPKrDtqZF8GHFbqzY8JY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xs font-bold text-slate-800 dark:text-white truncate">Colar Prata 925</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-slate-50 dark:bg-white/5 text-[10px] text-slate-600 dark:text-slate-300 rounded border border-slate-200 dark:border-white/10 p-2 focus:ring-1 focus:ring-primary focus:border-primary resize-none leading-snug" rows="2">Colar delicado em prata de lei, pendente gota de safira...</textarea>
+<button class="absolute bottom-1 right-1 p-1 bg-white dark:bg-slate-700 rounded shadow-sm text-slate-400 hover:text-primary">
+<span class="material-icons text-[12px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative bg-white dark:bg-[#2a2415] rounded-xl overflow-hidden shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="absolute top-2 right-2 z-10">
+<div class="bg-slate-500/10 text-slate-500 dark:text-slate-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-500/20 backdrop-blur-sm">
+                                AGUARDANDO
+                            </div>
+</div>
+<div class="aspect-[4/5] bg-slate-100 relative">
+<img class="w-full h-full object-cover" data-alt="Gold earrings set" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJMU4jYKWc8gE16L54sAFZmkMoFiqKtt_Jp3WwLG-ECTKP1MCEjZO_JmVlqc80ehOONld3TKVQCKhNtFVb8Hhgcf49-c8KJ7r5mUs1IPHce8tXV9om7VeZMGCQx1Vjepqs1GUUfh5mZ4UEe6cvKi3hOKH4xnIDSPv3U8-nwKX3jZOe7td54-JZqym_E8ZcQFluErzGvuk9rd0Ef2g9u90zwSsm_lav3wGFsVtfrWmCH0pRJ-lVXY2VbsyYMUWehuZIk3nHqWf7LiM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xs font-bold text-slate-800 dark:text-white truncate">Brincos Argola</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-slate-50 dark:bg-white/5 text-[10px] text-slate-600 dark:text-slate-300 rounded border border-slate-200 dark:border-white/10 p-2 focus:ring-1 focus:ring-primary focus:border-primary resize-none leading-snug" placeholder="Digite o prompt..." rows="2"></textarea>
+<button class="absolute bottom-1 right-1 p-1 bg-white dark:bg-slate-700 rounded shadow-sm text-slate-400 hover:text-primary">
+<span class="material-icons text-[12px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group relative bg-white dark:bg-[#2a2415] rounded-xl overflow-hidden shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="absolute top-2 right-2 z-10">
+<div class="bg-slate-500/10 text-slate-500 dark:text-slate-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-500/20 backdrop-blur-sm">
+                                AGUARDANDO
+                            </div>
+</div>
+<div class="aspect-[4/5] bg-slate-100 relative">
+<img class="w-full h-full object-cover" data-alt="Diamond bracelet luxury" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL49HVaNS9IjfNj7GH4UKJDrslQ8H-SIFt9kz2kdlVg32GyHBju0aTCRwEBDhEHZAHa66TbNXUAPxNgxNA-83JcpR1ogAQQAThAc8YEO9kqnSMPLKCUuJWNjHm6Pu0Mpmm0LfAqm8u-4aKopQlksX9QDQwJZ7YpaFY1nAGtPCdb7a7j5t5RdGlWGc3074LI4YiP-O9AcCRIFE0HuxLVxuHqUkPdwkdFw0QSA-yl5XOtvfW_DxdafwfNNOTrPIXvuiGzwrjVCgTtG0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xs font-bold text-slate-800 dark:text-white truncate">Pulseira Riviera</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-slate-50 dark:bg-white/5 text-[10px] text-slate-600 dark:text-slate-300 rounded border border-slate-200 dark:border-white/10 p-2 focus:ring-1 focus:ring-primary focus:border-primary resize-none leading-snug" placeholder="Digite o prompt..." rows="2"></textarea>
+<button class="absolute bottom-1 right-1 p-1 bg-white dark:bg-slate-700 rounded shadow-sm text-slate-400 hover:text-primary">
+<span class="material-icons text-[12px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group relative bg-white dark:bg-[#2a2415] rounded-xl overflow-hidden shadow-sm border border-transparent hover:border-primary/20 transition-all">
+<div class="absolute top-2 right-2 z-10">
+<div class="bg-slate-500/10 text-slate-500 dark:text-slate-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-500/20 backdrop-blur-sm">
+                                AGUARDANDO
+                            </div>
+</div>
+<div class="aspect-[4/5] bg-slate-100 relative">
+<img class="w-full h-full object-cover" data-alt="Luxury gold watch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3Mfoz3xqTCXqplGUv5kurmPKCv6c3EX2kVZ-AIOsQmNWfE_JFpHMn-Lc4F1Pq8t9jUpKE_Q8EQ7JiCnildI2lLH1nhV9flxoG83CoTDRxeaDN9SsiCftamaoxsHjR2zbpkP8X3R_2uiBJSRre3GwXM3LTIv5OJEMeBgkmHcHW2cTOts-A0Kgyzfl3Ign5t_N7jSE4bvsgJChCXg-BhKiGJ4hZIhyvpG46p2O2WvTmoc1Q359c9Rmw2FbovORw_tOOezyXQ0A3BTw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xs font-bold text-slate-800 dark:text-white truncate">Relógio Cronógrafo</h3>
+</div>
+<div class="relative">
+<textarea class="w-full bg-slate-50 dark:bg-white/5 text-[10px] text-slate-600 dark:text-slate-300 rounded border border-slate-200 dark:border-white/10 p-2 focus:ring-1 focus:ring-primary focus:border-primary resize-none leading-snug" placeholder="Digite o prompt..." rows="2"></textarea>
+<button class="absolute bottom-1 right-1 p-1 bg-white dark:bg-slate-700 rounded shadow-sm text-slate-400 hover:text-primary">
+<span class="material-icons text-[12px]">auto_awesome</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Add New Card Slot -->
+<div class="flex flex-col items-center justify-center bg-slate-100 dark:bg-white/5 border-2 border-dashed border-slate-300 dark:border-white/10 rounded-xl aspect-[4/5] hover:bg-slate-200 dark:hover:bg-white/10 transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-slate-400 group-hover:text-primary shadow-sm mb-2">
+<span class="material-icons">add</span>
+</div>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Adicionar</span>
+</div>
+</div>
+<!-- Bottom spacing for scroll -->
+<div class="h-20"></div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button for expanded settings if needed, or could be a drawer trigger -->
+<!-- For this design, we used the horizontal scroll top bar, but let's add a FAB for Quick Upload -->
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-slate-900 dark:bg-primary text-white rounded-full shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-30 ring-4 ring-white/20 dark:ring-black/20">
+<span class="material-icons">add_a_photo</span>
+</button>
+<!-- Bottom Navigation Bar (Optional but good for mobile context) -->
+<nav class="bg-white dark:bg-[#2a2415] border-t border-primary/10 h-16 flex justify-around items-center px-2 shrink-0 z-20">
+<button class="flex flex-col items-center justify-center w-16 h-full text-primary">
+<span class="material-icons text-[24px]">grid_view</span>
+<span class="text-[10px] font-medium mt-1">Lotes</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-slate-400 hover:text-primary dark:text-slate-500 dark:hover:text-primary transition-colors">
+<span class="material-icons text-[24px]">history</span>
+<span class="text-[10px] font-medium mt-1">Histórico</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-slate-400 hover:text-primary dark:text-slate-500 dark:hover:text-primary transition-colors">
+<span class="material-icons text-[24px]">style</span>
+<span class="text-[10px] font-medium mt-1">Templates</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-slate-400 hover:text-primary dark:text-slate-500 dark:hover:text-primary transition-colors">
+<span class="material-icons text-[24px]">settings</span>
+<span class="text-[10px] font-medium mt-1">Config</span>
+</button>
+</nav>
+</body></html>
