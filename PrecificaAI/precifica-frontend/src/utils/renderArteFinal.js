@@ -283,13 +283,66 @@ const renderCanvas = ({
     });
 };
 
-// Gera Data URL para Preview (sem baixar)
+// Gera fundo limpo (foto + gradiente artístico, SEM textos/glassmorphism).
+// Fonte da verdade do background no Stage Konva — T-DND-006.
+export const gerarFundoLimpo = async (imagemBase64, formato = 'orig') => {
+    const canvas = await renderCanvas({
+        imagemBase64,
+        formato,
+        detalhes: '',
+        preco: '',
+        mostrarPreco: false,
+        mostrarParcelas: false,
+        valoresPinos: {},
+        boxes: [],
+    });
+    return canvas.toDataURL('image/jpeg', 0.85);
+};
+
+// Salva ou compartilha um dataURL como JPEG.
+// Em plataforma nativa Capacitor: usa Filesystem + Share.
+// Em browser ou fallback: usa link <a download>.
+export async function salvarDataURL(dataURL, filename) {
+    if (typeof window !== 'undefined' && window.Capacitor?.isNativePlatform?.()) {
+        try {
+            const cap = (pkg) => `@capacitor/${pkg}`;
+            const { Filesystem, Directory } = await import(cap('filesystem'));
+            const { Share } = await import(cap('share'));
+            const base64Data = dataURL.split(',')[1];
+            const saved = await Filesystem.writeFile({
+                path: filename,
+                data: base64Data,
+                directory: Directory.Cache,
+            });
+            await Share.share({
+                title: 'Sua Arte Premium',
+                url: saved.uri,
+                dialogTitle: 'Salvar ou compartilhar',
+            });
+            return;
+        } catch (err) {
+            console.warn('Capacitor share falhou, fallback DOM:', err);
+            // Fall through para DOM
+        }
+    }
+    // Browser ou fallback: DOM <a download>
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// @deprecated — T-DND-006: use gerarFundoLimpo no preview e stage.toDataURL no export.
+// Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 export const gerarArteDataURL = async (config) => {
     const canvas = await renderCanvas(config);
     return canvas.toDataURL('image/jpeg', 0.85); // Preview um pouco mais leve
 };
 
-// Gera e Baixa
+// @deprecated — T-DND-006: use salvarDataURL com o dataURL do Stage Konva.
+// Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 export const gerarEBaixarArte = async (config) => {
     const canvas = await renderCanvas(config);
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);

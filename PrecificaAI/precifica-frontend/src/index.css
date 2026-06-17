@@ -4,6 +4,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;600;700&family=Bebas+Neue&display=swap');
 
+@font-face {
+    font-family: 'Vogue';
+    src: url('/fonts/Vogue-Regular.woff2') format('woff2'),
+         url('/fonts/Vogue-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
 @layer base {
   body {
     @apply font-body bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100;

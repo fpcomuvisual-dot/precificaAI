@@ -1,5 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { gerarArteDataURL } from '../utils/renderArteFinal';
+import React, { useState, useEffect, useRef } from 'react';
+import { gerarFundoLimpo, salvarDataURL } from '../utils/renderArteFinal';
+import { Stage, Layer, Image as KonvaImage } from 'react-konva';
+import DraggableText from './DraggableText';
+
+function calcularTextoParcelas(precoString) {
+    const limpo = precoString.replace(/[^\d,]/g, '').replace(',', '.');
+    const valor = parseFloat(limpo);
+    if (isNaN(valor) || valor <= 0) return '';
+    const parcela = (valor / 10).toFixed(2).replace('.', ',');
+    return `10x R$ ${parcela}`;
+}
 
 const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
     const [detalhes, setDetalhes] = useState('Anel de Ouro 18k');
@@ -8,47 +18,85 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
     const [mostrarPreco, setMostrarPreco] = useState(true);
     const [mostrarParcelas, setMostrarParcelas] = useState(true);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [konvaImage, setKonvaImage] = useState(null);
+    const stageRef = useRef(null);
+    const containerRef = useRef(null);
+    const [stageDims, setStageDims] = useState({ width: 0, height: 0 });
+    const [fontReady, setFontReady] = useState(false);
 
-    // Update preview whenever inputs change
+    // Update background preview when image or format changes (300ms debounce)
+    // Texts are handled by Konva Stage — no longer trigger a full re-render
     useEffect(() => {
         let isMounted = true;
         const updatePreview = async () => {
             if (!imagemLimpaBase64) return;
             try {
-                // Generate a lightweight preview
-                const url = await gerarArteDataURL({
-                    imagemBase64: imagemLimpaBase64,
-                    detalhes,
-                    preco,
-                    formato,
-                    mostrarPreco,
-                    mostrarParcelas,
-                    // Pass empty/default for pins/boxes since this is single text mode
-                    valoresPinos: {},
-                    boxes: []
-                });
+                const url = await gerarFundoLimpo(imagemLimpaBase64, formato);
                 if (isMounted) setPreviewUrl(url);
             } catch (error) {
                 console.error("Erro ao gerar preview:", error);
             }
         };
 
-        const timeoutId = setTimeout(updatePreview, 300); // 300ms debounce
+        const timeoutId = setTimeout(updatePreview, 300);
         return () => {
             isMounted = false;
             clearTimeout(timeoutId);
         };
-    }, [imagemLimpaBase64, detalhes, preco, formato, mostrarPreco, mostrarParcelas]);
+    }, [imagemLimpaBase64, formato]);
 
-    const handleGerarArte = () => {
-        onGerarArte({
-            detalhes,
-            preco,
-            formato,
-            mostrarPreco,
-            mostrarParcelas
+    // Load data URL into HTMLImageElement for Konva
+    useEffect(() => {
+        if (!previewUrl) { setKonvaImage(null); return; }
+        const img = new Image();
+        img.onload = () => setKonvaImage(img);
+        img.src = previewUrl;
+    }, [previewUrl]);
+
+    // Track container pixel dimensions for responsive Stage
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const ro = new ResizeObserver(([entry]) => {
+            const { width, height } = entry.contentRect;
+            setStageDims({ width, height });
         });
+        ro.observe(containerRef.current);
+        return () => ro.disconnect();
+    }, []);
+
+    // Load Vogue font; falls back gracefully if file is absent
+    useEffect(() => {
+        document.fonts.load('20px Vogue').then(() => {
+            setFontReady(true);
+        }).catch(() => {
+            console.warn('Fonte Vogue não carregou, usando fallback');
+            setFontReady(true);
+        });
+    }, []);
+
+    const handleGerarArte = async () => {
+        if (!stageRef.current) return;
+        const dataURL = stageRef.current.toDataURL({
+            pixelRatio: 3,
+            mimeType: 'image/jpeg',
+            quality: 0.92,
+        });
+        const filename = `precifica-${detalhes.replace(/\s+/g, '_')}_${Date.now()}.jpg`;
+        await salvarDataURL(dataURL, filename);
     };
+
+    // object-contain equivalent: scale image to fit Stage while preserving aspect ratio
+    let imgX = 0, imgY = 0, imgW = stageDims.width, imgH = stageDims.height;
+    if (konvaImage && stageDims.width > 0) {
+        const scale = Math.min(
+            stageDims.width / konvaImage.naturalWidth,
+            stageDims.height / konvaImage.naturalHeight
+        );
+        imgW = konvaImage.naturalWidth * scale;
+        imgH = konvaImage.naturalHeight * scale;
+        imgX = (stageDims.width - imgW) / 2;
+        imgY = (stageDims.height - imgH) / 2;
+    }
 
     return (
         <div className="min-h-screen bg-background-light font-display text-gray-800 pb-24">
@@ -68,17 +116,47 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
             <div className="pt-24 px-6 space-y-8 max-w-md mx-auto">
 
                 {/* 2. Live Preview */}
-                <div className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 ring-1 ring-black/5 group">
+                <div ref={containerRef} className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 ring-1 ring-black/5">
                     {/* Background Glow */}
                     <div className="absolute inset-0 bg-primary/5 blur-xl pointer-events-none" />
 
-                    {/* Image */}
-                    {previewUrl ? (
-                        <img
-                            src={previewUrl}
-                            alt="Cleaned Jewelry"
-                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-                        />
+                    {konvaImage && stageDims.width > 0 ? (
+                        <Stage ref={stageRef} width={stageDims.width} height={stageDims.height}>
+                            <Layer>
+                                <KonvaImage
+                                    image={konvaImage}
+                                    x={imgX}
+                                    y={imgY}
+                                    width={imgW}
+                                    height={imgH}
+                                    listening={false}
+                                />
+                                <DraggableText
+                                    text={detalhes}
+                                    stageDims={stageDims}
+                                    initialPositionRatio={{ x: 0.5, y: 0.72 }}
+                                    fontReady={fontReady}
+                                    fontSizeDivisor={18}
+                                />
+                                <DraggableText
+                                    text={preco}
+                                    stageDims={stageDims}
+                                    initialPositionRatio={{ x: 0.5, y: 0.85 }}
+                                    fontReady={fontReady}
+                                    fontSizeDivisor={12}
+                                    bgStyle="pill"
+                                />
+                                {mostrarParcelas && (
+                                    <DraggableText
+                                        text={calcularTextoParcelas(preco)}
+                                        stageDims={stageDims}
+                                        initialPositionRatio={{ x: 0.5, y: 0.93 }}
+                                        fontReady={fontReady}
+                                        fontSizeDivisor={22}
+                                    />
+                                )}
+                            </Layer>
+                        </Stage>
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
                             <span className="material-icons-outlined text-4xl animate-pulse">image</span>
