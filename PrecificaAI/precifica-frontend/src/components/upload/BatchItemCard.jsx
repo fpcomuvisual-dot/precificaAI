@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function BatchItemCard({ index, preview, texto, onTextoChange, onRemove, showErrors }) {
-    const hasError = showErrors && !texto.trim();
-
+export default function BatchItemCard({ index, item, onUpdateNome, onUpdatePreco, onRemove }) {
     return (
         <motion.div
             layout
@@ -10,49 +8,45 @@ export default function BatchItemCard({ index, preview, texto, onTextoChange, on
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ delay: index * 0.05 }}
-            className={`flex gap-3 rounded-xl p-3 shadow-sm border transition-all ${hasError
-                    ? "border-red-300 bg-red-50 animate-shake"
-                    : "border-gray-100 bg-white"
-                }`}
+            className="flex gap-3 rounded-xl p-3 shadow-sm border transition-all border-gray-100 bg-white"
         >
             {/* Thumbnail */}
             <div className="relative w-20 h-20 shrink-0">
                 <img
-                    src={preview}
+                    src={item.webPath}
                     alt={`Foto #${index + 1}`}
                     className="w-full h-full object-cover rounded-lg"
                 />
-                <span className="absolute bottom-1 left-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                <span className="absolute bottom-1 left-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">
                     #{index + 1}
                 </span>
 
                 {/* Botão remover */}
                 <button
-                    onClick={() => onRemove(index)}
+                    onClick={() => onRemove(item.id)}
                     className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full
-                     flex items-center justify-center text-xs shadow-md hover:bg-red-600 transition-colors"
+                     flex items-center justify-center text-xs shadow-md hover:bg-red-600 transition-colors z-10"
                 >
                     ✕
                 </button>
             </div>
 
-            {/* Input de texto PAREADO com a imagem */}
-            <div className="flex-1">
-                <textarea
-                    value={texto}
-                    onChange={(e) => onTextoChange(index, e.target.value)}
-                    placeholder="Ex: Anel ródio 76 ou 10x 7,50"
-                    rows={2}
-                    className={`w-full bg-gray-50 rounded-lg p-2.5 text-sm resize-none
-                     border-none focus:ring-2 focus:ring-primary/30
-                     placeholder:text-gray-300 ${hasError ? "ring-2 ring-red-400" : ""
-                        }`}
+            {/* Inputs de detalhes */}
+            <div className="flex-1 flex flex-col gap-2 justify-center">
+                <input
+                    type="text"
+                    value={item.nome}
+                    onChange={(e) => onUpdateNome(item.id, e.target.value)}
+                    placeholder="Nome do produto"
+                    className="w-full bg-gray-50 rounded-lg px-2.5 py-1.5 text-sm border border-transparent focus:bg-white focus:border-primary/30 focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400"
                 />
-                {hasError && (
-                    <p className="text-xs text-red-500 mt-1">
-                        ⚠️ Preencha o texto deste produto
-                    </p>
-                )}
+                <input
+                    type="text"
+                    value={item.preco}
+                    onChange={(e) => onUpdatePreco(item.id, e.target.value)}
+                    placeholder="Preço (ex: R$ 99)"
+                    className="w-full bg-gray-50 rounded-lg px-2.5 py-1.5 text-sm font-semibold text-gray-800 border border-transparent focus:bg-white focus:border-primary/30 focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400 placeholder:font-normal"
+                />
             </div>
         </motion.div>
     );

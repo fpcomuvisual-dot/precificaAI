@@ -34,12 +34,6 @@ from typing import Optional, List, Dict, Any
 from orquestrador import PipelinePrecifica
 from config import settings
 
-# Garante que as pastas necessárias existam antes de montar os StaticFiles
-os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-os.makedirs(settings.OUTPUT_DIR, exist_ok=True)
-os.makedirs(settings.LOGOS_DIR, exist_ok=True)
-
-
 
 # ============================================================
 # STARTUP / SHUTDOWN
@@ -423,5 +417,4 @@ def _salvar_base64(base64_str: str, nome_id: str) -> str:
 if __name__ == "__main__":
     import uvicorn
     # Rodar servidor de desenvolvimento
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
-
+    uvicorn.run(app, host="0.0.0.0", port=8000)

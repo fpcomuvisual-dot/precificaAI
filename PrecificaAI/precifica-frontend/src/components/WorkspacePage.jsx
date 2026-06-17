@@ -5,9 +5,12 @@ import StyleSettings from './StyleSettings';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte } from '../utils/renderArteFinal';
 import { resizeImageBeforeUpload } from '../utils/imageUtils';
+import BatchItemCard from './upload/BatchItemCard';
 
 const WorkspacePage = () => {
     const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'style_settings'
+    const [modoAtual, setModoAtual] = useState('inicial'); // 'inicial' | 'single' | 'batch'
+    const [filaBatch, setFilaBatch] = useState([]);
     const [imagemOriginal, setImagemOriginal] = useState(null);
     const [imagemLimpaBase64, setImagemLimpaBase64] = useState(null);
     const [boxes, setBoxes] = useState([]);
@@ -50,6 +53,39 @@ const WorkspacePage = () => {
         } else {
             fileInputRef.current?.click();
         }
+    };
+
+    const abrirSeletorMultiplo = async () => {
+        try {
+            const result = await Camera.pickImages({
+                quality: 90,
+                limit: 50,
+            });
+            const novosItens = result.photos.map((photo, idx) => ({
+                id: `batch-${Date.now()}-${idx}`,
+                webPath: photo.webPath,
+                file: null,
+                nome: '',
+                preco: '',
+                status: 'pendente',
+            }));
+            setFilaBatch(prev => [...prev, ...novosItens]);
+            setModoAtual('batch');
+        } catch (err) {
+            console.error('Erro ao selecionar imagens:', err);
+        }
+    };
+
+    const handleRemoverBatchItem = (id) => {
+        setFilaBatch(prev => prev.filter(item => item.id !== id));
+    };
+
+    const handleUpdateBatchNome = (id, novoNome) => {
+        setFilaBatch(prev => prev.map(item => item.id === id ? { ...item, nome: novoNome } : item));
+    };
+
+    const handleUpdateBatchPreco = (id, novoPreco) => {
+        setFilaBatch(prev => prev.map(item => item.id === id ? { ...item, preco: novoPreco } : item));
     };
 
     const processarImagem = async (file) => {
@@ -156,6 +192,82 @@ const WorkspacePage = () => {
 
     // --- RENDERS ---
 
+    if (modoAtual === 'batch') {
+        return (
+            <div className="min-h-screen bg-background-light flex flex-col animate-fade-in pb-24">
+                {/* Header Fixo */}
+                <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm px-6 py-4 flex items-center justify-between">
+                    <div>
+                        <h1 className="text-xl font-display font-bold text-gray-900">
+                            Modo Lote
+                        </h1>
+                        <p className="text-sm text-gray-500 font-medium">
+                            {filaBatch.length} {filaBatch.length === 1 ? 'peça selecionada' : 'peças selecionadas'}
+                        </p>
+                    </div>
+                    <button
+                        onClick={() => {
+                            setModoAtual('inicial');
+                            setFilaBatch([]);
+                        }}
+                        className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-500 transition-colors"
+                    >
+                        <span className="material-icons-outlined">close</span>
+                    </button>
+                </header>
+
+                {/* Grid de Fotos */}
+                <main className="flex-1 p-6">
+                    {filaBatch.length === 0 ? (
+                        <div className="text-center py-12">
+                            <p className="text-gray-400">Nenhuma foto na fila.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {filaBatch.map((item, index) => (
+                                <BatchItemCard
+                                    key={item.id}
+                                    item={item}
+                                    index={index}
+                                    onUpdateNome={handleUpdateBatchNome}
+                                    onUpdatePreco={handleUpdateBatchPreco}
+                                    onRemove={handleRemoverBatchItem}
+                                />
+                            ))}
+                            
+                            {/* Botão Add Mais */}
+                            <button
+                                onClick={abrirSeletorMultiplo}
+                                className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-200 hover:border-primary/50 bg-white/50 hover:bg-primary/5 rounded-xl p-6 transition-colors min-h-[120px] group"
+                            >
+                                <div className="w-12 h-12 bg-gray-100 group-hover:bg-primary/10 rounded-full flex items-center justify-center transition-colors">
+                                    <span className="material-icons-outlined text-gray-400 group-hover:text-primary transition-colors">add</span>
+                                </div>
+                                <span className="text-sm font-medium text-gray-500 group-hover:text-primary transition-colors">Adicionar mais</span>
+                            </button>
+                        </div>
+                    )}
+                </main>
+
+                {/* Footer Flutuante (Apenas Visual por enquanto) */}
+                <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-30">
+                    <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+                        <div className="hidden sm:block text-sm text-gray-500">
+                            Pronto para processar?
+                        </div>
+                        <button
+                            disabled
+                            className="flex-1 sm:flex-none w-full sm:w-auto px-8 py-4 bg-gray-200 text-gray-400 font-bold rounded-2xl shadow-inner cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            <span className="material-icons-outlined">auto_awesome</span>
+                            Processar Todas (Em breve)
+                        </button>
+                    </div>
+                </footer>
+            </div>
+        );
+    }
+
     if (step === 'loading') {
         return (
             <div className="min-h-screen bg-background-light flex flex-col items-center justify-center p-6">
@@ -212,18 +324,11 @@ const WorkspacePage = () => {
 
     if (step === 'editando_pinos') {
         // Placeholder for ModalPinos integration
-        // Assuming ModalPinos takes these props based on the prompt description for flow, 
-        // but strict prop interface might vary. 
-        // For now, rendering a placeholder if ModalPinos isn't ready, or the authentic component if it was.
-        // Since I need to assume it's imported, I will render it.
-        // If ModalPinos is not yet created, this will fail. 
-        // I will create a dummy ModalPinos internally or assume it is handled by the user's codebase.
-        // Given the instruction "assuma que já está importado", I will use it.
         return (
             <ModalPinos
                 imagemBase64={imagemLimpaBase64}
                 boxes={boxes}
-                onClose={() => setStep('decisao_pinos')} // Or style_settings depending on UX preference, logical to go back
+                onClose={() => setStep('decisao_pinos')} 
                 onSave={handleSalvarPinos}
             />
         );
@@ -287,8 +392,23 @@ const WorkspacePage = () => {
                     />
                 </div>
 
+                {/* Botão Modo Lote */}
+                <button
+                    onClick={abrirSeletorMultiplo}
+                    className="w-full flex items-center justify-center gap-4 bg-white border border-gray-200 hover:border-primary/30 hover:bg-primary/5 p-4 rounded-2xl transition-all group shadow-sm mt-4"
+                >
+                    <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center group-hover:bg-white transition-colors">
+                        <span className="material-icons-outlined text-gray-500 group-hover:text-primary transition-colors text-2xl">collections</span>
+                    </div>
+                    <div className="text-left flex-1">
+                        <h3 className="font-bold text-gray-800 group-hover:text-primary transition-colors">Modo Lote</h3>
+                        <p className="text-xs text-gray-500">Processar várias peças de uma vez</p>
+                    </div>
+                    <span className="material-icons-outlined text-gray-300 group-hover:text-primary transition-colors">chevron_right</span>
+                </button>
+
                 {error && (
-                    <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium animate-fade-in border border-red-100">
+                    <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium animate-fade-in border border-red-100 mt-4">
                         {error}
                     </div>
                 )}

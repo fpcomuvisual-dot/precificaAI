@@ -293,11 +293,16 @@ export const gerarArteDataURL = async (config) => {
     return canvas.toDataURL('image/jpeg', 0.85); // Preview um pouco mais leve
 };
 
-async function salvarOuBaixar(dataURL, nomeArquivo) {
+// Gera e Baixa
+export const gerarEBaixarArte = async (config) => {
+    const canvas = await renderCanvas(config);
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    const nomeArquivo = `precificas-luxo-${Date.now()}.jpg`;
+
     if (Capacitor.isNativePlatform()) {
         try {
-            // Mobile: salva no storage do app e abre share sheet nativo
-            const base64Data = dataURL.split(',')[1];
+            // Mobile: salva no storage do app e abre share sheet
+            const base64Data = dataUrl.split(',')[1];
             const saved = await Filesystem.writeFile({
                 path: nomeArquivo,
                 data: base64Data,
@@ -312,21 +317,14 @@ async function salvarOuBaixar(dataURL, nomeArquivo) {
             console.error('Erro ao salvar ou compartilhar arquivo:', err);
         }
     } else {
-        // Browser/BlueStacks: download tradicional via DOM
+        // Browser/BlueStacks: download tradicional
         const link = document.createElement('a');
-        link.href = dataURL;
+        link.href = dataUrl;
         link.download = nomeArquivo;
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
     }
-}
-
-// Gera e Baixa
-export const gerarEBaixarArte = async (config) => {
-    const canvas = await renderCanvas(config);
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-    const nomeArquivo = `precificas-luxo-${Date.now()}.jpg`;
-
-    await salvarOuBaixar(dataUrl, nomeArquivo);
 
     return true;
 };
