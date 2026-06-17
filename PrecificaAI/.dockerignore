@@ -1,0 +1,11 @@
+.git
+.gitignore
+.gcloudignore
+.venv
+venv
+precifica-frontend/node_modules
+precifica-frontend/android
+precifica-frontend/dist
+*.apk
+*.zip
+*.log

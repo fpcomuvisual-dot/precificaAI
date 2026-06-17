@@ -1,5 +1,5 @@
 const getApiBase = () => {
-    return localStorage.getItem('API_BASE') || 'http://192.168.3.105:8000';
+    return localStorage.getItem('API_BASE') || 'https://precifica-api-356056496893.us-central1.run.app';
 };
 
 export async function processarImagem(imageBase64, texto, config = {}) {

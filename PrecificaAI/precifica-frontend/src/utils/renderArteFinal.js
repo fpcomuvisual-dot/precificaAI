@@ -1,6 +1,10 @@
 /**
  * Utilitário de renderização da arte final usando HTML5 Canvas API
  */
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
+import { Capacitor } from '@capacitor/core';
+
 
 // Helper interno que contém a lógica de desenho
 const renderCanvas = ({
@@ -289,21 +293,44 @@ export const gerarArteDataURL = async (config) => {
     return canvas.toDataURL('image/jpeg', 0.85); // Preview um pouco mais leve
 };
 
+async function salvarOuBaixar(dataURL, nomeArquivo) {
+    if (Capacitor.isNativePlatform()) {
+        try {
+            // Mobile: salva no storage do app e abre share sheet nativo
+            const base64Data = dataURL.split(',')[1];
+            const saved = await Filesystem.writeFile({
+                path: nomeArquivo,
+                data: base64Data,
+                directory: Directory.Cache,
+            });
+            await Share.share({
+                title: 'Sua Arte Premium',
+                url: saved.uri,
+                dialogTitle: 'Salvar ou compartilhar',
+            });
+        } catch (err) {
+            console.error('Erro ao salvar ou compartilhar arquivo:', err);
+        }
+    } else {
+        // Browser/BlueStacks: download tradicional via DOM
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = nomeArquivo;
+        link.click();
+    }
+}
+
 // Gera e Baixa
 export const gerarEBaixarArte = async (config) => {
     const canvas = await renderCanvas(config);
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    const nomeArquivo = `precificas-luxo-${Date.now()}.jpg`;
 
-    // Criar link temporário
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = `precificas-luxo-${Date.now()}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    await salvarOuBaixar(dataUrl, nomeArquivo);
 
     return true;
 };
+
 
 
 // Helper para desenhar retângulos arredondados no Canvas

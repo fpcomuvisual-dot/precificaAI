@@ -4,6 +4,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import StyleSettings from './StyleSettings';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte } from '../utils/renderArteFinal';
+import { resizeImageBeforeUpload } from '../utils/imageUtils';
 
 const WorkspacePage = () => {
     const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'style_settings'
@@ -14,7 +15,7 @@ const WorkspacePage = () => {
     const fileInputRef = useRef(null);
     const [error, setError] = useState('');
     const [apiBase, setApiBase] = useState(() => {
-        return localStorage.getItem('API_BASE') || 'http://192.168.3.105:8000';
+        return localStorage.getItem('API_BASE') || 'https://precifica-api-356056496893.us-central1.run.app';
     });
     const [showSettings, setShowSettings] = useState(false);
     const [tempApiBase, setTempApiBase] = useState(apiBase);
@@ -55,8 +56,16 @@ const WorkspacePage = () => {
         setStep('loading');
         setError('');
 
+        let arquivoParaUpload;
+        try {
+            arquivoParaUpload = await resizeImageBeforeUpload(file);
+        } catch (err) {
+            console.warn('Resize falhou, usando arquivo original:', err);
+            arquivoParaUpload = file;
+        }
+
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', arquivoParaUpload);
 
         try {
             const response = await fetch(`${apiBase}/api/tratar-imagem`, {

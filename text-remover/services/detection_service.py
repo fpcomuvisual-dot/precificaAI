@@ -1,10 +1,14 @@
+import os
 import cv2
 import numpy as np
 import requests
 import base64
 
 # Configurações do seu Modelo Roboflow
-API_KEY = "489WKHh72w"
+API_KEY = os.getenv("ROBOFLOW_API_KEY", "")
+if not API_KEY:
+    raise RuntimeError("ROBOFLOW_API_KEY não configurada no .env")
+
 MODEL_ID = "jewelry-detection-wktjn/1"
 CONFIDENCE = 40  # 40% de certeza mínima
 
