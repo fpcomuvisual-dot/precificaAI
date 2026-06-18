@@ -116,6 +116,9 @@ class RenderizarRequest(BaseModel):
     dados_confirmados: Dict[str, Any]             # Dados editados pelo usuário
     config: Optional[ConfigProcessamento] = None
 
+class ProcessarTextoRequest(BaseModel):
+    texto: str                          # Texto bruto ("aneu de rodiu 10x 2")
+
 
 # ============================================================
 # ROTAS
@@ -342,6 +345,58 @@ async def renderizar_confirmado(request: RenderizarRequest):
 
 
 # ----------------------------------------------------------
+# ROTA 3.5: Processar texto (NLP — Agente 02 Groq isolado)
+# ----------------------------------------------------------
+@app.post("/api/processar-texto")
+async def processar_texto_endpoint(request: ProcessarTextoRequest):
+    """
+    Expõe SÓ o Agente 02 (Editor / Groq Llama) — sem rodar a pipeline
+    de imagem. Recebe texto bruto da vendedora e devolve os campos
+    estruturados (nome / preço / parcelas) prontos pro StyleSettings.
+
+    Rápido (<2s): reusa o Editor já carregado no singleton da pipeline.
+    """
+    texto = (request.texto or "").strip()
+    if not texto:
+        return JSONResponse(
+            status_code=422,
+            content={"status": "error", "motivo": "texto_vazio"},
+        )
+
+    try:
+        pipeline: PipelinePrecifica = app.state.pipeline
+        dados = pipeline.editor.processar_texto(texto)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "motivo": "erro_interno", "detalhe": str(e)},
+        )
+
+    if not dados.get("sucesso"):
+        return JSONResponse(
+            status_code=422,
+            content={"status": "error", "motivo": dados.get("motivo", "texto_invalido")},
+        )
+
+    # Normaliza pro triplo limpo que o front consome. O Editor já entrega
+    # preco_valor (total) e parcelas {quantidade, valor_parcela}.
+    parcelas = dados.get("parcelas") or {}
+    qtd = parcelas.get("quantidade")
+    valp = parcelas.get("valor_parcela")
+
+    return {
+        "status": "success",
+        "nome": dados.get("produto", ""),
+        "preco": _formatar_preco_brl(dados.get("preco_valor")),
+        "parcelas": _formatar_parcelas(qtd, valp),
+        "modo": dados.get("modo_detectado"),
+        "raw": dados,
+    }
+
+
+# ----------------------------------------------------------
 # ROTA 4: Upload de logo (futuro)
 # ----------------------------------------------------------
 @app.post("/api/logo/upload")
@@ -388,6 +443,32 @@ async def serve_frontend():
 # ============================================================
 # HELPERS
 # ============================================================
+def _formatar_preco_brl(valor) -> str:
+    """89.0 -> 'R$ 89,00' | 1450.0 -> 'R$ 1.450,00' | None/0 -> 'Consulte'."""
+    if valor is None:
+        return "Consulte"
+    valor = float(valor)
+    if valor <= 0:
+        return "Consulte"
+    inteiro = int(valor)
+    centavos = int(round((valor - inteiro) * 100))
+    if centavos == 100:  # arredondamento de borda (ex: 19.999)
+        inteiro += 1
+        centavos = 0
+    if inteiro >= 1000:
+        milhar = f"{inteiro:,}".replace(",", ".")
+        return f"R$ {milhar},{centavos:02d}"
+    return f"R$ {inteiro},{centavos:02d}"
+
+
+def _formatar_parcelas(quantidade, valor_parcela) -> str:
+    """10, 2.0 -> '10x R$ 2,00' | faltando algo -> ''."""
+    if not quantidade or not valor_parcela:
+        return ""
+    valor_fmt = f"{float(valor_parcela):.2f}".replace(".", ",")
+    return f"{int(quantidade)}x R$ {valor_fmt}"
+
+
 def _salvar_base64(base64_str: str, nome_id: str) -> str:
     """
     Decodifica base64 e salva como arquivo temporário.

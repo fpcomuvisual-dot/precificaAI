@@ -2,19 +2,21 @@ import React, { useState, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import StyleSettings from './StyleSettings';
+import TextInputScreen from './TextInputScreen';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte } from '../utils/renderArteFinal';
 import { resizeImageBeforeUpload } from '../utils/imageUtils';
 import BatchItemCard from './upload/BatchItemCard';
 
 const WorkspacePage = () => {
-    const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'style_settings'
+    const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'text_input' | 'style_settings'
     const [modoAtual, setModoAtual] = useState('inicial'); // 'inicial' | 'single' | 'batch'
     const [filaBatch, setFilaBatch] = useState([]);
     const [imagemOriginal, setImagemOriginal] = useState(null);
     const [imagemLimpaBase64, setImagemLimpaBase64] = useState(null);
     const [boxes, setBoxes] = useState([]);
     const [valoresPinos, setValoresPinos] = useState({});
+    const [camposIniciais, setCamposIniciais] = useState(null); // {nome, preco, parcelas} vindos do NLP (T-NLP-001)
     const fileInputRef = useRef(null);
     const [error, setError] = useState('');
     const [apiBase, setApiBase] = useState(() => {
@@ -120,10 +122,13 @@ const WorkspacePage = () => {
                 setBoxes(data.boxes || []);
 
                 // Lógica de Roteamento Inteligente
+                // Fluxo single: passa pela tela de texto (NLP) antes do StyleSettings.
+                // Fluxo pinos (múltiplos preços) segue inalterado — captura preços
+                // pelos pinos, não pela tela de texto.
                 if (data.boxes && data.boxes.length > 1) {
                     setStep('decisao_pinos');
                 } else {
-                    setStep('style_settings');
+                    setStep('text_input');
                 }
             } else {
                 throw new Error(data.message || 'Erro desconhecido na API');
@@ -145,6 +150,17 @@ const WorkspacePage = () => {
 
     const handleSalvarPinos = (novosValores) => {
         setValoresPinos(novosValores);
+        setStep('style_settings');
+    };
+
+    // --- Tela de texto (NLP / T-NLP-001) ---
+    const handleConfirmarTexto = (campos) => {
+        setCamposIniciais(campos);
+        setStep('style_settings');
+    };
+
+    const handlePularTexto = () => {
+        setCamposIniciais(null); // rota antiga: StyleSettings com valores padrão
         setStep('style_settings');
     };
 
@@ -181,7 +197,7 @@ const WorkspacePage = () => {
         // Simple logic to go back step by step or reset
         if (step === 'style_settings') {
             if (boxes.length > 1) setStep('decisao_pinos');
-            else setStep('upload');
+            else setStep('text_input');
         } else if (step === 'editando_pinos') {
             setStep('decisao_pinos');
         } else if (step === 'decisao_pinos') {
@@ -334,12 +350,27 @@ const WorkspacePage = () => {
         );
     }
 
+    if (step === 'text_input') {
+        return (
+            <TextInputScreen
+                imagemLimpaBase64={imagemLimpaBase64}
+                apiBase={apiBase}
+                onConfirmar={handleConfirmarTexto}
+                onPular={handlePularTexto}
+                onVoltar={() => setStep('upload')}
+            />
+        );
+    }
+
     if (step === 'style_settings') {
         return (
             <StyleSettings
                 imagemLimpaBase64={imagemLimpaBase64}
                 onVoltar={handleVoltar}
                 onGerarArte={handleGerarArteFinal}
+                detalhesInicial={camposIniciais?.nome}
+                precoInicial={camposIniciais?.preco}
+                parcelasInicial={camposIniciais?.parcelas}
             />
         );
     }

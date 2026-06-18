@@ -11,9 +11,19 @@ function calcularTextoParcelas(precoString) {
     return `10x R$ ${parcela}`;
 }
 
-const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
-    const [detalhes, setDetalhes] = useState('Anel de Ouro 18k');
-    const [preco, setPreco] = useState('R$ 259,90');
+const StyleSettings = ({
+    imagemLimpaBase64,
+    onVoltar,
+    onGerarArte,
+    detalhesInicial,
+    precoInicial,
+    parcelasInicial,
+}) => {
+    const [detalhes, setDetalhes] = useState(detalhesInicial ?? 'Anel de Ouro 18k');
+    const [preco, setPreco] = useState(precoInicial ?? 'R$ 259,90');
+    // Parcelas vindas do NLP (T-NLP-001). Quando preenchidas, têm
+    // precedência sobre o cálculo fixo preço/10 (calcularTextoParcelas).
+    const [parcelas] = useState(parcelasInicial ?? '');
     const [formato, setFormato] = useState('1:1');
     const [mostrarPreco, setMostrarPreco] = useState(true);
     const [mostrarParcelas, setMostrarParcelas] = useState(true);
@@ -155,7 +165,7 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
                                 />
                                 {mostrarParcelas && (
                                     <DraggableText
-                                        text={calcularTextoParcelas(preco)}
+                                        text={parcelas || calcularTextoParcelas(preco)}
                                         stageDims={stageDims}
                                         initialPositionRatio={{ x: 0.5, y: 0.93 }}
                                         fontReady={fontReady}
