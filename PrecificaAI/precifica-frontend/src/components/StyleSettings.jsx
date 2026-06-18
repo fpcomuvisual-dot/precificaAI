@@ -115,7 +115,7 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
                 >
                     <span className="material-icons-outlined text-gray-600">chevron_left</span>
                 </button>
-                <h1 className="text-lg font-semibold tracking-tight text-gray-900">Style Settings</h1>
+                <h1 className="text-lg font-semibold tracking-tight text-gray-900">Configurações da Arte</h1>
                 <div className="w-10" /> {/* Spacer for centering */}
             </nav>
 
@@ -173,20 +173,20 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
                     {/* Floating Tag */}
                     <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-white/30 backdrop-blur-md border border-white/40 flex items-center gap-1.5 shadow-lg">
                         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                        <span className="text-xs font-medium text-white drop-shadow-sm tracking-wide">Live Preview</span>
+                        <span className="text-xs font-medium text-white drop-shadow-sm tracking-wide">Pré-visualização</span>
                     </div>
                 </div>
 
                 {/* 3. Product Details */}
                 <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Product Details</label>
+                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Detalhes do Produto</label>
                     <div className="space-y-2">
                         <input
                             type="text"
                             value={detalhes}
                             onChange={(e) => setDetalhes(e.target.value)}
                             className="w-full p-4 bg-white rounded-xl text-gray-800 font-medium placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-sm"
-                            placeholder="Product Name (e.g. Gold Ring)"
+                            placeholder="Nome do Produto (ex: Anel de Ouro)"
                         />
                         <div className="relative">
                             <input
@@ -203,7 +203,7 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
 
                 {/* 4. Select Format */}
                 <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Select Format</label>
+                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Formato</label>
                     <div className="grid grid-cols-4 gap-3">
                         {[
                             { id: 'orig', label: 'Orig', icon: 'crop_free' },
@@ -228,13 +228,13 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
 
                 {/* 5. Toggles */}
                 <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Display Options</label>
+                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Exibir</label>
                     <div className="grid grid-cols-2 gap-4">
                         {/* Show Price Toggle */}
                         <div className="bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm">
                             <div className="flex flex-col">
                                 <span className="material-icons-outlined text-gray-400 mb-1">payments</span>
-                                <span className="text-sm font-semibold text-gray-700">Show Price</span>
+                                <span className="text-sm font-semibold text-gray-700">Mostrar Preço</span>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                                 <input
@@ -251,7 +251,7 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
                         <div className="bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm">
                             <div className="flex flex-col">
                                 <span className="material-icons-outlined text-gray-400 mb-1">calendar_month</span>
-                                <span className="text-sm font-semibold text-gray-700">Installments</span>
+                                <span className="text-sm font-semibold text-gray-700">Parcelas</span>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                                 <input
@@ -277,7 +277,7 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
                     className="w-full max-w-md mx-auto bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-xl shadow-primary/25 flex items-center justify-center gap-2 transform transition-all active:scale-95 group"
                 >
                     <span className="material-icons-outlined animate-pulse">auto_fix_normal</span>
-                    <span className="tracking-wide">GENERATE LUXURY ART</span>
+                    <span className="tracking-wide">GERAR ARTE</span>
                 </button>
             </div>
         </div>
