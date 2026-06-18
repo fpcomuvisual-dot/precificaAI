@@ -346,17 +346,13 @@ export const gerarArteDataURL = async (config) => {
 export const gerarEBaixarArte = async (config) => {
     const canvas = await renderCanvas(config);
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
-
-    // Criar link temporário
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = `precificas-luxo-${Date.now()}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
+    const nomeArquivo = `precificas-luxo-${Date.now()}.jpg`;
+    // Reusa salvarDataURL (Capacitor Filesystem+Share em nativo, <a download>
+    // em browser) em vez de duplicar a lógica — merge main / T-DND-006.
+    await salvarDataURL(dataUrl, nomeArquivo);
     return true;
 };
+
 
 
 // Helper para desenhar retângulos arredondados no Canvas
