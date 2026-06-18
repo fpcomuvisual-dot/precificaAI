@@ -89,11 +89,45 @@ export default function DraggableText({
         }
     }, [text, stageDims, fontReady, fontFamily, fontSizeDivisor]);
 
+    // Causa raiz (T-DND-006-FIX): o fallback Playfair pode terminar de
+    // carregar DEPOIS da medição inicial, refluindo o texto sem re-disparar
+    // o effect acima (fontReady só rastreia a Vogue). Re-mede quando as
+    // fontes do documento settlam, garantindo que a pílula nunca fique
+    // presa em width 0.
+    useEffect(() => {
+        let cancelled = false;
+        if (!document.fonts?.ready) return;
+        document.fonts.ready.then(() => {
+            if (!cancelled && textRef.current) {
+                setTextBounds({
+                    width: textRef.current.width(),
+                    height: textRef.current.height(),
+                });
+            }
+        }).catch(() => { /* ignora */ });
+        return () => { cancelled = true; };
+    }, [text, stageDims, fontSizeDivisor]);
+
     if (!stageDims.width || !fontReady) return null;
 
     const textFillMap = { pill: '#1A1611', box: '#1A1611', glass: '#FFFFFF', none: fill };
     const finalTextFill = textFillMap[bgStyle] ?? fill;
     const shouldShadowText = bgStyle === 'none' || bgStyle === 'glass';
+
+    // Estratégia de sombra do texto (T-DND-006-FIX):
+    // - none/glass: texto branco sobre foto → sombra forte de legibilidade.
+    // - pill/box: texto escuro sobre fundo branco → halo CLARO como rede de
+    //   segurança. Sobre o fundo branco é imperceptível (branco sobre
+    //   branco), mas se o fundo falhar ao renderizar (bug do S22) o halo
+    //   claro destaca o preço escuro contra o gradiente escuro.
+    let textShadow;
+    if (shouldShadowText) {
+        textShadow = { shadowColor, shadowBlur, shadowOpacity, shadowOffsetY };
+    } else if (bgStyle === 'pill' || bgStyle === 'box') {
+        textShadow = { shadowColor: 'rgba(255, 255, 255, 0.9)', shadowBlur: 4, shadowOpacity: 1, shadowOffsetY: 0 };
+    } else {
+        textShadow = { shadowColor: 'transparent', shadowBlur: 0, shadowOpacity: 0, shadowOffsetY: 0 };
+    }
 
     // Guard: only render Rect once text has been measured (avoids zero-size flash)
     const bgProps = textBounds.width > 0
@@ -121,11 +155,11 @@ export default function DraggableText({
                 fontSize={Math.round(stageDims.width / fontSizeDivisor)}
                 fontFamily={fontFamily}
                 fill={finalTextFill}
-                shadowColor={shouldShadowText ? shadowColor : 'transparent'}
-                shadowBlur={shouldShadowText ? shadowBlur : 0}
-                shadowOpacity={shouldShadowText ? shadowOpacity : 0}
+                shadowColor={textShadow.shadowColor}
+                shadowBlur={textShadow.shadowBlur}
+                shadowOpacity={textShadow.shadowOpacity}
                 shadowOffsetX={0}
-                shadowOffsetY={shouldShadowText ? shadowOffsetY : 0}
+                shadowOffsetY={textShadow.shadowOffsetY}
             />
         </Group>
     );

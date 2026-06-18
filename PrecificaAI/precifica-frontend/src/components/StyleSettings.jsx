@@ -76,6 +76,13 @@ const StyleSettings = ({ imagemLimpaBase64, onVoltar, onGerarArte }) => {
 
     const handleGerarArte = async () => {
         if (!stageRef.current) return;
+        // Cinto de segurança contra race de fonte/medição (T-DND-006-FIX):
+        // garante que as fontes settlaram e que o Konva redesenhou com as
+        // medições finais antes de capturar o JPG.
+        try { await document.fonts.ready; } catch { /* fallback: segue mesmo assim */ }
+        stageRef.current.getLayers().forEach((layer) => layer.draw());
+        await new Promise((r) => requestAnimationFrame(r));
+
         const dataURL = stageRef.current.toDataURL({
             pixelRatio: 3,
             mimeType: 'image/jpeg',
