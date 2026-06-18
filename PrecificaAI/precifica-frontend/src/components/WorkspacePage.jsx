@@ -22,6 +22,7 @@ const WorkspacePage = () => {
     });
     const [showSettings, setShowSettings] = useState(false);
     const [tempApiBase, setTempApiBase] = useState(apiBase);
+    const [limparFundo, setLimparFundo] = useState(false);
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -104,7 +105,7 @@ const WorkspacePage = () => {
         formData.append('file', arquivoParaUpload);
 
         try {
-            const response = await fetch(`${apiBase}/api/tratar-imagem`, {
+            const response = await fetch(`${apiBase}/api/tratar-imagem?limpar_fundo=${limparFundo}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -252,8 +253,20 @@ const WorkspacePage = () => {
                 {/* Footer Flutuante (Apenas Visual por enquanto) */}
                 <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-30">
                     <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-                        <div className="hidden sm:block text-sm text-gray-500">
-                            Pronto para processar?
+                        <div className="hidden sm:flex items-center gap-4">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    className="sr-only peer"
+                                    checked={limparFundo}
+                                    onChange={(e) => setLimparFundo(e.target.checked)}
+                                />
+                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                            <div className="flex flex-col">
+                                <span className="font-bold text-gray-800 text-sm">Limpar fundo</span>
+                                <span className="text-[10px] text-gray-500">Mais lento, premium</span>
+                            </div>
                         </div>
                         <button
                             disabled
@@ -390,6 +403,23 @@ const WorkspacePage = () => {
                         accept="image/*"
                         className="hidden"
                     />
+                </div>
+
+                {/* Toggle Limpar Fundo */}
+                <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-200 mt-4 shadow-sm text-left">
+                    <div className="flex flex-col">
+                        <span className="font-bold text-gray-800">Limpar fundo da imagem</span>
+                        <span className="text-xs text-gray-500">Mais lento, mas resultado premium</span>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={limparFundo}
+                            onChange={(e) => setLimparFundo(e.target.checked)}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                    </label>
                 </div>
 
                 {/* Botão Modo Lote */}

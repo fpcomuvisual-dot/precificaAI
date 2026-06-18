@@ -142,11 +142,11 @@ async def tratar_imagem(request: Request, file: UploadFile = File(...)):
             buffer.write(await file.read())
             
         # 2. Processar (Modo Seguro: SEM Remover Fundo por padrão)
-        remover = request.query_params.get('remover_fundo', 'false').lower() == 'true'
-        print(f"[PREVIEW] Preparando imagem: {temp_path} (Remover Fundo: {remover})")
+        limpar = request.query_params.get('limpar_fundo', 'false').lower() == 'true'
+        print(f"[PREVIEW] Preparando imagem: {temp_path} (Remover Fundo: {limpar})")
         
         # Pipeline Topografo V2
-        img_limpa = pipeline.topografo.preparar_imagem_preview(temp_path, remover_fundo=remover)
+        img_limpa = pipeline.topografo.preparar_imagem_preview(temp_path, remover_fundo=limpar)
         
         # Cleanup temp
         if os.path.exists(temp_path):
