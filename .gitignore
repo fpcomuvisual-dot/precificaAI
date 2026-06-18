@@ -36,6 +36,7 @@ text-remover/test_with_text.jpg
 *.rar
 
 # IDEs and OS files
+.claude/
 .idea/
 .vscode/
 .DS_Store
