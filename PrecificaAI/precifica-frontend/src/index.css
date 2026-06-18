@@ -6,8 +6,7 @@
 
 @font-face {
     font-family: 'Vogue';
-    src: url('/fonts/Vogue-Regular.woff2') format('woff2'),
-         url('/fonts/Vogue-Regular.ttf') format('truetype');
+    src: url('/fonts/Vogue.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: block;
