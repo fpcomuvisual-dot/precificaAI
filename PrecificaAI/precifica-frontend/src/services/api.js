@@ -80,6 +80,34 @@ export async function renderizarConfirmado(
     return await response.json();
 }
 
+export async function processarTexto(texto, apiBase) {
+    const base = apiBase || getApiBase();
+
+    const response = await fetch(`${base}/api/processar-texto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texto }),
+    });
+
+    if (!response.ok) {
+        let motivo = "";
+        try {
+            const erro = await response.json();
+            motivo = erro.motivo || erro.message || "";
+        } catch {
+            /* corpo não-JSON */
+        }
+        if (response.status === 422) {
+            throw new Error(
+                "A IA não conseguiu entender a descrição. Revise o texto e tente de novo."
+            );
+        }
+        throw new Error(motivo || "Erro ao processar o texto. Tente novamente.");
+    }
+
+    return await response.json();
+}
+
 export async function healthCheck() {
     try {
         const response = await fetch(`${getApiBase()}/api/health`);
