@@ -1,6 +1,9 @@
 /**
  * Utilitário de renderização da arte final usando HTML5 Canvas API
  */
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 
 // Helper interno que contém a lógica de desenho
 const renderCanvas = ({
@@ -303,11 +306,8 @@ export const gerarFundoLimpo = async (imagemBase64, formato = 'orig') => {
 // Em plataforma nativa Capacitor: usa Filesystem + Share.
 // Em browser ou fallback: usa link <a download>.
 export async function salvarDataURL(dataURL, filename) {
-    if (typeof window !== 'undefined' && window.Capacitor?.isNativePlatform?.()) {
+    if (Capacitor.isNativePlatform()) {
         try {
-            const cap = (pkg) => `@capacitor/${pkg}`;
-            const { Filesystem, Directory } = await import(cap('filesystem'));
-            const { Share } = await import(cap('share'));
             const base64Data = dataURL.split(',')[1];
             const saved = await Filesystem.writeFile({
                 path: filename,
