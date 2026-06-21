@@ -24,7 +24,7 @@ const StyleSettings = ({
     // Parcelas vindas do NLP (T-NLP-001). Quando preenchidas, têm
     // precedência sobre o cálculo fixo preço/10 (calcularTextoParcelas).
     const [parcelas] = useState(parcelasInicial ?? '');
-    const [formato, setFormato] = useState('1:1');
+
     const [mostrarPreco, setMostrarPreco] = useState(true);
     const [mostrarParcelas, setMostrarParcelas] = useState(true);
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -41,7 +41,7 @@ const StyleSettings = ({
         const updatePreview = async () => {
             if (!imagemLimpaBase64) return;
             try {
-                const url = await gerarFundoLimpo(imagemLimpaBase64, formato);
+                const url = await gerarFundoLimpo(imagemLimpaBase64, 'story');
                 if (isMounted) setPreviewUrl(url);
             } catch (error) {
                 console.error("Erro ao gerar preview:", error);
@@ -53,7 +53,7 @@ const StyleSettings = ({
             isMounted = false;
             clearTimeout(timeoutId);
         };
-    }, [imagemLimpaBase64, formato]);
+    }, [imagemLimpaBase64]);
 
     // Load data URL into HTMLImageElement for Konva
     useEffect(() => {
@@ -102,10 +102,10 @@ const StyleSettings = ({
         await salvarDataURL(dataURL, filename);
     };
 
-    // object-contain equivalent: scale image to fit Stage while preserving aspect ratio
+    // object-cover: scale image to fill Stage completely (may crop sides)
     let imgX = 0, imgY = 0, imgW = stageDims.width, imgH = stageDims.height;
     if (konvaImage && stageDims.width > 0) {
-        const scale = Math.min(
+        const scale = Math.max(
             stageDims.width / konvaImage.naturalWidth,
             stageDims.height / konvaImage.naturalHeight
         );
@@ -133,7 +133,7 @@ const StyleSettings = ({
             <div className="pt-24 px-6 space-y-8 max-w-md mx-auto">
 
                 {/* 2. Live Preview */}
-                <div ref={containerRef} className="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 ring-1 ring-black/5">
+                <div ref={containerRef} className="relative w-full aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 ring-1 ring-black/5">
                     {/* Background Glow */}
                     <div className="absolute inset-0 bg-primary/5 blur-xl pointer-events-none" />
 
@@ -211,32 +211,7 @@ const StyleSettings = ({
                     </div>
                 </div>
 
-                {/* 4. Select Format */}
-                <div className="space-y-3">
-                    <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Formato</label>
-                    <div className="grid grid-cols-4 gap-3">
-                        {[
-                            { id: 'orig', label: 'Orig', icon: 'crop_free' },
-                            { id: '1:1', label: '1:1', icon: 'crop_square' },
-                            { id: 'story', label: 'Story', icon: 'smartphone' },
-                            { id: '4:5', label: '4:5', icon: 'crop_portrait' }
-                        ].map((fmt) => (
-                            <button
-                                key={fmt.id}
-                                onClick={() => setFormato(fmt.id)}
-                                className={`flex flex-col items-center justify-center py-4 rounded-xl transition-all duration-300 ${formato === fmt.id
-                                    ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105'
-                                    : 'bg-white text-gray-400 hover:bg-gray-50'
-                                    }`}
-                            >
-                                <span className="material-icons-outlined text-xl mb-1">{fmt.icon}</span>
-                                <span className="text-xs font-medium">{fmt.label}</span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                {/* 5. Toggles */}
+                {/* 4. Toggles */}
                 <div className="space-y-3">
                     <label className="text-sm font-semibold text-gray-400 uppercase tracking-wider ml-1">Exibir</label>
                     <div className="grid grid-cols-2 gap-4">
