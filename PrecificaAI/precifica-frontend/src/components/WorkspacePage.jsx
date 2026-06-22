@@ -5,7 +5,7 @@ import StyleSettings from './StyleSettings';
 import TextInputScreen from './TextInputScreen';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte } from '../utils/renderArteFinal';
-import { resizeImageBeforeUpload } from '../utils/imageUtils';
+
 import BatchItemCard from './upload/BatchItemCard';
 
 const WorkspacePage = () => {
@@ -18,14 +18,11 @@ const WorkspacePage = () => {
     const [valoresPinos, setValoresPinos] = useState({});
     const [camposIniciais, setCamposIniciais] = useState(null); // {nome, preco, parcelas} vindos do NLP (T-NLP-001)
     const fileInputRef = useRef(null);
-    const [error, setError] = useState('');
     const [apiBase, setApiBase] = useState(() => {
         return localStorage.getItem('API_BASE') || 'https://precifica-api-356056496893.us-central1.run.app';
     });
     const [showSettings, setShowSettings] = useState(false);
     const [tempApiBase, setTempApiBase] = useState(apiBase);
-    const [limparFundo, setLimparFundo] = useState(false);
-
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -92,53 +89,14 @@ const WorkspacePage = () => {
     };
 
     const processarImagem = async (file) => {
-        setStep('loading');
-        setError('');
-
-        let arquivoParaUpload;
-        try {
-            arquivoParaUpload = await resizeImageBeforeUpload(file);
-        } catch (err) {
-            console.warn('Resize falhou, usando arquivo original:', err);
-            arquivoParaUpload = file;
-        }
-
-        const formData = new FormData();
-        formData.append('file', arquivoParaUpload);
-
-        try {
-            const response = await fetch(`${apiBase}/api/tratar-imagem?limpar_fundo=${limparFundo}`, {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Falha no processamento da imagem');
-            }
-
-            const data = await response.json();
-
-            if (data.success) {
-                setImagemLimpaBase64(data.image_base64);
-                setBoxes(data.boxes || []);
-
-                // Lógica de Roteamento Inteligente
-                // Fluxo single: passa pela tela de texto (NLP) antes do StyleSettings.
-                // Fluxo pinos (múltiplos preços) segue inalterado — captura preços
-                // pelos pinos, não pela tela de texto.
-                if (data.boxes && data.boxes.length > 1) {
-                    setStep('decisao_pinos');
-                } else {
-                    setStep('text_input');
-                }
-            } else {
-                throw new Error(data.message || 'Erro desconhecido na API');
-            }
-        } catch (err) {
-            console.error('Erro ao processar imagem:', err);
-            setError('Ocorreu um erro ao limpar a imagem. Tente novamente.');
-            setStep('upload');
-        }
+        const base64 = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.readAsDataURL(file);
+        });
+        setImagemLimpaBase64(base64);
+        setBoxes([]);
+        setStep('text_input');
     };
 
     const handleDecisaoPinos = (usarPinos) => {
@@ -268,42 +226,16 @@ const WorkspacePage = () => {
 
                 {/* Footer Flutuante (Apenas Visual por enquanto) */}
                 <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-30">
-                    <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-                        <div className="hidden sm:flex items-center gap-4">
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="sr-only peer"
-                                    checked={limparFundo}
-                                    onChange={(e) => setLimparFundo(e.target.checked)}
-                                />
-                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                            </label>
-                            <div className="flex flex-col">
-                                <span className="font-bold text-gray-800 text-sm">Limpar fundo</span>
-                                <span className="text-[10px] text-gray-500">Mais lento, premium</span>
-                            </div>
-                        </div>
+                    <div className="max-w-4xl mx-auto flex justify-center">
                         <button
                             disabled
-                            className="flex-1 sm:flex-none w-full sm:w-auto px-8 py-4 bg-gray-200 text-gray-400 font-bold rounded-2xl shadow-inner cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full sm:w-auto px-8 py-4 bg-gray-200 text-gray-400 font-bold rounded-2xl shadow-inner cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             <span className="material-icons-outlined">auto_awesome</span>
                             Processar Todas (Em breve)
                         </button>
                     </div>
                 </footer>
-            </div>
-        );
-    }
-
-    if (step === 'loading') {
-        return (
-            <div className="min-h-screen bg-background-light flex flex-col items-center justify-center p-6">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary shadow-lg shadow-primary/30"></div>
-                <p className="mt-6 text-gray-600 font-medium text-lg animate-pulse">
-                    A inteligência artificial está limpando a imagem...
-                </p>
             </div>
         );
     }
@@ -436,23 +368,6 @@ const WorkspacePage = () => {
                     />
                 </div>
 
-                {/* Toggle Limpar Fundo */}
-                <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-200 mt-4 shadow-sm text-left">
-                    <div className="flex flex-col">
-                        <span className="font-bold text-gray-800">Limpar fundo da imagem</span>
-                        <span className="text-xs text-gray-500">Mais lento, mas resultado premium</span>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={limparFundo}
-                            onChange={(e) => setLimparFundo(e.target.checked)}
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                    </label>
-                </div>
-
                 {/* Botão Modo Lote */}
                 <button
                     onClick={abrirSeletorMultiplo}
@@ -468,11 +383,6 @@ const WorkspacePage = () => {
                     <span className="material-icons-outlined text-gray-300 group-hover:text-primary transition-colors">chevron_right</span>
                 </button>
 
-                {error && (
-                    <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium animate-fade-in border border-red-100 mt-4">
-                        {error}
-                    </div>
-                )}
             </div>
 
             {/* Server Settings Modal */}
