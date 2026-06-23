@@ -10,6 +10,21 @@ import { gerarEBaixarArte, gerarArteDataURL } from '../utils/renderArteFinal';
 import BatchItemCard from './upload/BatchItemCard';
 import BatchGalleryScreen from './upload/BatchGalleryScreen';
 
+function formatarPreco(input) {
+    const limpo = input.replace(/[^\d.,]/g, '').replace(',', '.');
+    const valor = parseFloat(limpo);
+    if (isNaN(valor) || valor <= 0) return input;
+    return `R$ ${valor.toFixed(2).replace('.', ',')}`;
+}
+
+function calcularTextoParcelas(precoString) {
+    const limpo = precoString.replace(/[^\d,]/g, '').replace(',', '.');
+    const valor = parseFloat(limpo);
+    if (isNaN(valor) || valor <= 0) return '';
+    const parcela = (valor / 10).toFixed(2).replace('.', ',');
+    return `10x R$ ${parcela}`;
+}
+
 const WorkspacePage = () => {
     const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'text_input' | 'style_settings'
     const [modoAtual, setModoAtual] = useState('inicial'); // 'inicial' | 'single' | 'batch'
@@ -76,6 +91,9 @@ const WorkspacePage = () => {
             setModoAtual('batch');
         } catch (err) {
             console.error('Erro ao selecionar imagens:', err);
+            if (!String(err).toLowerCase().includes('cancel')) {
+                alert('Não foi possível abrir a galeria. Tente novamente.');
+            }
         }
     };
 
@@ -104,10 +122,12 @@ const WorkspacePage = () => {
                     reader.onerror = reject;
                     reader.readAsDataURL(blob);
                 });
+                const precoFormatado = formatarPreco(item.preco);
                 const dataURL = await gerarArteDataURL({
                     imagemBase64: base64,
                     detalhes: item.nome,
-                    preco: item.preco,
+                    preco: precoFormatado,
+                    parcelas: calcularTextoParcelas(precoFormatado),
                     formato: 'story',
                     mostrarPreco: true,
                     mostrarParcelas: true,

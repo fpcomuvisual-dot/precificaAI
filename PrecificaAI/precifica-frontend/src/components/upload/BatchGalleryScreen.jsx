@@ -15,16 +15,9 @@ export default function BatchGalleryScreen({ resultados, onVoltar, onNovaLeva })
         }
     };
 
-    const compartilharTodas = async () => {
-        for (const item of concluidas) {
-            if (item.uri) {
-                try {
-                    await Share.share({ title: item.nome, url: item.uri, dialogTitle: 'Compartilhar arte' });
-                } catch (err) {
-                    console.warn('Share falhou para:', item.nome, err);
-                }
-            }
-        }
+    const salvarTodasNaGaleria = () => {
+        const count = concluidas.filter(r => r.uri).length;
+        alert(`✅ ${count} artes salvas em Documents/PrecificaAI`);
     };
 
     return (
@@ -71,11 +64,11 @@ export default function BatchGalleryScreen({ resultados, onVoltar, onNovaLeva })
             <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-lg z-30 space-y-2">
                 {concluidas.length > 0 && isNative && (
                     <button
-                        onClick={compartilharTodas}
+                        onClick={salvarTodasNaGaleria}
                         className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all"
                     >
-                        <span className="material-icons-outlined">share</span>
-                        Compartilhar Todas ({concluidas.length})
+                        <span className="material-icons-outlined">save_alt</span>
+                        Salvar Todas na Galeria ({concluidas.length})
                     </button>
                 )}
                 <button

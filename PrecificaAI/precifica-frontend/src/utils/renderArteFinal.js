@@ -13,6 +13,7 @@ const renderCanvas = ({
     formato = 'orig',
     mostrarPreco,
     mostrarParcelas,
+    parcelas = '',
     valoresPinos = {},
     boxes = [],
 }) => {
@@ -206,8 +207,10 @@ const renderCanvas = ({
                         // Configuração de Fontes
                         const nameFontSize = dw * 0.035; // 3.5% da largura (Nome menor e elegante)
                         const priceFontSize = dw * 0.06; // 6.0% da largura (Preço maior e bold)
+                        const parcelasFontSize = dw * 0.025;
                         const fontName = `500 ${nameFontSize}px Inter, sans-serif`;
                         const fontPrice = `700 ${priceFontSize}px Inter, sans-serif`;
+                        const fontParcelas = `400 ${parcelasFontSize}px Inter, sans-serif`;
 
                         // Medições
                         ctx.font = fontName;
@@ -217,8 +220,12 @@ const renderCanvas = ({
                         const priceText = (mostrarPreco && preco) ? preco : "";
                         const priceMetrics = priceText ? ctx.measureText(priceText) : { width: 0 };
 
+                        ctx.font = fontParcelas;
+                        const parcelasText = (mostrarParcelas && parcelas) ? parcelas : "";
+                        const parcelasMetrics = parcelasText ? ctx.measureText(parcelasText) : { width: 0 };
+
                         // Largura do Box = Maior Texto + Padding Generoso
-                        const maxTextWidth = Math.max(nameMetrics.width, priceMetrics.width);
+                        const maxTextWidth = Math.max(nameMetrics.width, priceMetrics.width, parcelasMetrics.width);
                         const paddingX = dw * 0.05; // Padding lateral
                         const paddingY = dw * 0.035; // Padding vertical
                         const gap = dw * 0.015; // Espaço vertical entre nome e preço
@@ -226,7 +233,9 @@ const renderCanvas = ({
                         const boxW = maxTextWidth + (paddingX * 2);
                         const boxH = (detalhes ? nameFontSize : 0) +
                             (priceText ? priceFontSize : 0) +
+                            (parcelasText ? parcelasFontSize : 0) +
                             (detalhes && priceText ? gap : 0) +
+                            (priceText && parcelasText ? gap * 0.7 : 0) +
                             (paddingY * 2);
 
                         // Posição: Centralizado Horizontal, Inferior Vertical (com margem)
@@ -263,11 +272,18 @@ const renderCanvas = ({
                             currentY += nameFontSize + gap;
                         }
 
-                        // 2. Preço (Baixo)
+                        // 2. Preço
                         if (priceText) {
                             ctx.font = fontPrice;
-                            // Ajuste fino para vertical alignment do preço
                             ctx.fillText(priceText, boxX + (boxW / 2), currentY);
+                            if (parcelasText) currentY += priceFontSize + gap * 0.7;
+                        }
+
+                        // 3. Parcelas
+                        if (parcelasText) {
+                            ctx.font = fontParcelas;
+                            ctx.fillStyle = '#6B7280';
+                            ctx.fillText(parcelasText, boxX + (boxW / 2), currentY);
                         }
                     }
                 }
