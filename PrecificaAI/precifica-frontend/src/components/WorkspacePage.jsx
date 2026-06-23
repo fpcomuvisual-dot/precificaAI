@@ -1,17 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 import StyleSettings from './StyleSettings';
 import TextInputScreen from './TextInputScreen';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
-import { gerarEBaixarArte } from '../utils/renderArteFinal';
-
+import { gerarEBaixarArte, gerarArteDataURL } from '../utils/renderArteFinal';
 import BatchItemCard from './upload/BatchItemCard';
+import BatchGalleryScreen from './upload/BatchGalleryScreen';
 
 const WorkspacePage = () => {
     const [step, setStep] = useState('upload'); // 'upload' | 'loading' | 'decisao_pinos' | 'editando_pinos' | 'text_input' | 'style_settings'
     const [modoAtual, setModoAtual] = useState('inicial'); // 'inicial' | 'single' | 'batch'
     const [filaBatch, setFilaBatch] = useState([]);
+    const [batchResultados, setBatchResultados] = useState([]);
     const [imagemOriginal, setImagemOriginal] = useState(null);
     const [imagemLimpaBase64, setImagemLimpaBase64] = useState(null);
     const [boxes, setBoxes] = useState([]);
@@ -86,6 +89,54 @@ const WorkspacePage = () => {
 
     const handleUpdateBatchPreco = (id, novoPreco) => {
         setFilaBatch(prev => prev.map(item => item.id === id ? { ...item, preco: novoPreco } : item));
+    };
+
+    const handleProcessarBatch = async () => {
+        const resultados = [];
+        for (const item of filaBatch) {
+            setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'processando' } : i));
+            try {
+                const response = await fetch(item.webPath);
+                const blob = await response.blob();
+                const base64 = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result.split(',')[1]);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(blob);
+                });
+                const dataURL = await gerarArteDataURL({
+                    imagemBase64: base64,
+                    detalhes: item.nome,
+                    preco: item.preco,
+                    formato: 'story',
+                    mostrarPreco: true,
+                    mostrarParcelas: true,
+                });
+                let savedUri = null;
+                if (Capacitor.isNativePlatform()) {
+                    try {
+                        const ts = Date.now();
+                        const saved = await Filesystem.writeFile({
+                            path: `PrecificaAI/${item.nome.replace(/\s+/g, '_')}_${ts}.jpg`,
+                            data: dataURL.split(',')[1],
+                            directory: Directory.Documents,
+                            recursive: true,
+                        });
+                        savedUri = saved.uri;
+                    } catch (fsErr) {
+                        console.warn('Filesystem.writeFile falhou:', fsErr);
+                    }
+                }
+                resultados.push({ id: item.id, nome: item.nome, dataURL, uri: savedUri, status: 'concluido' });
+                setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'concluido' } : i));
+            } catch (err) {
+                console.error(`Erro ao processar ${item.nome}:`, err);
+                resultados.push({ id: item.id, nome: item.nome, dataURL: null, uri: null, status: 'erro' });
+                setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'erro' } : i));
+            }
+        }
+        setBatchResultados(resultados);
+        setModoAtual('batch_result');
     };
 
     const processarImagem = async (file) => {
@@ -167,6 +218,20 @@ const WorkspacePage = () => {
 
     // --- RENDERS ---
 
+    if (modoAtual === 'batch_result') {
+        return (
+            <BatchGalleryScreen
+                resultados={batchResultados}
+                onVoltar={() => setModoAtual('batch')}
+                onNovaLeva={() => {
+                    setFilaBatch([]);
+                    setBatchResultados([]);
+                    setModoAtual('inicial');
+                }}
+            />
+        );
+    }
+
     if (modoAtual === 'batch') {
         return (
             <div className="min-h-screen bg-background-light flex flex-col animate-fade-in pb-24">
@@ -224,17 +289,26 @@ const WorkspacePage = () => {
                     )}
                 </main>
 
-                {/* Footer Flutuante (Apenas Visual por enquanto) */}
                 <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] z-30">
-                    <div className="max-w-4xl mx-auto flex justify-center">
-                        <button
-                            disabled
-                            className="w-full sm:w-auto px-8 py-4 bg-gray-200 text-gray-400 font-bold rounded-2xl shadow-inner cursor-not-allowed flex items-center justify-center gap-2"
-                        >
-                            <span className="material-icons-outlined">auto_awesome</span>
-                            Processar Todas (Em breve)
-                        </button>
-                    </div>
+                    {(() => {
+                        const prontas = filaBatch.length > 0 && filaBatch.every(i => i.nome.trim() && i.preco.trim());
+                        return (
+                            <div className="max-w-4xl mx-auto flex justify-center">
+                                <button
+                                    onClick={prontas ? handleProcessarBatch : undefined}
+                                    disabled={!prontas}
+                                    className={`w-full sm:w-auto px-8 py-4 font-bold rounded-2xl flex items-center justify-center gap-2 transition-all ${
+                                        prontas
+                                            ? 'bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/25 active:scale-95'
+                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-inner'
+                                    }`}
+                                >
+                                    <span className="material-icons-outlined">auto_awesome</span>
+                                    {prontas ? `Processar Todas (${filaBatch.length})` : 'Preencha nome e preço'}
+                                </button>
+                            </div>
+                        );
+                    })()}
                 </footer>
             </div>
         );

@@ -336,6 +336,7 @@ export async function salvarDataURL(dataURL, filename) {
 
 // @deprecated — T-DND-006: use gerarFundoLimpo no preview e stage.toDataURL no export.
 // Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
+// TODO: T-RENDER-001 — unificar renderização batch (Canvas) com single-item (Konva).
 export const gerarArteDataURL = async (config) => {
     const canvas = await renderCanvas(config);
     return canvas.toDataURL('image/jpeg', 0.85); // Preview um pouco mais leve
