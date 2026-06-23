@@ -200,90 +200,65 @@ const renderCanvas = ({
                     });
 
                 } else {
-                    // --- MODO SINGLE CARD (VOGUE STYLE) ---
-                    // Box flutuante contendo Nome e Preço
+                    // --- MODO SINGLE CARD — etiqueta canto inferior-direito ---
+                    // Safe zone: WhatsApp/Instagram preview 4:5 = 1080×1350 (y≤1350).
+                    // Âncora em y=1150 (60% de 1920) — visível em qualquer preview.
 
-                    if (detalhes || (mostrarPreco && preco)) {
-                        // Configuração de Fontes
-                        const nameFontSize = dw * 0.035; // 3.5% da largura (Nome menor e elegante)
-                        const priceFontSize = dw * 0.06; // 6.0% da largura (Preço maior e bold)
-                        const parcelasFontSize = dw * 0.025;
-                        const fontName = `500 ${nameFontSize}px Inter, sans-serif`;
-                        const fontPrice = `700 ${priceFontSize}px Inter, sans-serif`;
-                        const fontParcelas = `400 ${parcelasFontSize}px Inter, sans-serif`;
+                    const priceText = (mostrarPreco && preco) ? preco : '';
+                    const parcelasText = (mostrarParcelas && parcelas) ? parcelas : '';
 
-                        // Medições
-                        ctx.font = fontName;
-                        const nameMetrics = detalhes ? ctx.measureText(detalhes) : { width: 0 };
+                    if (detalhes || priceText) {
+                        const anchorX = 780;   // right edge (72% de dw=1080)
+                        const anchorY = 1150;  // topo do bloco (60% de dh=1920)
 
-                        ctx.font = fontPrice;
-                        const priceText = (mostrarPreco && preco) ? preco : "";
-                        const priceMetrics = priceText ? ctx.measureText(priceText) : { width: 0 };
-
-                        ctx.font = fontParcelas;
-                        const parcelasText = (mostrarParcelas && parcelas) ? parcelas : "";
-                        const parcelasMetrics = parcelasText ? ctx.measureText(parcelasText) : { width: 0 };
-
-                        // Largura do Box = Maior Texto + Padding Generoso
-                        const maxTextWidth = Math.max(nameMetrics.width, priceMetrics.width, parcelasMetrics.width);
-                        const paddingX = dw * 0.05; // Padding lateral
-                        const paddingY = dw * 0.035; // Padding vertical
-                        const gap = dw * 0.015; // Espaço vertical entre nome e preço
-
-                        const boxW = maxTextWidth + (paddingX * 2);
-                        const boxH = (detalhes ? nameFontSize : 0) +
-                            (priceText ? priceFontSize : 0) +
-                            (parcelasText ? parcelasFontSize : 0) +
-                            (detalhes && priceText ? gap : 0) +
-                            (priceText && parcelasText ? gap * 0.7 : 0) +
-                            (paddingY * 2);
-
-                        // Posição: Centralizado Horizontal, Inferior Vertical (com margem)
-                        const marginBottom = dh * 0.12; // 12% da altura como margem inferior
-                        const boxX = (dw - boxW) / 2;
-                        const boxY = dh - marginBottom - boxH;
-
-                        // Desenhar Box (Glassmorphism White)
-                        ctx.save();
-                        // Sombra suave para destacar
-                        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-                        ctx.shadowBlur = 25;
-                        ctx.shadowOffsetY = 8;
-
-                        ctx.fillStyle = "rgba(255, 255, 255, 0.95)"; // Branco quase sólido
-
-                        ctx.beginPath();
-                        roundRect(ctx, boxX, boxY, boxW, boxH, boxH * 0.15); // Cantos levemente arredondados
-                        ctx.fill();
-                        ctx.restore();
-
-                        // Desenhar Textos
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'top';
-                        ctx.fillStyle = '#111827'; // Dark Gray (Quase preto)
-
-                        let currentY = boxY + paddingY;
-
-                        // 1. Nome do Produto (Topo)
+                        // 1. Nome — right-aligned, branco com sombra forte
                         if (detalhes) {
-                            ctx.font = fontName;
-                            // centralizado no box
-                            ctx.fillText(detalhes, boxX + (boxW / 2), currentY);
-                            currentY += nameFontSize + gap;
+                            ctx.font = '500 28px Inter, sans-serif';
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'top';
+                            ctx.fillStyle = '#FFFFFF';
+                            ctx.shadowColor = 'rgba(0,0,0,0.75)';
+                            ctx.shadowBlur = 6;
+                            ctx.shadowOffsetX = 0;
+                            ctx.shadowOffsetY = 2;
+                            ctx.fillText(detalhes, anchorX, anchorY);
+                            ctx.shadowColor = 'transparent';
+                            ctx.shadowBlur = 0;
+                            ctx.shadowOffsetY = 0;
                         }
 
-                        // 2. Preço
+                        // 2. Pílula branca para preço — right-aligned em anchorX
                         if (priceText) {
-                            ctx.font = fontPrice;
-                            ctx.fillText(priceText, boxX + (boxW / 2), currentY);
-                            if (parcelasText) currentY += priceFontSize + gap * 0.7;
+                            ctx.font = '700 36px Inter, sans-serif';
+                            const pillPadX = 40;
+                            const pillH = 55;
+                            const pillW = ctx.measureText(priceText).width + pillPadX * 2;
+                            const pillX = anchorX - pillW;  // right edge = anchorX
+                            const pillY = anchorY + 35;      // y≈1185
+
+                            ctx.save();
+                            ctx.shadowColor = 'rgba(0,0,0,0.2)';
+                            ctx.shadowBlur = 10;
+                            ctx.shadowOffsetY = 3;
+                            ctx.fillStyle = '#FFFFFF';
+                            roundRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+                            ctx.fill();
+                            ctx.restore();
+
+                            ctx.font = '700 36px Inter, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = '#1A1611';
+                            ctx.fillText(priceText, pillX + pillW / 2, pillY + pillH / 2);
                         }
 
-                        // 3. Parcelas
+                        // 3. Parcelas — right-aligned, branco semitransparente
                         if (parcelasText) {
-                            ctx.font = fontParcelas;
-                            ctx.fillStyle = '#6B7280';
-                            ctx.fillText(parcelasText, boxX + (boxW / 2), currentY);
+                            ctx.font = '400 20px Inter, sans-serif';
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'top';
+                            ctx.fillStyle = 'rgba(255,255,255,0.8)';
+                            ctx.fillText(parcelasText, anchorX, 1250);
                         }
                     }
                 }

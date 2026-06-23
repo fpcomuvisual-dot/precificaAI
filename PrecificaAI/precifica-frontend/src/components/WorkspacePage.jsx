@@ -11,7 +11,8 @@ import BatchItemCard from './upload/BatchItemCard';
 import BatchGalleryScreen from './upload/BatchGalleryScreen';
 
 function formatarPreco(input) {
-    const limpo = input.replace(/[^\d.,]/g, '').replace(',', '.');
+    let limpo = input.replace(/[^\d.,'‘’]/g, '');
+    limpo = limpo.replace(/[,'‘’]/g, '.');
     const valor = parseFloat(limpo);
     if (isNaN(valor) || valor <= 0) return input;
     return `R$ ${valor.toFixed(2).replace('.', ',')}`;
@@ -73,28 +74,28 @@ const WorkspacePage = () => {
         }
     };
 
-    const abrirSeletorMultiplo = async () => {
-        try {
-            const result = await Camera.pickImages({
-                quality: 90,
-                limit: 50,
-            });
-            const novosItens = result.photos.map((photo, idx) => ({
-                id: `batch-${Date.now()}-${idx}`,
-                webPath: photo.webPath,
-                file: null,
-                nome: '',
-                preco: '',
-                status: 'pendente',
-            }));
-            setFilaBatch(prev => [...prev, ...novosItens]);
-            setModoAtual('batch');
-        } catch (err) {
-            console.error('Erro ao selecionar imagens:', err);
-            if (!String(err).toLowerCase().includes('cancel')) {
-                alert('Não foi possível abrir a galeria. Tente novamente.');
-            }
-        }
+    const handleBatchFilesSelected = (e) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length === 0) return;
+        const novosItens = files.map((file, i) => ({
+            id: `batch-${Date.now()}-${i}`,
+            webPath: URL.createObjectURL(file),
+            file,
+            nome: '',
+            preco: '',
+            status: 'pendente',
+        }));
+        setFilaBatch(prev => [...prev, ...novosItens]);
+        setModoAtual('batch');
+    };
+
+    const abrirSeletorMultiplo = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.multiple = true;
+        input.onchange = handleBatchFilesSelected;
+        input.click();
     };
 
     const handleRemoverBatchItem = (id) => {
@@ -114,14 +115,13 @@ const WorkspacePage = () => {
         for (const item of filaBatch) {
             setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'processando' } : i));
             try {
-                const response = await fetch(item.webPath);
-                const blob = await response.blob();
-                const base64 = await new Promise((resolve, reject) => {
+                const dataUrl = await new Promise((resolve, reject) => {
                     const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result.split(',')[1]);
+                    reader.onload = () => resolve(reader.result);
                     reader.onerror = reject;
-                    reader.readAsDataURL(blob);
+                    reader.readAsDataURL(item.file);
                 });
+                const base64 = dataUrl.split(',')[1];
                 const precoFormatado = formatarPreco(item.preco);
                 const dataURL = await gerarArteDataURL({
                     imagemBase64: base64,
