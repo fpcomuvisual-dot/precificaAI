@@ -14,6 +14,7 @@ const renderCanvas = ({
     mostrarPreco,
     mostrarParcelas,
     parcelas = '',
+    mostrarLogo = false,
     valoresPinos = {},
     boxes = [],
 }) => {
@@ -22,7 +23,7 @@ const renderCanvas = ({
         const ctx = canvas.getContext('2d');
         const img = new Image();
 
-        img.onload = () => {
+        img.onload = async () => {
             try {
                 // 1. Definição das Dimensões do Canvas (Crop)
                 let sw, sh, sx, sy; // Source width, height, x, y
@@ -127,6 +128,24 @@ const renderCanvas = ({
 
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, dh - gradientHeight, dw, gradientHeight);
+
+                // Logo marca d'água — canto superior esquerdo
+                if (mostrarLogo) {
+                    await new Promise((logoResolve) => {
+                        const logoImg = new Image();
+                        const logoSize = dw * (80 / 1080);
+                        const logoMargin = dw * (30 / 1080);
+                        const drawLogo = () => {
+                            ctx.globalAlpha = 0.7;
+                            ctx.drawImage(logoImg, logoMargin, logoMargin, logoSize, logoSize);
+                            ctx.globalAlpha = 1.0;
+                        };
+                        logoImg.onload = () => { drawLogo(); logoResolve(); };
+                        logoImg.onerror = () => { console.warn('Logo não encontrada, seguindo sem ela'); logoResolve(); };
+                        logoImg.src = '/logos/vivi-logo.png';
+                        if (logoImg.complete && logoImg.naturalWidth > 0) { drawLogo(); logoResolve(); }
+                    });
+                }
 
 
                 // 3. Renderização de Conteúdo
@@ -329,14 +348,14 @@ export async function salvarDataURL(dataURL, filename) {
 // Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 // TODO: T-RENDER-001 — unificar renderização batch (Canvas) com single-item (Konva).
 export const gerarArteDataURL = async (config) => {
-    const canvas = await renderCanvas(config);
-    return canvas.toDataURL('image/jpeg', 0.85); // Preview um pouco mais leve
+    const canvas = await renderCanvas({ ...config, mostrarLogo: true });
+    return canvas.toDataURL('image/jpeg', 0.85);
 };
 
 // @deprecated — T-DND-006: use salvarDataURL com o dataURL do Stage Konva.
 // Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 export const gerarEBaixarArte = async (config) => {
-    const canvas = await renderCanvas(config);
+    const canvas = await renderCanvas({ ...config, mostrarLogo: true });
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
     const nomeArquivo = `precificas-luxo-${Date.now()}.jpg`;
     // Reusa salvarDataURL (Capacitor Filesystem+Share em nativo, <a download>

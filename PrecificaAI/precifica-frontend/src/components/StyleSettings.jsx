@@ -33,6 +33,7 @@ const StyleSettings = ({
     const containerRef = useRef(null);
     const [stageDims, setStageDims] = useState({ width: 0, height: 0 });
     const [fontReady, setFontReady] = useState(false);
+    const [logoImage, setLogoImage] = useState(null);
 
     // Update background preview when image or format changes (300ms debounce)
     // Texts are handled by Konva Stage — no longer trigger a full re-render
@@ -72,6 +73,13 @@ const StyleSettings = ({
         });
         ro.observe(containerRef.current);
         return () => ro.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const img = new Image();
+        img.onload = () => setLogoImage(img);
+        img.onerror = () => console.warn('Logo não encontrada');
+        img.src = '/logos/vivi-logo.png';
     }, []);
 
     // Load Vogue font; falls back gracefully if file is absent
@@ -148,6 +156,17 @@ const StyleSettings = ({
                                     height={imgH}
                                     listening={false}
                                 />
+                                {logoImage && (
+                                    <KonvaImage
+                                        image={logoImage}
+                                        x={10}
+                                        y={10}
+                                        width={stageDims.width * 0.08}
+                                        height={stageDims.width * 0.08}
+                                        opacity={0.7}
+                                        listening={false}
+                                    />
+                                )}
                                 <DraggableText
                                     text={detalhes}
                                     stageDims={stageDims}
