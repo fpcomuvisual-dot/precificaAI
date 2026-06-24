@@ -220,19 +220,18 @@ const renderCanvas = ({
 
                 } else {
                     // --- MODO SINGLE CARD — etiqueta canto inferior-direito ---
-                    // Safe zone: WhatsApp/Instagram preview 4:5 = 1080×1350 (y≤1350).
-                    // Âncora em y=1150 (60% de 1920) — visível em qualquer preview.
+                    // Posição definida pelo PO (T-LAYOUT-001): x=900, y=1420.
 
                     const priceText = (mostrarPreco && preco) ? preco : '';
                     const parcelasText = (mostrarParcelas && parcelas) ? parcelas : '';
 
                     if (detalhes || priceText) {
-                        const anchorX = 780;   // right edge (72% de dw=1080)
-                        const anchorY = 1150;  // topo do bloco (60% de dh=1920)
+                        const anchorX = 900;   // right edge (83% de dw=1080)
+                        const anchorY = 1420;  // topo do bloco (74% de dh=1920)
 
                         // 1. Nome — right-aligned, branco com sombra forte
                         if (detalhes) {
-                            ctx.font = '500 28px Inter, sans-serif';
+                            ctx.font = '400 38px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'top';
                             ctx.fillStyle = '#FFFFFF';
@@ -246,25 +245,25 @@ const renderCanvas = ({
                             ctx.shadowOffsetY = 0;
                         }
 
-                        // 2. Pílula branca para preço — right-aligned em anchorX
+                        // 2. Pílula amarela para preço — right-aligned em anchorX
                         if (priceText) {
-                            ctx.font = '700 36px Inter, sans-serif';
+                            ctx.font = '700 48px Vogue, Playfair Display, serif';
                             const pillPadX = 40;
-                            const pillH = 55;
+                            const pillH = 70;
                             const pillW = ctx.measureText(priceText).width + pillPadX * 2;
                             const pillX = anchorX - pillW;  // right edge = anchorX
-                            const pillY = anchorY + 35;      // y≈1185
+                            const pillY = anchorY + 45;
 
                             ctx.save();
                             ctx.shadowColor = 'rgba(0,0,0,0.2)';
                             ctx.shadowBlur = 10;
                             ctx.shadowOffsetY = 3;
-                            ctx.fillStyle = '#FFFFFF';
+                            ctx.fillStyle = '#f9de9c';
                             roundRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
                             ctx.fill();
                             ctx.restore();
 
-                            ctx.font = '700 36px Inter, sans-serif';
+                            ctx.font = '700 48px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = '#1A1611';
@@ -273,11 +272,11 @@ const renderCanvas = ({
 
                         // 3. Parcelas — right-aligned, branco semitransparente
                         if (parcelasText) {
-                            ctx.font = '400 20px Inter, sans-serif';
+                            ctx.font = '400 26px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'top';
                             ctx.fillStyle = 'rgba(255,255,255,0.8)';
-                            ctx.fillText(parcelasText, anchorX, 1250);
+                            ctx.fillText(parcelasText, anchorX, anchorY + 120);
                         }
                     }
                 }
@@ -348,6 +347,7 @@ export async function salvarDataURL(dataURL, filename) {
 // Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 // TODO: T-RENDER-001 — unificar renderização batch (Canvas) com single-item (Konva).
 export const gerarArteDataURL = async (config) => {
+    try { await document.fonts.load('48px Vogue'); } catch (e) { console.warn('Fonte Vogue não carregou, usando fallback'); }
     const canvas = await renderCanvas({ ...config, mostrarLogo: true });
     return canvas.toDataURL('image/jpeg', 0.85);
 };
