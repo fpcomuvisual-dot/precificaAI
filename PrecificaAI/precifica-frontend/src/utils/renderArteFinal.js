@@ -231,7 +231,7 @@ const renderCanvas = ({
 
                         // 1. Nome — right-aligned, branco com sombra forte
                         if (detalhes) {
-                            ctx.font = '400 38px Vogue, Playfair Display, serif';
+                            ctx.font = '400 46px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'top';
                             ctx.fillStyle = '#FFFFFF';
@@ -247,12 +247,12 @@ const renderCanvas = ({
 
                         // 2. Pílula amarela para preço — right-aligned em anchorX
                         if (priceText) {
-                            ctx.font = '700 48px Vogue, Playfair Display, serif';
-                            const pillPadX = 40;
-                            const pillH = 70;
+                            ctx.font = '700 58px Vogue, Playfair Display, serif';
+                            const pillPadX = 48;
+                            const pillH = 84;
                             const pillW = ctx.measureText(priceText).width + pillPadX * 2;
                             const pillX = anchorX - pillW;  // right edge = anchorX
-                            const pillY = anchorY + 45;
+                            const pillY = anchorY + 54;
 
                             ctx.save();
                             ctx.shadowColor = 'rgba(0,0,0,0.2)';
@@ -263,7 +263,7 @@ const renderCanvas = ({
                             ctx.fill();
                             ctx.restore();
 
-                            ctx.font = '700 48px Vogue, Playfair Display, serif';
+                            ctx.font = '700 58px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'center';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = '#1A1611';
@@ -272,11 +272,11 @@ const renderCanvas = ({
 
                         // 3. Parcelas — right-aligned, branco semitransparente
                         if (parcelasText) {
-                            ctx.font = '400 26px Vogue, Playfair Display, serif';
+                            ctx.font = '400 31px Vogue, Playfair Display, serif';
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'top';
                             ctx.fillStyle = 'rgba(255,255,255,0.8)';
-                            ctx.fillText(parcelasText, anchorX, anchorY + 120);
+                            ctx.fillText(parcelasText, anchorX, anchorY + 144);
                         }
                     }
                 }
@@ -347,7 +347,7 @@ export async function salvarDataURL(dataURL, filename) {
 // Mantido para o fluxo de pinos (ModalPinos via WorkspacePage).
 // TODO: T-RENDER-001 — unificar renderização batch (Canvas) com single-item (Konva).
 export const gerarArteDataURL = async (config) => {
-    try { await document.fonts.load('48px Vogue'); } catch (e) { console.warn('Fonte Vogue não carregou, usando fallback'); }
+    try { await document.fonts.load('58px Vogue'); } catch (e) { console.warn('Fonte Vogue não carregou, usando fallback'); }
     const canvas = await renderCanvas({ ...config, mostrarLogo: true });
     return canvas.toDataURL('image/jpeg', 0.85);
 };
