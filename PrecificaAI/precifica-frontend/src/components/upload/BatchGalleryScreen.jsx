@@ -1,7 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import { Share } from '@capacitor/share';
 
-export default function BatchGalleryScreen({ resultados, onVoltar, onNovaLeva }) {
+export default function BatchGalleryScreen({ resultados, uploadStatus, uploadProgress, onVoltar, onNovaLeva }) {
     const concluidas = resultados.filter(r => r.status === 'concluido');
     const erros = resultados.filter(r => r.status === 'erro');
     const isNative = Capacitor.isNativePlatform();
@@ -62,6 +62,24 @@ export default function BatchGalleryScreen({ resultados, onVoltar, onNovaLeva })
             </main>
 
             <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 shadow-lg z-30 space-y-2">
+                {uploadStatus === 'enviando' && (
+                    <div className="w-full py-2 px-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-700 font-medium flex items-center gap-2">
+                        <span className="material-icons-outlined text-base animate-spin">sync</span>
+                        Enviando para o catálogo... {uploadProgress}
+                    </div>
+                )}
+                {uploadStatus === 'concluido' && (
+                    <div className="w-full py-2 px-4 bg-green-50 border border-green-100 rounded-xl text-sm text-green-700 font-medium flex items-center gap-2">
+                        <span className="material-icons-outlined text-base">cloud_done</span>
+                        {concluidas.length} artes salvas no catálogo
+                    </div>
+                )}
+                {uploadStatus === 'erro' && (
+                    <div className="w-full py-2 px-4 bg-amber-50 border border-amber-100 rounded-xl text-sm text-amber-700 font-medium flex items-center gap-2">
+                        <span className="material-icons-outlined text-base">warning</span>
+                        Erro ao enviar. Artes salvas localmente.
+                    </div>
+                )}
                 {concluidas.length > 0 && isNative && (
                     <button
                         onClick={salvarTodasNaGaleria}
@@ -76,7 +94,7 @@ export default function BatchGalleryScreen({ resultados, onVoltar, onNovaLeva })
                     className="w-full py-3 bg-white border-2 border-gray-200 text-gray-700 font-bold rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-all"
                 >
                     <span className="material-icons-outlined">add_photo_alternate</span>
-                    Nova Leva
+                    Novo Lote
                 </button>
                 <button
                     onClick={onVoltar}

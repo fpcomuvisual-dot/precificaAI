@@ -7,8 +7,18 @@ import StyleSettings from './StyleSettings';
 import TextInputScreen from './TextInputScreen';
 import ModalPinos from './ModalPinos'; // Assuming this component exists or will exist
 import { gerarEBaixarArte, gerarArteDataURL } from '../utils/renderArteFinal';
+import { uploadLote } from '../services/firebaseUpload';
 import BatchItemCard from './upload/BatchItemCard';
 import BatchGalleryScreen from './upload/BatchGalleryScreen';
+
+function gerarNomeLoteDefault() {
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    return `lote-${dd}${mm}-${hh}${min}`;
+}
 
 function formatarPreco(input) {
     let limpo = input.replace(/[^\d.,'‘’]/g, '');
@@ -36,6 +46,11 @@ const WorkspacePage = () => {
     const [boxes, setBoxes] = useState([]);
     const [valoresPinos, setValoresPinos] = useState({});
     const [camposIniciais, setCamposIniciais] = useState(null); // {nome, preco, parcelas} vindos do NLP (T-NLP-001)
+    const [showNomeLoteModal, setShowNomeLoteModal] = useState(false);
+    const [nomeLote, setNomeLote] = useState('');
+    const [sessionId, setSessionId] = useState('');
+    const [uploadStatus, setUploadStatus] = useState(null); // null | 'enviando' | 'concluido' | 'erro'
+    const [uploadProgress, setUploadProgress] = useState('');
     const fileInputRef = useRef(null);
     const [apiBase, setApiBase] = useState(() => {
         return localStorage.getItem('API_BASE') || 'https://precifica-api-356056496893.us-central1.run.app';
@@ -110,8 +125,20 @@ const WorkspacePage = () => {
         setFilaBatch(prev => prev.map(item => item.id === id ? { ...item, preco: novoPreco } : item));
     };
 
+    const handleAbrirModalNomeLote = () => {
+        setNomeLote(gerarNomeLoteDefault());
+        setSessionId(crypto.randomUUID());
+        setShowNomeLoteModal(true);
+    };
+
+    const handleConfirmarNomeLote = () => {
+        setShowNomeLoteModal(false);
+        handleProcessarBatch();
+    };
+
     const handleProcessarBatch = async () => {
         const resultados = [];
+        const artesParaUpload = [];
         for (const item of filaBatch) {
             setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'processando' } : i));
             try {
@@ -123,11 +150,12 @@ const WorkspacePage = () => {
                 });
                 const base64 = dataUrl.split(',')[1];
                 const precoFormatado = formatarPreco(item.preco);
+                const parcelas = calcularTextoParcelas(precoFormatado);
                 const dataURL = await gerarArteDataURL({
                     imagemBase64: base64,
                     detalhes: item.nome,
                     preco: precoFormatado,
-                    parcelas: calcularTextoParcelas(precoFormatado),
+                    parcelas,
                     formato: 'story',
                     mostrarPreco: true,
                     mostrarParcelas: true,
@@ -137,7 +165,7 @@ const WorkspacePage = () => {
                     try {
                         const ts = Date.now();
                         const saved = await Filesystem.writeFile({
-                            path: `PrecificaAI/${item.nome.replace(/\s+/g, '_')}_${ts}.jpg`,
+                            path: `PrecificaAI/${nomeLote}/${item.nome.replace(/\s+/g, '_')}_${ts}.jpg`,
                             data: dataURL.split(',')[1],
                             directory: Directory.Documents,
                             recursive: true,
@@ -148,6 +176,7 @@ const WorkspacePage = () => {
                     }
                 }
                 resultados.push({ id: item.id, nome: item.nome, dataURL, uri: savedUri, status: 'concluido' });
+                artesParaUpload.push({ nome: item.nome, preco: precoFormatado, parcelas, dataURL });
                 setFilaBatch(prev => prev.map(i => i.id === item.id ? { ...i, status: 'concluido' } : i));
             } catch (err) {
                 console.error(`Erro ao processar ${item.nome}:`, err);
@@ -157,6 +186,24 @@ const WorkspacePage = () => {
         }
         setBatchResultados(resultados);
         setModoAtual('batch_result');
+
+        // Upload Firebase — fire-and-forget
+        if (artesParaUpload.length > 0) {
+            try {
+                setUploadStatus('enviando');
+                const resultado = await uploadLote(
+                    sessionId,
+                    nomeLote,
+                    artesParaUpload,
+                    (current, total) => setUploadProgress(`${current}/${total}`)
+                );
+                setUploadStatus('concluido');
+                console.log('Upload Firebase:', resultado);
+            } catch (err) {
+                console.error('Erro upload Firebase:', err);
+                setUploadStatus('erro');
+            }
+        }
     };
 
     const processarImagem = async (file) => {
@@ -242,10 +289,14 @@ const WorkspacePage = () => {
         return (
             <BatchGalleryScreen
                 resultados={batchResultados}
+                uploadStatus={uploadStatus}
+                uploadProgress={uploadProgress}
                 onVoltar={() => setModoAtual('batch')}
                 onNovaLeva={() => {
                     setFilaBatch([]);
                     setBatchResultados([]);
+                    setUploadStatus(null);
+                    setUploadProgress('');
                     setModoAtual('inicial');
                 }}
             />
@@ -315,7 +366,7 @@ const WorkspacePage = () => {
                         return (
                             <div className="max-w-4xl mx-auto flex justify-center">
                                 <button
-                                    onClick={prontas ? handleProcessarBatch : undefined}
+                                    onClick={prontas ? handleAbrirModalNomeLote : undefined}
                                     disabled={!prontas}
                                     className={`w-full sm:w-auto px-8 py-4 font-bold rounded-2xl flex items-center justify-center gap-2 transition-all ${
                                         prontas
@@ -330,6 +381,30 @@ const WorkspacePage = () => {
                         );
                     })()}
                 </footer>
+
+                {/* Modal Nome do Lote */}
+                {showNomeLoteModal && (
+                    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 backdrop-blur-sm">
+                        <div className="bg-white rounded-t-3xl p-6 w-full max-w-md shadow-2xl space-y-4 pb-8">
+                            <h3 className="text-lg font-bold text-gray-900">Nome do lote</h3>
+                            <input
+                                type="text"
+                                value={nomeLote}
+                                onChange={(e) => setNomeLote(e.target.value)}
+                                autoFocus
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 font-medium focus:outline-none focus:border-primary"
+                                placeholder="ex: lote-2406-0920"
+                            />
+                            <button
+                                onClick={handleConfirmarNomeLote}
+                                className="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2"
+                            >
+                                <span className="material-icons-outlined">auto_awesome</span>
+                                Processar
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
